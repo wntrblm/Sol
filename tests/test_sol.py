@@ -1,6 +1,8 @@
 # Copyright (c) 2019 Alethea Flowers for Winterbloom
 # Licensed under the MIT License
 
+from unittest import mock
+
 import pytest
 
 import winterbloom_smolmidi as smolmidi
@@ -44,3 +46,47 @@ class TestState:
         # Check for deep copy
         state_a.cc[0] = 100
         assert state_b.cc[0] != state_a.cc[0]
+
+
+class TestOutputs:
+    def test_default_state(self):
+        outputs = sol.Outputs()
+
+        assert outputs.cv_a == 0.0
+        assert outputs.cv_b == 0.0
+        assert outputs.gate_1 is False
+        assert outputs.gate_2 is False
+        assert outputs.gate_3 is False
+        assert outputs.gate_4 is False
+
+        assert str(outputs) == "<Outputs A:0, B:0, 1:False, 2:False, 3:False, 4:False>"
+
+    def test_drive_cv_outs(self):
+        outputs = sol.Outputs()
+
+        outputs.cv_a = 10.0
+        outputs.cv_b = 10.0
+
+        assert outputs.cv_a == 10.0
+        assert outputs.cv_b == 10.0
+
+        assert outputs._cv_a._analog_out._driver.spi_device.spi.data
+
+    @mock.patch("time.monotonic", autospec=True)
+    def test_trigger_step(self, time_monotonic):
+        outputs = sol.Outputs()
+
+        time_monotonic.return_value = 0
+        outputs.trigger_gate_1()
+        outputs.trigger_gate_2(False)
+    
+        time_monotonic.return_value = 0.014
+        outputs.step()
+        assert outputs.gate_1 is True
+        assert outputs.gate_2 is False
+
+        time_monotonic.return_value = 0.016
+        outputs.step()
+        assert outputs.gate_1 is False
+        assert outputs.gate_2 is True
+
