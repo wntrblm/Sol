@@ -4,3 +4,9 @@
 [submodule "lib/winterbloom_voltageio"]
 	path = lib/winterbloom_voltageio
 	url = https://github.com/theacodes/Winterbloom_VoltageIO
+[submodule "lib/winterbloom_ad5689"]
+	path = lib/winterbloom_ad5689
+	url = https://github.com/theacodes/Winterbloom_AD5689
+[submodule "lib/adafruit_circuitpython_busdevice"]
+	path = lib/adafruit_circuitpython_busdevice
+	url = https://github.com/Adafruit/Adafruit_CircuitPython_BusDevice
