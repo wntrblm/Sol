@@ -41,7 +41,7 @@ class State:
     def __init__(self):
         self.message = None
         self.note = None
-        self.velocity = 1.0
+        self.velocity = 0
         self.pitch_bend = 0
         self.pressure = 0
         self.cc = [0] * 128
