@@ -1,0 +1,6 @@
+[submodule "lib/winterbloom_smolmidi"]
+	path = lib/winterbloom_smolmidi
+	url = https://github.com/theacodes/Winterbloom_SmolMIDI
+[submodule "lib/winterbloom_voltageio"]
+	path = lib/winterbloom_voltageio
+	url = https://github.com/theacodes/Winterbloom_VoltageIO
