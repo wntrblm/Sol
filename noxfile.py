@@ -23,7 +23,11 @@ def lint(session):
 @nox.session(python="3")
 def test(session):
     session.install("pytest", "pytest-cov")
-    session.run("python", "-m", "pytest", 
+    session.run(
+        "python",
+        "-m",
+        "pytest",
         "--cov=winterbloom_sol",
         "--cov-report=term-missing",
-        "tests")
+        "tests",
+    )

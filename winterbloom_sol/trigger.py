@@ -18,7 +18,7 @@
 # AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE SOFTWARE.# The MIT License (MIT)
+# THE SOFTWARE.
 
 import time
 
@@ -41,6 +41,7 @@ class Trigger:
         while True:
             trigger.step()
     """
+
     def __init__(self, output, duration=15):
         self._output = output
         self._duration = duration

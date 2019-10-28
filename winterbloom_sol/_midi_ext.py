@@ -18,18 +18,20 @@
 # AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE SOFTWARE.# The MIT License (MIT)
+# THE SOFTWARE.
 
 import winterbloom_smolmidi as smolmidi
 
 _DEBUG = False
-_DEDUPLICATE_MESSAGES = set([
-    smolmidi.CHANNEL_PRESSURE,
-    smolmidi.AFTERTOUCH,
-    smolmidi.CC,
-    smolmidi.PITCH_BEND,
-    smolmidi.SONG_POSITION,
-])
+_DEDUPLICATE_MESSAGES = set(
+    [
+        smolmidi.CHANNEL_PRESSURE,
+        smolmidi.AFTERTOUCH,
+        smolmidi.CC,
+        smolmidi.PITCH_BEND,
+        smolmidi.SONG_POSITION,
+    ]
+)
 
 
 class DeduplicatingMidiIn:
@@ -39,6 +41,7 @@ class DeduplicatingMidiIn:
     messages and we only care about the most recent one, this can ignore
     all but the latest automatically.
     """
+
     def __init__(self, midi_in):
         self._midi_in = midi_in
         self._peeked = None
