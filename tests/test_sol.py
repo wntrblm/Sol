@@ -1,10 +1,12 @@
 # Copyright (c) 2019 Alethea Flowers for Winterbloom
 # Licensed under the MIT License
 
+import math
 from unittest import mock
 
 import pytest
 
+import usb_midi
 import winterbloom_smolmidi as smolmidi
 from winterbloom_sol import sol
 
@@ -93,4 +95,23 @@ class TestOutputs:
 
 class TestSol:
     def test_default_state(self):
+        sol.Sol()
+
+    def test_run_loop_simple(self):
+
+        def loop(previous, current, outputs):
+            assert previous.note is None
+            assert current.note == 42
+            assert math.isclose(current.velocity, 0.5, rel_tol=0.01)
+
+            outputs.gate_1 = True
+
+            raise sol._StopLoop
+
+        # Add data to the midi stub
+        usb_midi.ports[0].data = iter([smolmidi.NOTE_ON, 42, 64])
+
         s = sol.Sol()
+        s.run(loop)
+
+        assert s.outputs.gate_1 is True

@@ -104,7 +104,13 @@ class Outputs:
         self._gate_4_trigger.step()
 
 
+class _StopLoop(Exception):
+    """Hidden exception used just for testing."""
+    pass
+
+
 class Sol:
+    
     def __init__(self):
         self.outputs = Outputs()
         self._midi_in = _midi_ext.DeduplicatingMidiIn(
@@ -157,7 +163,12 @@ class Sol:
         current = State()
         while True:
             self._process_midi(current)
-            loop(last, current, self.outputs)
+
+            try:
+                loop(last, current, self.outputs)
+            except _StopLoop:
+                break
+
             last.copy_from(current)
             self.outputs.step()
             gc.collect()
