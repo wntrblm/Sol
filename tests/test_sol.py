@@ -91,6 +91,13 @@ class TestOutputs:
         assert outputs.gate_2 is True
 
 
+def make_message(type, *data):
+    msg = smolmidi.Message()
+    msg.type = type
+    msg.data = data
+    return msg
+
+
 class TestSol:
     def test_default_state(self):
         sol.Sol()
@@ -139,3 +146,55 @@ class TestSol:
         s.run(loop)
 
         assert count == 2
+
+    def test_process_midi_types_note_on_off(self):
+        s = sol.Sol()
+        state = sol.State()
+
+        msg = make_message(smolmidi.NOTE_ON, 42, 64)
+        s._process_midi(msg, state)
+        assert state.note == 42
+        assert math.isclose(state.velocity, 0.5, rel_tol=0.01)
+
+        msg = make_message(smolmidi.NOTE_OFF, 42, 0)
+        s._process_midi(msg, state)
+        assert state.note is None
+        assert state.velocity == 0
+
+        # Note on with 0 velocity should be treated as Note Off
+        msg = make_message(smolmidi.NOTE_ON, 42, 0)
+        s._process_midi(msg, state)
+        assert state.note is None
+        assert state.velocity == 0
+
+    def test_process_midi_types_cc(self):
+        s = sol.Sol()
+        state = sol.State()
+
+        msg = make_message(smolmidi.CC, 42, 64)
+        s._process_midi(msg, state)
+        assert state.cc[42] == 64
+
+    def test_process_midi_types_pitch_bend(self):
+        s = sol.Sol()
+        state = sol.State()
+
+        msg = make_message(smolmidi.PITCH_BEND, 0x00, 0x40)
+        s._process_midi(msg, state)
+        assert state.pitch_bend == 0
+
+        msg = make_message(smolmidi.PITCH_BEND, 0x00, 0x00)
+        s._process_midi(msg, state)
+        assert state.pitch_bend == -1
+
+        msg = make_message(smolmidi.PITCH_BEND, 0x00, 0x80)
+        s._process_midi(msg, state)
+        assert state.pitch_bend == 1
+
+    def test_process_midi_types_pressure(self):
+        s = sol.Sol()
+        state = sol.State()
+
+        msg = make_message(smolmidi.CHANNEL_PRESSURE, 64)
+        s._process_midi(msg, state)
+        assert math.isclose(state.pressure, 0.5, rel_tol=0.01)

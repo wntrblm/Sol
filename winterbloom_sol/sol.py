@@ -120,9 +120,7 @@ class Sol:
         self._led = neopixel.NeoPixel(board.NEOPIXEL, 1)
         self._led.brightness = 0.05
 
-    def _process_midi(self, state):
-        msg = self._midi_in.receive()
-
+    def _process_midi(self, msg, state):
         state.message = msg
 
         if not msg:
@@ -135,6 +133,7 @@ class Sol:
                 state.note = None
                 state.velocity = 0
             else:
+                state.message.type = smolmidi.NOTE_OFF
                 state.note = msg.data[0]
                 state.velocity = msg.data[1] / 127.0
 
@@ -153,6 +152,7 @@ class Sol:
         elif msg.type == smolmidi.CHANNEL_PRESSURE:
             state.pressure = msg.data[0] / 127.0
 
+    def _pulse_led(self):
         self._hue += 0.05
         self._led[0] = tuple(
             map(lambda x: int(x * 255), _utils.hsv_to_rgb(self._hue, 1.0, 1.0))
@@ -162,7 +162,11 @@ class Sol:
         last = State()
         current = State()
         while True:
-            self._process_midi(current)
+            msg = self._midi_in.receive()
+            self._process_midi(msg, current)
+
+            if msg:
+                self._pulse_led()
 
             try:
                 loop(last, current, self.outputs)
