@@ -123,8 +123,14 @@ class Sol:
             return
 
         if msg.type == smolmidi.NOTE_ON:
-            state.note = msg.data[0]
-            state.velocity = msg.data[1] / 127.0
+            # Some controllers send note on with velocity 0
+            # to signal note off.
+            if msg.data[1] == 0:
+                state.note = None
+                state.velocity = 0
+            else:
+                state.note = msg.data[0]
+                state.velocity = msg.data[1] / 127.0
 
         elif msg.type == smolmidi.NOTE_OFF:
             if state.note == msg.data[0]:
