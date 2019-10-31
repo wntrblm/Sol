@@ -90,3 +90,7 @@ class TestOutputs:
         assert outputs.gate_1 is False
         assert outputs.gate_2 is True
 
+
+class TestSol:
+    def test_default_state(self):
+        s = sol.Sol()
