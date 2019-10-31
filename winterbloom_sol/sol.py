@@ -117,7 +117,7 @@ class Sol:
     def _process_midi(self, state):
         msg = self._midi_in.receive()
 
-        # state.message = msg
+        state.message = msg
 
         if not msg:
             return
