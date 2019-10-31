@@ -6,6 +6,6 @@ class NeoPixel:
 
     def __setitem__(self, key, value):
         self._leds[key] = value
-    
+
     def __getitem__(self, key):
         return self._leds[key]

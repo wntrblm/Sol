@@ -1,8 +1,6 @@
 # Copyright (c) 2019 Alethea Flowers for Winterbloom
 # Licensed under the MIT License
 
-import pytest
-
 import winterbloom_smolmidi as smolmidi
 from winterbloom_sol import _midi_ext
 
@@ -17,7 +15,7 @@ def make_message(type, *data):
 class MidiInStub:
     def __init__(self, messages):
         self._messages = iter(messages)
-    
+
     def receive(self):
         return next(self._messages)
 
@@ -26,11 +24,15 @@ class MidiInStub:
 
 
 def test_normal_stream():
-    midi_in = _midi_ext.DeduplicatingMidiIn(MidiInStub([
-        make_message(smolmidi.NOTE_ON, 0x64, 0x65),
-        make_message(smolmidi.NOTE_OFF, 0x64, 0x70),
-        None
-    ]))
+    midi_in = _midi_ext.DeduplicatingMidiIn(
+        MidiInStub(
+            [
+                make_message(smolmidi.NOTE_ON, 0x64, 0x65),
+                make_message(smolmidi.NOTE_OFF, 0x64, 0x70),
+                None,
+            ]
+        )
+    )
 
     assert midi_in.receive().type == smolmidi.NOTE_ON
     assert midi_in.receive().type == smolmidi.NOTE_OFF
@@ -38,17 +40,21 @@ def test_normal_stream():
 
 
 def test_stream_with_duplicates():
-    midi_in = _midi_ext.DeduplicatingMidiIn(MidiInStub([
-        make_message(smolmidi.NOTE_ON, 0x64, 0x65),
-        make_message(smolmidi.CHANNEL_PRESSURE, 0x01),
-        make_message(smolmidi.CHANNEL_PRESSURE, 0x02),
-        make_message(smolmidi.CHANNEL_PRESSURE, 0x03),
-        make_message(smolmidi.CHANNEL_PRESSURE, 0x04),
-        make_message(smolmidi.CHANNEL_PRESSURE, 0x05),
-        make_message(smolmidi.CHANNEL_PRESSURE, 0x06),
-        make_message(smolmidi.NOTE_OFF, 0x64, 0x70),
-        None
-    ]))
+    midi_in = _midi_ext.DeduplicatingMidiIn(
+        MidiInStub(
+            [
+                make_message(smolmidi.NOTE_ON, 0x64, 0x65),
+                make_message(smolmidi.CHANNEL_PRESSURE, 0x01),
+                make_message(smolmidi.CHANNEL_PRESSURE, 0x02),
+                make_message(smolmidi.CHANNEL_PRESSURE, 0x03),
+                make_message(smolmidi.CHANNEL_PRESSURE, 0x04),
+                make_message(smolmidi.CHANNEL_PRESSURE, 0x05),
+                make_message(smolmidi.CHANNEL_PRESSURE, 0x06),
+                make_message(smolmidi.NOTE_OFF, 0x64, 0x70),
+                None,
+            ]
+        )
+    )
 
     assert midi_in.receive().type == smolmidi.NOTE_ON
     msg = midi_in.receive()
@@ -59,18 +65,22 @@ def test_stream_with_duplicates():
 
 
 def test_stream_with_discontinous_duplicates():
-    midi_in = _midi_ext.DeduplicatingMidiIn(MidiInStub([
-        make_message(smolmidi.NOTE_ON, 0x64, 0x65),
-        make_message(smolmidi.CHANNEL_PRESSURE, 0x01),
-        make_message(smolmidi.CHANNEL_PRESSURE, 0x02),
-        make_message(smolmidi.CHANNEL_PRESSURE, 0x03),
-        None,
-        make_message(smolmidi.CHANNEL_PRESSURE, 0x04),
-        make_message(smolmidi.CHANNEL_PRESSURE, 0x05),
-        make_message(smolmidi.CHANNEL_PRESSURE, 0x06),
-        make_message(smolmidi.NOTE_OFF, 0x64, 0x70),
-        None
-    ]))
+    midi_in = _midi_ext.DeduplicatingMidiIn(
+        MidiInStub(
+            [
+                make_message(smolmidi.NOTE_ON, 0x64, 0x65),
+                make_message(smolmidi.CHANNEL_PRESSURE, 0x01),
+                make_message(smolmidi.CHANNEL_PRESSURE, 0x02),
+                make_message(smolmidi.CHANNEL_PRESSURE, 0x03),
+                None,
+                make_message(smolmidi.CHANNEL_PRESSURE, 0x04),
+                make_message(smolmidi.CHANNEL_PRESSURE, 0x05),
+                make_message(smolmidi.CHANNEL_PRESSURE, 0x06),
+                make_message(smolmidi.NOTE_OFF, 0x64, 0x70),
+                None,
+            ]
+        )
+    )
 
     assert midi_in.receive().type == smolmidi.NOTE_ON
     msg = midi_in.receive()

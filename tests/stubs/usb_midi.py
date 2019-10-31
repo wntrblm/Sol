@@ -18,6 +18,4 @@ class PortIn:
         return bytes_read
 
 
-ports = [
-    PortIn()
-]
+ports = [PortIn()]

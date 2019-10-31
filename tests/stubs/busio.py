@@ -1,5 +1,3 @@
-
-
 class SPI:
     def __init__(self, SCK, MOSI=None):
         self.sck = SCK

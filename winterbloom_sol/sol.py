@@ -106,11 +106,11 @@ class Outputs:
 
 class _StopLoop(Exception):
     """Hidden exception used just for testing."""
+
     pass
 
 
 class Sol:
-    
     def __init__(self):
         self.outputs = Outputs()
         self._midi_in = _midi_ext.DeduplicatingMidiIn(

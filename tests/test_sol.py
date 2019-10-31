@@ -4,8 +4,6 @@
 import math
 from unittest import mock
 
-import pytest
-
 import usb_midi
 import winterbloom_smolmidi as smolmidi
 from winterbloom_sol import sol
@@ -44,7 +42,7 @@ class TestState:
         assert state_b.pressure == state_a.pressure
         for n in range(128):
             assert state_b.cc[n] == state_a.cc[n]
-        
+
         # Check for deep copy
         state_a.cc[0] = 100
         assert state_b.cc[0] != state_a.cc[0]
@@ -81,7 +79,7 @@ class TestOutputs:
         time_monotonic.return_value = 0
         outputs.trigger_gate_1()
         outputs.trigger_gate_2(False)
-    
+
         time_monotonic.return_value = 0.014
         outputs.step()
         assert outputs.gate_1 is True
@@ -98,7 +96,6 @@ class TestSol:
         sol.Sol()
 
     def test_run_loop_simple(self):
-
         def loop(previous, current, outputs):
             assert previous.note is None
             assert current.note == 42
@@ -115,3 +112,30 @@ class TestSol:
         s.run(loop)
 
         assert s.outputs.gate_1 is True
+
+    def test_run_loop_note_on_note_off(self):
+        count = 0
+
+        def loop(previous, current, outputs):
+            nonlocal count
+
+            if count == 0:
+                assert previous.note is None
+                assert current.note == 42
+            elif count == 1:
+                assert previous.note == 42
+                assert current.note is None
+            else:
+                raise sol._StopLoop
+
+            count += 1
+
+        # Add data to the midi stub
+        usb_midi.ports[0].data = iter(
+            [smolmidi.NOTE_ON, 42, 64, smolmidi.NOTE_OFF, 42, 0]
+        )
+
+        s = sol.Sol()
+        s.run(loop)
+
+        assert count == 2

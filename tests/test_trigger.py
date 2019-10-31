@@ -58,7 +58,7 @@ def test_trigger_custom_duration(time_monotonic):
 def test_empty_step():
     output = DigitalInOutStub()
     trig = trigger.Trigger(output)
-    
+
     trig.step()
 
     assert output.value is False
