@@ -48,7 +48,7 @@ def voct(state):
     return note_to_volts_per_octave(state.note) + offset_for_pitch_bend(state.pitch_bend)
 
 
-def should_trigger_note(state):
+def was_key_pressed(state):
     if state.message.type == smolmidi.NOTE_ON:
         return True
     else:

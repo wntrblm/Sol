@@ -24,14 +24,10 @@ def loop(last, state, outputs):
     You can read more about the state here: TODO.
     And more about the outputs here: TODO.
     """
-    # Whenever a key is pressed, update the CV, gate, and
-    # trigger outputs.
-    if sol.should_trigger_note(state):
-
-        # Set CV A to the V/oct value for the current note.
-        # this handles pitch bend as well.
-        outputs.cv_a = sol.voct(state)
-
+    # Whenever a new note message comes in, such as from
+    # a key being pressed or a sequencer sending a note,
+    # update the gate and trigger outputs.
+    if sol.was_key_pressed(state):
         # Turn on Gate 1. If it's already on, re-trigger it
         # so that envelope generators and similar modules
         # notice that it's a distinct note.
@@ -43,6 +39,16 @@ def loop(last, state, outputs):
         # milliseconds.
         outputs.trigger_gate_2()
 
+    # If there's a note currently playing set CV A to the
+    # voltage that corresponds to the note. This also
+    # take pitch bend into account. Since pitch bend
+    # can change in between keys being pressed we update
+    # this every loop instead of just when keys are
+    # pressed.
+    if state.note:
+        # Set CV A to the V/oct value for the current note.
+        # this handles pitch bend as well.
+        outputs.cv_a = sol.voct(state)
     # If no note is being played, turn Gate 1 off.
     if not state.note:
         outputs.gate_1 = False
