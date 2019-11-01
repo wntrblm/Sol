@@ -42,12 +42,10 @@ def loop(last, state, outputs):
     # If there's a note currently playing set CV A to the
     # voltage that corresponds to the note. This also
     # takes pitch bend into account. Since pitch bend
-    # can change in between keys being pressed we update
-    # this every loop instead of just when a new note
-    # message comes in.
+    # can change in between keys being pressed this
+    # has to update this every loop instead of just when
+    # a new note message comes in.
     if state.note:
-        # Set CV A to the V/oct value for the current note.
-        # this handles pitch bend as well.
         outputs.cv_a = sol.voct(state)
     # If no note is being played, turn Gate 1 off.
     if not state.note:
