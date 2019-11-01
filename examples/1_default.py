@@ -43,8 +43,8 @@ def loop(last, state, outputs):
     # voltage that corresponds to the note. This also
     # take pitch bend into account. Since pitch bend
     # can change in between keys being pressed we update
-    # this every loop instead of just when keys are
-    # pressed.
+    # this every loop instead of just when a new note
+    # message comes in.
     if state.note:
         # Set CV A to the V/oct value for the current note.
         # this handles pitch bend as well.
