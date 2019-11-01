@@ -78,16 +78,22 @@ class TestOutputs:
 
         time_monotonic.return_value = 0
         outputs.trigger_gate_1()
-        outputs.trigger_gate_2(False)
+        outputs.retrigger_gate_2()
 
         time_monotonic.return_value = 0.014
         outputs.step()
         assert outputs.gate_1 is True
-        assert outputs.gate_2 is False
+        assert outputs.gate_2 is True
 
         time_monotonic.return_value = 0.016
         outputs.step()
         assert outputs.gate_1 is False
+        assert outputs.gate_2 is True
+
+        outputs.retrigger_gate_2()
+        assert outputs.gate_2 is False
+        time_monotonic.return_value = 0.032
+        outputs.step()
         assert outputs.gate_2 is True
 
 

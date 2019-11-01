@@ -30,7 +30,7 @@ def test_trigger_basic(time_monotonic):
     assert output.value is False
 
 
-def test_retrigger():
+def test_overlapping_trigger():
     output = DigitalInOutStub()
     trig = trigger.Trigger(output)
 

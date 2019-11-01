@@ -80,17 +80,25 @@ class Outputs:
         self._gate_2_trigger = trigger.Trigger(self._gate_2)
         self._gate_3_trigger = trigger.Trigger(self._gate_3)
         self._gate_4_trigger = trigger.Trigger(self._gate_4)
+        self._gate_1_retrigger = trigger.Retrigger(self._gate_1)
+        self._gate_2_retrigger = trigger.Retrigger(self._gate_2)
+        self._gate_3_retrigger = trigger.Retrigger(self._gate_3)
+        self._gate_4_retrigger = trigger.Retrigger(self._gate_4)
 
     cv_a = _utils.ValueForwardingProperty("_cv_a", "voltage")
     cv_b = _utils.ValueForwardingProperty("_cv_b", "voltage")
     gate_1 = _utils.ValueForwardingProperty("_gate_1")
     trigger_gate_1 = _utils.ValueForwardingProperty("_gate_1_trigger", "trigger")
+    retrigger_gate_1 = _utils.ValueForwardingProperty("_gate_1_retrigger", "retrigger")
     gate_2 = _utils.ValueForwardingProperty("_gate_2")
     trigger_gate_2 = _utils.ValueForwardingProperty("_gate_2_trigger", "trigger")
+    retrigger_gate_2 = _utils.ValueForwardingProperty("_gate_2_retrigger", "retrigger")
     gate_3 = _utils.ValueForwardingProperty("_gate_3")
     trigger_gate_3 = _utils.ValueForwardingProperty("_gate_3_trigger", "trigger")
+    retrigger_gate_3 = _utils.ValueForwardingProperty("_gate_3_retrigger", "retrigger")
     gate_4 = _utils.ValueForwardingProperty("_gate_4")
     trigger_gate_4 = _utils.ValueForwardingProperty("_gate_4_trigger", "trigger")
+    retrigger_gate_4 = _utils.ValueForwardingProperty("_gate_4_retrigger", "retrigger")
 
     def __str__(self):
         return "<Outputs A:{}, B:{}, 1:{}, 2:{}, 3:{}, 4:{}>".format(
@@ -102,6 +110,10 @@ class Outputs:
         self._gate_2_trigger.step()
         self._gate_3_trigger.step()
         self._gate_4_trigger.step()
+        self._gate_1_retrigger.step()
+        self._gate_2_retrigger.step()
+        self._gate_3_retrigger.step()
+        self._gate_4_retrigger.step()
 
 
 class _StopLoop(Exception):
