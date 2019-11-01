@@ -19,7 +19,7 @@ class TestState:
         assert state.pitch_bend == 0
         assert state.pressure == 0
         for n in range(128):
-            assert state.cc[n] == 0
+            assert state._cc[n] == 0
 
     def test_copy_from(self):
         state_a = sol.State()
@@ -31,7 +31,7 @@ class TestState:
         state_a.pitch_bend == 45
         state_a.pressure == 46
         for n in range(128):
-            state_a.cc[n] = n
+            state_a._cc[n] = n
 
         state_b.copy_from(state_a)
 
@@ -41,11 +41,11 @@ class TestState:
         assert state_b.pitch_bend == state_a.pitch_bend
         assert state_b.pressure == state_a.pressure
         for n in range(128):
-            assert state_b.cc[n] == state_a.cc[n]
+            assert state_b.cc(n) == state_a.cc(n)
 
         # Check for deep copy
-        state_a.cc[0] = 100
-        assert state_b.cc[0] != state_a.cc[0]
+        state_a._cc[0] = 100
+        assert state_b.cc(0) != state_a.cc(0)
 
 
 class TestOutputs:
@@ -179,7 +179,7 @@ class TestSol:
 
         msg = make_message(smolmidi.CC, 42, 64)
         s._process_midi(msg, state)
-        assert state.cc[42] == 64
+        assert math.isclose(state.cc(42), 0.5, rel_tol=0.01)
 
     def test_process_midi_types_pitch_bend(self):
         s = sol.Sol()

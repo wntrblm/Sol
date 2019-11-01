@@ -44,7 +44,11 @@ class State:
         self.velocity = 0
         self.pitch_bend = 0
         self.pressure = 0
-        self.cc = [0] * 128
+        self._cc = [0] * 128
+        self.playing = False
+
+    def cc(self, number):
+        return self._cc[number] / 127.0
 
     # TODO: Apply micropython.native to this.
     def copy_from(self, other):
@@ -52,9 +56,10 @@ class State:
         self.note = other.note
         self.velocity = other.velocity
         self.pitch_bend = other.pitch_bend
+        self.playing = other.playing
 
-        for n in range(len(self.cc)):
-            self.cc[n] = other.cc[n]
+        for n in range(len(self._cc)):
+            self._cc[n] = other._cc[n]
 
 
 class Outputs:
@@ -155,7 +160,7 @@ class Sol:
                 state.velocity = msg.data[1] / 127.0
 
         elif msg.type == smolmidi.CC:
-            state.cc[msg.data[0]] = msg.data[1]
+            state._cc[msg.data[0]] = msg.data[1]
 
         elif msg.type == smolmidi.PITCH_BEND:
             pitch_bend_value = (((msg.data[1] << 7) | msg.data[0]) - 8192) / 8192
@@ -163,6 +168,12 @@ class Sol:
 
         elif msg.type == smolmidi.CHANNEL_PRESSURE:
             state.pressure = msg.data[0] / 127.0
+
+        elif msg.type == smolmidi.START or msg.type == smolmidi.CONTINUE:
+            state.playing = True
+
+        elif msg.type == smolmidi.STOP:
+            state.playing = False
 
     def _pulse_led(self):
         self._hue += 0.05
