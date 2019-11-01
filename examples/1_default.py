@@ -14,32 +14,58 @@ Output mapping:
 import winterbloom_sol as sol
 
 
-def loop(last, current, outputs):
-    # Was the note triggered/retriggered? This happens whenever
-    # a new MIDI Note On message comes through.
-    if sol.should_trigger_note(current):
+def loop(last, state, outputs):
+    """The loop is run over and over to process MIDI information
+    and translate it to outputs.
+
+    "last" holds the previous state, "state" holds the current state,
+    and "outputs" lets you control the output jacks.
+
+    You can read more about the state here: TODO.
+    And more about the outputs here: TODO.
+    """
+    # Whenever a key is pressed, update the CV, gate, and
+    # trigger outputs.
+    if sol.should_trigger_note(state):
+
         # Set CV A to the V/oct value for the current note.
-        outputs.cv_a = sol.note_voct(current)
-        # Turn on Gate 1. If it's already on, re-trigger it.
+        # this handles pitch bend as well.
+        outputs.cv_a = sol.voct(state)
+
+        # Turn on Gate 1. If it's already on, re-trigger it
+        # so that envelope generators and similar modules
+        # notice that it's a distinct note.
         outputs.retrigger_gate_1()
-        # Trigger Gate 2.
+
+        # For Gate 2, just trigger it every time a key
+        # is pressed. No need for re-triggering since
+        # this will automatically shut off after a few
+        # milliseconds.
         outputs.trigger_gate_2()
 
     # If no note is being played, turn Gate 1 off.
-    if not current.note:
+    if not state.note:
         outputs.gate_1 = False
 
-    # Set CV B to the Modulation Wheel. The value is
-    # from 0-1.0 so scale it to 0-10v.
-    # If you want the range to be lower, change "10.0"
-    # here to something else.
-    outputs.cv_b = 10.0 * current.cc(1)
+    # Set CV B's value based on the the Modulation Wheel.
+    # The modulation wheel is MIDI controller 1 (CC 1).
+    # The value from the state is from 0-1.0 so scale it to
+    # 0-10v. If you want the range to be lower, change 10.0
+    # to something else. For example, if you wanted it to
+    # go from 0-8v, change it to 8.0.
+    outputs.cv_b = 10.0 * state.cc(1)
 
-    # Output the MIDI clock on Gate 3.
-    # TODO: if midi_clock: outputs.trigger_gate_3()
+    # Trigger Gate 3 on every 16th note.
+    # If you want to trigger on a different division,
+    # change 16 to your division. For example, to trigger
+    # on every quarter note change it to 4.
+    if sol.should_trigger_clock(state.clock, 16):
+        outputs.trigger_gate_3()
 
     # Set Gate 4 to the state of the MIDI transport.
-    outputs.gate_4 = current.playing
+    # If the transport is "playing" then the gate will
+    # be on, otherwise, it'll be off.
+    outputs.gate_4 = state.playing
 
 
 sol.run(loop)

@@ -46,6 +46,7 @@ class State:
         self.pressure = 0
         self._cc = [0] * 128
         self.playing = False
+        self.clock = 0
 
     def cc(self, number):
         return self._cc[number] / 127.0
@@ -57,6 +58,7 @@ class State:
         self.velocity = other.velocity
         self.pitch_bend = other.pitch_bend
         self.playing = other.playing
+        self.clock = other.clock
 
         for n in range(len(self._cc)):
             self._cc[n] = other._cc[n]
@@ -136,6 +138,7 @@ class Sol:
         self._hue = 0
         self._led = neopixel.NeoPixel(board.NEOPIXEL, 1)
         self._led.brightness = 0.05
+        self._clocks = 0
 
     def _process_midi(self, msg, state):
         state.message = msg
@@ -175,6 +178,9 @@ class Sol:
         elif msg.type == smolmidi.STOP:
             state.playing = False
 
+        elif msg.type == smolmidi.CLOCK:
+            self._clocks += 1
+
     def _pulse_led(self):
         self._hue += 0.05
         self._led[0] = tuple(
@@ -187,6 +193,7 @@ class Sol:
         while True:
             msg = self._midi_in.receive()
             self._process_midi(msg, current)
+            current.clock = self._clocks
 
             if msg:
                 self._pulse_led()

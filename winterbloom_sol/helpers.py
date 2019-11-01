@@ -48,8 +48,17 @@ def voct(state):
     return note_to_volts_per_octave(state.note) + offset_for_pitch_bend(state.pitch_bend)
 
 
-def should_trigger_note(current):
-    if current.message.type == smolmidi.NOTE_ON:
+def should_trigger_note(state):
+    if state.message.type == smolmidi.NOTE_ON:
+        return True
+    else:
+        return False
+
+
+def should_trigger_clock(state, division):
+    operand = int(96 / division)
+
+    if state.clock % operand == 0:
         return True
     else:
         return False
