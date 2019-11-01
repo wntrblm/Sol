@@ -41,7 +41,7 @@ def loop(last, state, outputs):
 
     # If there's a note currently playing set CV A to the
     # voltage that corresponds to the note. This also
-    # take pitch bend into account. Since pitch bend
+    # takes pitch bend into account. Since pitch bend
     # can change in between keys being pressed we update
     # this every loop instead of just when a new note
     # message comes in.
