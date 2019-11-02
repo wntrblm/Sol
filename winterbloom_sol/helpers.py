@@ -49,7 +49,7 @@ def voct(state):
 
 
 def was_key_pressed(state):
-    if state.message.type == smolmidi.NOTE_ON:
+    if state.message and state.message.type == smolmidi.NOTE_ON:
         return True
     else:
         return False
@@ -58,7 +58,7 @@ def was_key_pressed(state):
 def should_trigger_clock(state, division):
     operand = int(96 / division)
 
-    if state.clock % operand == 0:
+    if state.playing and state.clock % operand == 0:
         return True
     else:
         return False

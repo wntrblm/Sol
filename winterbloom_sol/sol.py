@@ -152,8 +152,8 @@ class Sol:
             if msg.data[1] == 0:
                 state.note = None
                 state.velocity = 0
-            else:
                 state.message.type = smolmidi.NOTE_OFF
+            else:
                 state.note = msg.data[0]
                 state.velocity = msg.data[1] / 127.0
 
@@ -177,6 +177,7 @@ class Sol:
 
         elif msg.type == smolmidi.STOP:
             state.playing = False
+            self._clocks = 0
 
         elif msg.type == smolmidi.CLOCK:
             self._clocks += 1
@@ -195,7 +196,9 @@ class Sol:
             self._process_midi(msg, current)
             current.clock = self._clocks
 
-            if msg:
+            if msg and not msg.type == smolmidi.CLOCK:
+                self._pulse_led()
+            elif current.playing and self._clocks % 24 == 0:
                 self._pulse_led()
 
             try:
