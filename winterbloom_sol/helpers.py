@@ -45,7 +45,9 @@ def voct(state):
     This considers the note and the state of the pitch bend as well.
 
     """
-    return note_to_volts_per_octave(state.note) + offset_for_pitch_bend(state.pitch_bend)
+    return note_to_volts_per_octave(state.note) + offset_for_pitch_bend(
+        state.pitch_bend
+    )
 
 
 def was_key_pressed(state):

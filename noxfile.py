@@ -6,8 +6,8 @@ def blacken(session):
     """Run black code formater."""
     session.install("black==19.3b0", "isort==4.3.21")
     files = ["noxfile.py", "winterbloom_sol", "tests"]
-    session.run("black", *files)
     session.run("isort", "--recursive", *files)
+    session.run("black", *files)
 
 
 @nox.session(python="3")
