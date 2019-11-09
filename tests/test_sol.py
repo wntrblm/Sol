@@ -9,6 +9,32 @@ import winterbloom_smolmidi as smolmidi
 from winterbloom_sol import sol
 
 
+class TestStateNoteStrategies:
+    def make_state(self):
+        state = sol.State()
+        state._notes = {40: 4, 41: 3, 43: 2, 44: 1}
+        return state
+
+    def test_latest_note(self):
+        assert self.make_state().latest_note == 40
+
+    def test_oldest_note(self):
+        assert self.make_state().oldest_note == 44
+
+    def test_highest_note(self):
+        assert self.make_state().highest_note == 44
+
+    def test_lowest_note(self):
+        assert self.make_state().lowest_note == 40
+
+    def test_empty(self):
+        state = sol.State()
+        assert state.latest_note is None
+        assert state.oldest_note is None
+        assert state.highest_note is None
+        assert state.lowest_note is None
+
+
 class TestState:
     def test_default_state(self):
         state = sol.State()
@@ -25,8 +51,8 @@ class TestState:
         state_a = sol.State()
         state_b = sol.State()
 
+        state_a._notes = {42: 0}
         state_a.message = object()
-        state_a.note = 42
         state_a.velocity = 43
         state_a.pitch_bend == 45
         state_a.pressure == 46
@@ -44,6 +70,8 @@ class TestState:
             assert state_b.cc(n) == state_a.cc(n)
 
         # Check for deep copy
+        state_a._notes = {43: 0}
+        assert state_b.note != state_a.note
         state_a._cc[0] = 100
         assert state_b.cc(0) != state_a.cc(0)
 

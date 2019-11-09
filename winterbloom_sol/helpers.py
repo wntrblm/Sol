@@ -21,6 +21,7 @@
 # THE SOFTWARE.
 
 import winterbloom_smolmidi as smolmidi
+from winterbloom_sol import sol
 
 # One semitone in equal temperament, this is also the number of volts between
 # notes in v/oct.
@@ -40,14 +41,18 @@ def offset_for_pitch_bend(pitch_bend, range=2):
     return (pitch_bend * range) * SEMITONE
 
 
-def voct(state):
+def voct(state_or_note, pitch_bend=0):
     """Returns the V/Oct given a state.
     This considers the note and the state of the pitch bend as well.
 
     """
-    return note_to_volts_per_octave(state.note) + offset_for_pitch_bend(
-        state.pitch_bend
-    )
+    if isinstance(state_or_note, sol.State):
+        note = state_or_note.note
+        pitch_bend = pitch_bend or state_or_note.pitch_bend
+    else:
+        note = state_or_note
+
+    return note_to_volts_per_octave(note) + offset_for_pitch_bend(pitch_bend)
 
 
 def was_key_pressed(state):

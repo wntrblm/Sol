@@ -21,6 +21,7 @@
 # THE SOFTWARE.
 
 import gc
+import time
 
 import board
 import digitalio
@@ -39,8 +40,8 @@ class State:
     """
 
     def __init__(self):
+        self._notes = {}
         self.message = None
-        self.note = None
         self.velocity = 0
         self.pitch_bend = 0
         self.pressure = 0
@@ -48,13 +49,69 @@ class State:
         self.playing = False
         self.clock = 0
 
+    @property
+    def note(self):
+        return self.latest_note
+
+    @property
+    def latest_note(self):
+        if not self._notes:
+            return None
+
+        latest_note = None
+        latest_time = 0
+        for note, note_time in self._notes.items():
+            if latest_time == 0 or note_time > latest_time:
+                latest_note = note
+                latest_time = note_time
+
+        return latest_note
+
+    @property
+    def oldest_note(self):
+        if not self._notes:
+            return None
+
+        oldest_note = None
+        oldest_time = 0
+        for note, note_time in self._notes.items():
+            if oldest_time == 0 or note_time < oldest_time:
+                oldest_note = note
+                oldest_time = note_time
+
+        return oldest_note
+
+    @property
+    def highest_note(self):
+        if not self._notes:
+            return None
+
+        highest_note = 0
+        for note in self._notes.keys():
+            if highest_note == 0 or note > highest_note:
+                highest_note = note
+
+        return highest_note
+
+    @property
+    def lowest_note(self):
+        if not self._notes:
+            return None
+
+        lowest_note = 0
+        for note in self._notes.keys():
+            if lowest_note == 0 or note < lowest_note:
+                lowest_note = note
+
+        return lowest_note
+
     def cc(self, number):
         return self._cc[number] / 127.0
 
     # TODO: Apply micropython.native to this.
     def copy_from(self, other):
+        self._notes = other._notes.copy()
         self.message = other.message
-        self.note = other.note
         self.velocity = other.velocity
         self.pitch_bend = other.pitch_bend
         self.playing = other.playing
@@ -69,19 +126,19 @@ class Outputs:
     easy access to set them."""
 
     def __init__(self):
-        self._dac = ad5689.create_from_pins(cs=board.D6)
+        self._dac = ad5689.create_from_pins(cs=board.DAC_CS)
         self._dac.soft_reset()
         self._cv_a = voltageio.VoltageOut(self._dac.a)
         self._cv_a.linear_calibration(10.26)
         self._cv_b = voltageio.VoltageOut(self._dac.b)
         self._cv_b.linear_calibration(10.26)
-        self._gate_1 = digitalio.DigitalInOut(board.D10)
+        self._gate_1 = digitalio.DigitalInOut(board.G1)
         self._gate_1.direction = digitalio.Direction.OUTPUT
-        self._gate_2 = digitalio.DigitalInOut(board.D11)
+        self._gate_2 = digitalio.DigitalInOut(board.G2)
         self._gate_2.direction = digitalio.Direction.OUTPUT
-        self._gate_3 = digitalio.DigitalInOut(board.D12)
+        self._gate_3 = digitalio.DigitalInOut(board.G3)
         self._gate_3.direction = digitalio.Direction.OUTPUT
-        self._gate_4 = digitalio.DigitalInOut(board.D13)
+        self._gate_4 = digitalio.DigitalInOut(board.G4)
         self._gate_4.direction = digitalio.Direction.OUTPUT
         self._gate_1_trigger = trigger.Trigger(self._gate_1)
         self._gate_2_trigger = trigger.Trigger(self._gate_2)
@@ -150,17 +207,16 @@ class Sol:
             # Some controllers send note on with velocity 0
             # to signal note off.
             if msg.data[1] == 0:
-                state.note = None
+                state._notes.pop(msg.data[0], None)
                 state.velocity = 0
                 state.message.type = smolmidi.NOTE_OFF
             else:
-                state.note = msg.data[0]
+                state._notes[msg.data[0]] = time.monotonic_ns()
                 state.velocity = msg.data[1] / 127.0
 
         elif msg.type == smolmidi.NOTE_OFF:
-            if state.note == msg.data[0]:
-                state.note = None
-                state.velocity = msg.data[1] / 127.0
+            state._notes.pop(msg.data[0], None)
+            state.velocity = msg.data[1] / 127.0
 
         elif msg.type == smolmidi.CC:
             state._cc[msg.data[0]] = msg.data[1]
