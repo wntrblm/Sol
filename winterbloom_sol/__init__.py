@@ -20,6 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+from winterbloom_sol.adsr import ADSR
 from winterbloom_sol.helpers import (
     note_to_volts_per_octave,
     offset_for_pitch_bend,
@@ -37,14 +38,15 @@ def run(loop):
 
 
 __all__ = [
+    "ADSR",
     "note_to_volts_per_octave",
     "offset_for_pitch_bend",
+    "Retrigger",
+    "run",
+    "should_trigger_clock",
+    "Sol",
+    "State",
+    "Trigger",
     "voct",
     "was_key_pressed",
-    "should_trigger_clock",
-    "Trigger",
-    "Retrigger",
-    "State",
-    "Sol",
-    "run",
 ]

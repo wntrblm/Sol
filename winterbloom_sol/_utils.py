@@ -54,3 +54,7 @@ class ValueForwardingProperty:
 
     def __set__(self, obj, val):
         setattr(getattr(obj, self._name), self._property, val)
+
+
+def lerp(start, end, time):
+    return start + time * (end - start)
