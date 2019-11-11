@@ -20,7 +20,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-import gc
 import time
 
 import board
@@ -117,8 +116,13 @@ class State:
         self.playing = other.playing
         self.clock = other.clock
 
-        for n in range(len(self._cc)):
-            self._cc[n] = other._cc[n]
+        # Don't use range because it can be *really* slow.
+        self_ccs = self._cc
+        other_ccs = other._cc
+        n = 0
+        while n < 128:
+            self_ccs[n] = other_ccs[n]
+            n += 1
 
 
 class Outputs:
@@ -264,7 +268,6 @@ class Sol:
 
             last.copy_from(current)
             self.outputs.step()
-            gc.collect()
 
     # Sketch for 2 channel API
     def run_two_channel(self, loop_one, loop_two):
@@ -278,4 +281,3 @@ class Sol:
             loop_one(last_one, current_two, self.outputs)
             loop_two(last_two, current_two, self.outputs)
             self.outputs.step()
-            gc.collect()
