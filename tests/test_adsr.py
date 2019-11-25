@@ -6,14 +6,17 @@ from unittest import mock
 from winterbloom_sol import adsr
 
 
+_NS_TO_S = 1000000000
+
+
 def test_default_state():
     env = adsr.ADSR(0, 0, 0, 0)
     assert env.output == 0.0
 
 
-@mock.patch("time.monotonic", autospec=True)
-def test_cycle(monotonic):
-    monotonic.return_value = 0
+@mock.patch("time.monotonic_ns", autospec=True)
+def test_cycle(monotonic_ns):
+    monotonic_ns.return_value = 0
     env = adsr.ADSR(1.0, 1.0, 0.5, 1.0)
 
     assert env.output == 0
@@ -22,23 +25,23 @@ def test_cycle(monotonic):
     assert env.output == 0
 
     # Halfway point of attack phase
-    monotonic.return_value = 0.5
+    monotonic_ns.return_value = 0.5 * _NS_TO_S
     assert env.output == 0.5
 
     # End of attack phase
-    monotonic.return_value = 1.0
+    monotonic_ns.return_value = 1.0 * _NS_TO_S
     assert env.output == 1.0
 
     # Halfway point of decay phase
-    monotonic.return_value = 1.5
+    monotonic_ns.return_value = 1.5 * _NS_TO_S
     assert env.output == 0.75
 
     # End of decay phase
-    monotonic.return_value = 2.0
+    monotonic_ns.return_value = 2.0 * _NS_TO_S
     assert env.output == 0.5
 
     # Should sustain indefinitely.
-    monotonic.return_value = 10.0
+    monotonic_ns.return_value = 10.0 * _NS_TO_S
     assert env.output == 0.5
 
     env.stop()
@@ -47,17 +50,17 @@ def test_cycle(monotonic):
     assert env.output == 0.5
 
     # Halfway point of release phase
-    monotonic.return_value = 10.5
+    monotonic_ns.return_value = 10.5 * _NS_TO_S
     assert env.output == 0.25
 
     # End of release phase
-    monotonic.return_value = 11.0
+    monotonic_ns.return_value = 11.0 * _NS_TO_S
     assert env.output == 0.0
 
 
-@mock.patch("time.monotonic", autospec=True)
-def test_no_attack(monotonic):
-    monotonic.return_value = 0
+@mock.patch("time.monotonic_ns", autospec=True)
+def test_no_attack(monotonic_ns):
+    monotonic_ns.return_value = 0
     env = adsr.ADSR(0, 1.0, 0.5, 1.0)
 
     assert env.output == 0
@@ -68,17 +71,17 @@ def test_no_attack(monotonic):
     assert env.output == 1.0
 
     # Halfway point of decay phase.
-    monotonic.return_value = 0.5
+    monotonic_ns.return_value = 0.5 * _NS_TO_S
     assert env.output == 0.75
 
     # End of decay / start of sustain.
-    monotonic.return_value = 1.0
+    monotonic_ns.return_value = 1.0 * _NS_TO_S
     assert env.output == 0.5
 
 
-@mock.patch("time.monotonic", autospec=True)
-def test_no_decay(monotonic):
-    monotonic.return_value = 0
+@mock.patch("time.monotonic_ns", autospec=True)
+def test_no_decay(monotonic_ns):
+    monotonic_ns.return_value = 0
     env = adsr.ADSR(1.0, 0, 0.5, 1.0)
 
     assert env.output == 0
@@ -87,25 +90,25 @@ def test_no_decay(monotonic):
     assert env.output == 0
 
     # End of attack. Should be max output.
-    monotonic.return_value = 1.0
+    monotonic_ns.return_value = 1.0 * _NS_TO_S
     assert env.output == 1.0
 
     # Since there's no decay, it should immediately
     # snap to the sustain level.
-    monotonic.return_value = 1.1
+    monotonic_ns.return_value = 1.1 * _NS_TO_S
     assert env.output == 0.5
 
 
-@mock.patch("time.monotonic", autospec=True)
-def test_no_release(monotonic):
-    monotonic.return_value = 0
+@mock.patch("time.monotonic_ns", autospec=True)
+def test_no_release(monotonic_ns):
+    monotonic_ns.return_value = 0
     env = adsr.ADSR(1.0, 1.0, 0.5, 0.0)
 
     assert env.output == 0
 
     env.start()
     # Should be in the sustain phase now.
-    monotonic.return_value = 2.0
+    monotonic_ns.return_value = 2.0 * _NS_TO_S
     assert env.output == 0.5
 
     # Since there's no release, it should immediately

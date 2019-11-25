@@ -24,6 +24,10 @@ import time
 
 from winterbloom_sol import _utils
 
+# Use nanaseconds for absolute time throughout to avoid losing precision for float
+# time over long program duration.
+_NS_TO_S = 1000000000
+
 
 class ADSR:
     """An ADSR envelope generator.
@@ -67,25 +71,27 @@ class ADSR:
         self._release_time = None
 
     def start(self):
-        self._trigger_time = time.monotonic()
+        self._trigger_time = time.monotonic_ns()
         self._release_time = None
 
     def stop(self):
         if self._trigger_time is not None and self._release_time is None:
-            self._release_time = time.monotonic()
+            self._release_time = time.monotonic_ns()
 
     def _calculate_start_phase_level(self, now):
-        attack_end = self._trigger_time + self.attack
+        attack_s = self.attack * _NS_TO_S
+        attack_end = self._trigger_time + attack_s
 
-        if self.attack == 0:
+        if attack_s == 0:
             attack_percent = 1.1  # No attack phase
         else:
-            attack_percent = (now - self._trigger_time) / self.attack
+            attack_percent = (now - self._trigger_time) / attack_s
 
-        if self.decay == 0:
+        decay_s = self.decay * _NS_TO_S
+        if decay_s == 0:
             decay_percent = 1.0
         else:
-            decay_percent = (now - attack_end) / self.decay
+            decay_percent = (now - attack_end) / decay_s
 
         if attack_percent <= 1.0:
             return _utils.lerp(0, 1.0, attack_percent)
@@ -93,10 +99,11 @@ class ADSR:
             return _utils.lerp(1.0, self.sustain, min(decay_percent, 1.0))
 
     def _calculate_stop_phase_level(self, start_phase_level, now):
-        if self.release == 0:
+        release_s = self.release * _NS_TO_S
+        if release_s == 0:
             release_percent = 1.0
         else:
-            release_percent = (now - self._release_time) / self.release
+            release_percent = (now - self._release_time) / release_s
 
         return _utils.lerp(start_phase_level, 0, min(release_percent, 1.0))
 
@@ -105,7 +112,7 @@ class ADSR:
         if self._trigger_time is None:
             return 0
 
-        now = time.monotonic()
+        now = time.monotonic_ns()
 
         # We calculate the values for the start phase even when
         # we're in the stop phase so that the stop phase knows
