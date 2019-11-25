@@ -5,7 +5,6 @@ from unittest import mock
 
 from winterbloom_sol import adsr
 
-
 _NS_TO_S = 1000000000
 
 
