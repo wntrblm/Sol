@@ -72,9 +72,12 @@ class SlewLimiter:
 
         # Ignore duplicate target values to avoid
         # re-starting the slew.
-        if value == self._target:
+        if self._target is not None and _utils.isclose(
+            value, self._target, rel_tol=1e-05
+        ):
             return
 
+        print(value)
         self._target = value
         self._set_time = time.monotonic_ns()
 
