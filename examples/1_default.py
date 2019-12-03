@@ -63,7 +63,7 @@ def loop(last, state, outputs):
     # If you want to trigger on a different division,
     # change 16 to your division. For example, to trigger
     # on every quarter note change it to 4.
-    if sol.should_trigger_clock(state.clock, 16):
+    if sol.should_trigger_clock(state, 16):
         outputs.trigger_gate_3()
 
     # Set Gate 4 to the state of the MIDI transport.
