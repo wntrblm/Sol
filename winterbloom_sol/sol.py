@@ -254,9 +254,8 @@ class Sol:
 
     @micropython.native
     def _pulse_led(self):
-        self._hue += 0.1
-        rgb = _utils.hsv_to_rgb(self._hue, 1.0, 1.0)
-        self._led[0] = (int(rgb[0] * 255), int(rgb[1] * 255), int(rgb[2] * 255))
+        self._hue += 5
+        self._led[0] = _utils.color_wheel(self._hue)
 
     def run(self, loop):
         last = State()
@@ -268,7 +267,7 @@ class Sol:
 
             if msg and not msg.type == smolmidi.CLOCK:
                 self._pulse_led()
-            elif current.playing and self._clocks % 24 == 0:
+            elif msg and msg.type == smolmidi.CLOCK and self._clocks % (96 / 2) == 0:
                 self._pulse_led()
 
             try:

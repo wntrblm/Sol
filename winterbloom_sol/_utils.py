@@ -47,6 +47,26 @@ def hsv_to_rgb(h, s, v):
         return v, p, q
 
 
+@micropython.native
+def color_wheel(pos):
+    pos %= 255
+    if pos < 85:
+        r = int(pos * 3)
+        g = int(255 - pos * 3)
+        b = 0
+    elif pos < 170:
+        pos -= 85
+        r = int(255 - pos * 3)
+        g = 0
+        b = int(pos * 3)
+    else:
+        pos -= 170
+        r = 0
+        g = int(pos * 3)
+        b = int(255 - pos * 3)
+    return (r, g, b)
+
+
 class ValueForwardingProperty:
     def __init__(self, name, property="value"):
         self._name = name
