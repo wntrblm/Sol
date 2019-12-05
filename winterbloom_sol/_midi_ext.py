@@ -46,7 +46,6 @@ class DeduplicatingMidiIn:
         self._midi_in = midi_in
         self._peeked = None
 
-    # TODO: Mark this with @micropython.native
     def receive(self):
         if self._peeked is not None:
             message = self._peeked

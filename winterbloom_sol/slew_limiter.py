@@ -77,7 +77,6 @@ class SlewLimiter:
         ):
             return
 
-        print(value)
         self._target = value
         self._set_time = time.monotonic_ns()
 

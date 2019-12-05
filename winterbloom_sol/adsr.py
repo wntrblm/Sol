@@ -22,6 +22,7 @@
 
 import time
 
+import micropython
 from winterbloom_sol import _utils
 
 # Use nanaseconds for absolute time throughout to avoid losing precision for float
@@ -78,6 +79,7 @@ class ADSR:
         if self._trigger_time is not None and self._release_time is None:
             self._release_time = time.monotonic_ns()
 
+    @micropython.native
     def _calculate_start_phase_level(self, now):
         attack_s = self.attack * _NS_TO_S
         attack_end = self._trigger_time + attack_s
@@ -98,6 +100,7 @@ class ADSR:
         elif decay_percent >= 0.0:
             return _utils.lerp(1.0, self.sustain, min(decay_percent, 1.0))
 
+    @micropython.native
     def _calculate_stop_phase_level(self, start_phase_level, now):
         release_s = self.release * _NS_TO_S
         if release_s == 0:

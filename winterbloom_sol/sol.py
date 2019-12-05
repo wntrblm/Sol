@@ -24,6 +24,7 @@ import time
 
 import board
 import digitalio
+import micropython
 import neopixel
 import usb_midi
 import winterbloom_ad5689 as ad5689
@@ -49,10 +50,12 @@ class State:
         self.clock = 0
 
     @property
+    @micropython.native
     def note(self):
         return self.latest_note
 
     @property
+    @micropython.native
     def latest_note(self):
         if not self._notes:
             return None
@@ -67,6 +70,7 @@ class State:
         return latest_note
 
     @property
+    @micropython.native
     def oldest_note(self):
         if not self._notes:
             return None
@@ -81,6 +85,7 @@ class State:
         return oldest_note
 
     @property
+    @micropython.native
     def highest_note(self):
         if not self._notes:
             return None
@@ -93,6 +98,7 @@ class State:
         return highest_note
 
     @property
+    @micropython.native
     def lowest_note(self):
         if not self._notes:
             return None
@@ -104,10 +110,11 @@ class State:
 
         return lowest_note
 
+    @micropython.native
     def cc(self, number):
         return self._cc[number] / 127.0
 
-    # TODO: Apply micropython.native to this.
+    @micropython.native
     def copy_from(self, other):
         self._notes = other._notes.copy()
         self.message = other.message
@@ -173,6 +180,7 @@ class Outputs:
             self.cv_a, self.cv_b, self.gate_1, self.gate_2, self.gate_3, self.gate_4
         )
 
+    @micropython.native
     def step(self):
         self._gate_1_trigger.step()
         self._gate_2_trigger.step()
@@ -197,10 +205,12 @@ class Sol:
             smolmidi.MidiIn(usb_midi.ports[0])
         )
         self._hue = 0
-        self._led = neopixel.NeoPixel(board.NEOPIXEL, 1)
-        self._led.brightness = 0.05
+        self._led = neopixel.NeoPixel(board.NEOPIXEL, 1, pixel_order=(0, 1, 2))
+        self._led.brightness = 0.1
+        self._led[0] = (0, 255, 255)
         self._clocks = 0
 
+    @micropython.native
     def _process_midi(self, msg, state):
         state.message = msg
 
@@ -242,11 +252,11 @@ class Sol:
         elif msg.type == smolmidi.CLOCK:
             self._clocks += 1
 
+    @micropython.native
     def _pulse_led(self):
-        self._hue += 0.05
-        self._led[0] = tuple(
-            map(lambda x: int(x * 255), _utils.hsv_to_rgb(self._hue, 1.0, 1.0))
-        )
+        self._hue += 0.1
+        rgb = _utils.hsv_to_rgb(self._hue, 1.0, 1.0)
+        self._led[0] = (int(rgb[0] * 255), int(rgb[1] * 255), int(rgb[2] * 255))
 
     def run(self, loop):
         last = State()
@@ -267,17 +277,4 @@ class Sol:
                 break
 
             last.copy_from(current)
-            self.outputs.step()
-
-    # Sketch for 2 channel API
-    def run_two_channel(self, loop_one, loop_two):
-        last_one = State()
-        current_one = State()
-        last_two = State()
-        current_two = State()
-
-        while True:
-            self._process_midi_two_channel(current_one, current_two)
-            loop_one(last_one, current_two, self.outputs)
-            loop_two(last_two, current_two, self.outputs)
             self.outputs.step()

@@ -1,5 +1,5 @@
 class NeoPixel:
-    def __init__(self, pin, number):
+    def __init__(self, pin, number, pixel_order=None):
         self.pin = pin
         self.number = number
         self._leds = [0] * number

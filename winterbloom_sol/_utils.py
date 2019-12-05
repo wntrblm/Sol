@@ -20,7 +20,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+import micropython
 
+
+@micropython.native
 def hsv_to_rgb(h, s, v):
     if s == 0.0:
         return v, v, v
@@ -49,16 +52,20 @@ class ValueForwardingProperty:
         self._name = name
         self._property = property
 
+    @micropython.native
     def __get__(self, obj, objtype):
         return getattr(getattr(obj, self._name), self._property)
 
+    @micropython.native
     def __set__(self, obj, val):
         setattr(getattr(obj, self._name), self._property, val)
 
 
+@micropython.native
 def lerp(start, end, time):
     return start + time * (end - start)
 
 
+@micropython.native
 def isclose(a, b, rel_tol=1e-9, abs_tol=0.0):
     return abs(a - b) <= max(rel_tol * max(abs(a), abs(b)), abs_tol)
