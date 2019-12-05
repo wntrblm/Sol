@@ -132,6 +132,49 @@ class State:
             n += 1
 
 
+class StatusLED:
+    def __init__(self):
+        self._led = neopixel.NeoPixel(board.NEOPIXEL, 1, pixel_order=(0, 1, 2))
+        self._led.brightness = 0.1
+        self._led[0] = (0, 255, 255)
+        self._hue = 0
+        self._hue_rgb = (0, 255, 255)
+        self._pulse_time = None
+
+    @property
+    def hue(self):
+        return self._hue
+
+    @hue.setter
+    def hue(self, hue):
+        self._hue = hue
+        self._led[0] = self._hue_rgb = _utils.color_wheel(self._hue)
+
+    def spin(self):
+        self.hue += 5
+
+    def pulse(self):
+        self._pulse_time = time.monotonic_ns()
+        self._led[0] = (255, 255, 255)
+
+    @micropython.native
+    def step(self):
+        if self._pulse_time is None:
+            return
+
+        pulse_dt = min(
+            ((time.monotonic_ns() - self._pulse_time) / 1000000000) / 0.2, 1.0
+        )
+        self._led[0] = (
+            int(_utils.lerp(255, self._hue_rgb[0], pulse_dt)),
+            int(_utils.lerp(255, self._hue_rgb[1], pulse_dt)),
+            int(_utils.lerp(255, self._hue_rgb[2], pulse_dt)),
+        )
+
+        if pulse_dt == 1.0:
+            self._pulse_time = None
+
+
 class Outputs:
     """Manages all of the outputs for the Sol board and provides
     easy access to set them."""
@@ -159,6 +202,7 @@ class Outputs:
         self._gate_2_retrigger = trigger.Retrigger(self._gate_2)
         self._gate_3_retrigger = trigger.Retrigger(self._gate_3)
         self._gate_4_retrigger = trigger.Retrigger(self._gate_4)
+        self.led = StatusLED()
 
     cv_a = _utils.ValueForwardingProperty("_cv_a", "voltage")
     cv_b = _utils.ValueForwardingProperty("_cv_b", "voltage")
@@ -190,6 +234,7 @@ class Outputs:
         self._gate_2_retrigger.step()
         self._gate_3_retrigger.step()
         self._gate_4_retrigger.step()
+        self.led.step()
 
 
 class _StopLoop(Exception):
@@ -204,10 +249,6 @@ class Sol:
         self._midi_in = _midi_ext.DeduplicatingMidiIn(
             smolmidi.MidiIn(usb_midi.ports[0])
         )
-        self._hue = 0
-        self._led = neopixel.NeoPixel(board.NEOPIXEL, 1, pixel_order=(0, 1, 2))
-        self._led.brightness = 0.1
-        self._led[0] = (0, 255, 255)
         self._clocks = 0
 
     @micropython.native
@@ -252,11 +293,6 @@ class Sol:
         elif msg.type == smolmidi.CLOCK:
             self._clocks += 1
 
-    @micropython.native
-    def _pulse_led(self):
-        self._hue += 5
-        self._led[0] = _utils.color_wheel(self._hue)
-
     def run(self, loop):
         last = State()
         current = State()
@@ -266,9 +302,9 @@ class Sol:
             current.clock = self._clocks
 
             if msg and not msg.type == smolmidi.CLOCK:
-                self._pulse_led()
+                self.outputs.led.spin()
             elif msg and msg.type == smolmidi.CLOCK and self._clocks % (96 / 2) == 0:
-                self._pulse_led()
+                self.outputs.led.pulse()
 
             try:
                 loop(last, current, self.outputs)
