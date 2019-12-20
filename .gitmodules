@@ -1,12 +1,12 @@
-[submodule "lib/winterbloom_smolmidi"]
-	path = lib/winterbloom_smolmidi
+[submodule "firmware/lib/winterbloom_smolmidi"]
+	path = firmware/lib/winterbloom_smolmidi
 	url = https://github.com/theacodes/Winterbloom_SmolMIDI
-[submodule "lib/winterbloom_voltageio"]
-	path = lib/winterbloom_voltageio
+[submodule "firmware/lib/winterbloom_voltageio"]
+	path = firmware/lib/winterbloom_voltageio
 	url = https://github.com/theacodes/Winterbloom_VoltageIO
-[submodule "lib/winterbloom_ad5689"]
-	path = lib/winterbloom_ad5689
+[submodule "firmware/lib/winterbloom_ad5689"]
+	path = firmware/lib/winterbloom_ad5689
 	url = https://github.com/theacodes/Winterbloom_AD5689
-[submodule "lib/adafruit_circuitpython_busdevice"]
-	path = lib/adafruit_circuitpython_busdevice
+[submodule "firmware/lib/adafruit_circuitpython_busdevice"]
+	path = firmware/lib/adafruit_circuitpython_busdevice
 	url = https://github.com/Adafruit/Adafruit_CircuitPython_BusDevice
