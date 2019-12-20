@@ -1,0 +1,27 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP OPA197
+D 36-V, Precision, Rail-to-Rail Input Output, Low Offset Voltage Op Amp
+K single opamp
+F http://www.ti.com/product/OPA197
+$ENDCMP
+#
+$CMP OPA4180
+D Low Drift, Low Noise, Rail-to-Rail, 36V, Quad-Operational Amplifiers, SOIC-14/TSSOP-14
+K quad opamp
+F http://www.ti.com/product/OPA4180
+$ENDCMP
+#
+$CMP OPA4197
+D 36-V, Precision, Rail-to-Rail Input Output, Low Offset Voltage Op Amp
+K quad opamp
+F http://www.ti.com/product/OPA4197
+$ENDCMP
+#
+$CMP TMUX1134
+D Quad 2 to 1 Multiplexer/Precision Switch
+K TTL MUX MUX2
+F http://www.ti.com/product/TMUX1134
+$ENDCMP
+#
+#End Doc Library
