@@ -1,0 +1,27 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP AD5685xRUZ
+D Dual, 14-Bit nanoDAC+ with SPI Interface, 2ppmC ref, TSSOP-16
+K dac 4nch 14bit spi
+F https://www.mouser.com/datasheet/2/609/AD5686R_5685R_5684R-1501714.pdf
+$ENDCMP
+#
+$CMP AD5687RBRUZ
+D Dual, 12-Bit nanoDAC+ with 2 ppm/°C Reference, SPI Interface, TSSOP-16
+K dac 2nch 12bit spi
+F https://www.analog.com/media/en/technical-documentation/data-sheets/AD5689R_5687R.pdf
+$ENDCMP
+#
+$CMP AD5689BRUZ
+D Dual, 16-Bit nanoDAC+ with SPI Interface, TSSOP-16
+K dac 2nch 16bit spi
+F https://www.analog.com/media/en/technical-documentation/data-sheets/AD5689_5687.pdf
+$ENDCMP
+#
+$CMP AD5689RxRUZ
+D Dual, 16-Bit nanoDAC+ with 2 ppm/°C Reference, SPI Interface, TSSOP-16
+K dac 2nch 16bit spi
+F https://www.analog.com/media/en/technical-documentation/data-sheets/AD5689R_5687R.pdf
+$ENDCMP
+#
+#End Doc Library
