@@ -789,17 +789,6 @@ F 3 "" H 1325 7450 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L precision-dac-cv-scaler:OPA197 U4
-U 1 1 5E142769
-P 3300 1350
-F 0 "U4" H 3300 1600 50  0000 L CNN
-F 1 "OPA197" H 3300 1500 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:TSOT-23-5_HandSoldering" H 3200 1150 50  0001 L CNN
-F 3 "" H 3450 1500 50  0001 C CNN
-	1    3300 1350
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:R R2
 U 1 1 5E165525
 P 2750 1100
@@ -847,17 +836,6 @@ F 2 "" H 1800 900 50  0001 C CNN
 F 3 "" H 1800 900 50  0001 C CNN
 	1    1800 900 
 	0    1    1    0   
-$EndComp
-$Comp
-L power:+12V #PWR0120
-U 1 1 5E17EE42
-P 3200 1050
-F 0 "#PWR0120" H 3200 900 50  0001 C CNN
-F 1 "+12V" V 3215 1178 50  0000 L CNN
-F 2 "" H 3200 1050 50  0001 C CNN
-F 3 "" H 3200 1050 50  0001 C CNN
-	1    3200 1050
-	1    0    0    -1  
 $EndComp
 Text GLabel 3700 1350 2    50   Input ~ 0
 MIDVREF
@@ -1113,17 +1091,6 @@ F 2 "" H 3750 1900 50  0001 C CNN
 F 3 "" H 3750 1900 50  0001 C CNN
 	1    3750 1900
 	0    -1   -1   0   
-$EndComp
-$Comp
-L power:+12V #PWR0148
-U 1 1 5E185FED
-P 3750 1600
-F 0 "#PWR0148" H 3750 1450 50  0001 C CNN
-F 1 "+12V" V 3765 1728 50  0000 L CNN
-F 2 "" H 3750 1600 50  0001 C CNN
-F 3 "" H 3750 1600 50  0001 C CNN
-	1    3750 1600
-	0    1    1    0   
 $EndComp
 $Comp
 L precision-dac-cv-scaler:OPA4197 U8
@@ -2021,5 +1988,38 @@ F 2 "" H 800 3150 50  0001 C CNN
 F 3 "" H 800 3150 50  0001 C CNN
 	1    800  3150
 	1    0    0    -1  
+$EndComp
+$Comp
+L mainboard-rescue:OPA388 U4
+U 1 1 5E22D0F1
+P 3300 1350
+F 0 "U4" H 3300 1525 50  0000 L CNN
+F 1 "OPA388" H 3275 1200 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:TSOT-23-5_HandSoldering" H 3200 1150 50  0001 L CNN
+F 3 "http://www.ti.com/lit/ds/symlink/opa388.pdf" H 3450 1500 50  0001 C CNN
+	1    3300 1350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3V3 #PWR0120
+U 1 1 5E24068B
+P 3200 1050
+F 0 "#PWR0120" H 3200 900 50  0001 C CNN
+F 1 "+3V3" V 3200 1250 50  0000 C CNN
+F 2 "" H 3200 1050 50  0001 C CNN
+F 3 "" H 3200 1050 50  0001 C CNN
+	1    3200 1050
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3V3 #PWR0148
+U 1 1 5E2413C8
+P 3750 1600
+F 0 "#PWR0148" H 3750 1450 50  0001 C CNN
+F 1 "+3V3" V 3750 1800 50  0000 C CNN
+F 2 "" H 3750 1600 50  0001 C CNN
+F 3 "" H 3750 1600 50  0001 C CNN
+	1    3750 1600
+	0    1    1    0   
 $EndComp
 $EndSCHEMATC

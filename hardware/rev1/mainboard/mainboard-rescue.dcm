@@ -24,6 +24,11 @@ K dac 2nch 16bit spi
 F https://www.analog.com/media/en/technical-documentation/data-sheets/AD5689R_5687R.pdf
 $ENDCMP
 #
+$CMP OPA388
+D Precision, Zero-Drift, Zero-Crossover,True Rail-to-Rail, Input/Output Operational Amplifiers
+F http://www.ti.com/lit/ds/symlink/opa388.pdf
+$ENDCMP
+#
 $CMP TPS79633
 D Ultralow-Noise, High PSRR, Fast, RF, 1-A Low-Dropout Linear Regulators http://www.ti.com/lit/ds/symlink/tps796.pdf
 K LDO Voltage Regulator low noise 3.3v
