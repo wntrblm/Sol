@@ -213,8 +213,8 @@ L Device:D D2
 U 1 1 5D2E91AF
 P 1650 1300
 F 0 "D2" H 1550 1350 50  0000 C CNN
-F 1 "BAS16J,135" H 1375 1425 50  0000 C CNN
-F 2 "Diode_SMD:D_SOD-323F" H 1650 1300 50  0001 C CNN
+F 1 "1N4148W" H 1375 1425 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 1650 1300 50  0001 C CNN
 F 3 "~" H 1650 1300 50  0001 C CNN
 	1    1650 1300
 	-1   0    0    1   
@@ -551,21 +551,21 @@ Wire Wire Line
 Wire Wire Line
 	800  5675 650  5675
 Connection ~ 650  5675
-Text GLabel 3050 3000 3    50   Input ~ 0
+Text GLabel 8325 3875 3    50   Input ~ 0
 SWCLK
 Text GLabel 3350 4450 1    50   Input ~ 0
 SWCLK
 Text GLabel 3250 4450 1    50   Input ~ 0
 SWDIO
-Text GLabel 4400 3000 3    50   Input ~ 0
+Text GLabel 9675 3875 3    50   Input ~ 0
 D+
-Text GLabel 4500 3000 3    50   Input ~ 0
+Text GLabel 9775 3875 3    50   Input ~ 0
 D-
 Text GLabel 4400 5350 2    50   Input ~ 0
 D-
 Text GLabel 4400 5250 2    50   Input ~ 0
 D+
-Text GLabel 3250 3000 3    50   Input ~ 0
+Text GLabel 8525 3875 3    50   Input ~ 0
 NEOPIXEL
 Text GLabel 2650 4450 1    50   Input ~ 0
 NEOPIXEL
@@ -730,7 +730,7 @@ F 3 "" H 5750 800 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Text Notes 5150 2200 0    50   ~ 0
-14-bit 2.5v DAC
+16-bit 2.5v DAC
 $Comp
 L Device:C C13
 U 1 1 5D581842
@@ -793,7 +793,7 @@ L Device:R R2
 U 1 1 5E165525
 P 2750 1100
 F 0 "R2" V 2550 1150 50  0000 L CNN
-F 1 "4.70k 0.1%" V 2650 1000 50  0000 L CNN
+F 1 "1.10k 0.1%" V 2650 1000 50  0000 L CNN
 F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 2680 1100 50  0001 C CNN
 F 3 "~" H 2750 1100 50  0001 C CNN
 	1    2750 1100
@@ -817,7 +817,7 @@ L Device:R R3
 U 1 1 5E166131
 P 2750 1400
 F 0 "R3" V 2550 1250 50  0000 L CNN
-F 1 "9.09k 0.1%" V 2650 1300 50  0000 C CNN
+F 1 "1.00k 0.1%" V 2650 1300 50  0000 C CNN
 F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 2680 1400 50  0001 C CNN
 F 3 "~" H 2750 1400 50  0001 C CNN
 	1    2750 1400
@@ -845,14 +845,14 @@ Wire Wire Line
 	3200 1750 3200 1650
 Text Notes 3050 650  0    50   ~ 10
 Midrange voltage reference\n
-Text Notes 3600 1500 0    50   ~ 0
-1.648v
+Text Notes 3725 1500 0    50   ~ 0
+1.190v
 $Comp
 L mainboard-rescue:AD5685xRUZ U6
 U 1 1 5E126BEE
 P 5000 1600
 F 0 "U6" H 4750 1050 50  0000 C CNN
-F 1 "AD5685xRUZ" H 4800 950 50  0000 C CNN
+F 1 "AD5686xRUZ" H 4800 950 50  0000 C CNN
 F 2 "Package_SO:TSSOP-16_4.4x5mm_P0.65mm" H 5000 1600 50  0001 C CNN
 F 3 "https://www.mouser.com/datasheet/2/609/AD5686R_5685R_5684R-1501714.pdf" H 5000 1600 50  0001 C CNN
 	1    5000 1600
@@ -1119,7 +1119,7 @@ L Device:R R9
 U 1 1 5E190E61
 P 7600 1550
 F 0 "R9" V 7393 1550 50  0000 C CNN
-F 1 "9.09k 0.1%" V 7484 1550 50  0000 C CNN
+F 1 "9.10k 0.1%" V 7484 1550 50  0000 C CNN
 F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 7530 1550 50  0001 C CNN
 F 3 "~" H 7600 1550 50  0001 C CNN
 	1    7600 1550
@@ -1130,7 +1130,7 @@ L Device:R R7
 U 1 1 5E1922BF
 P 6950 1550
 F 0 "R7" V 6750 1450 50  0000 C CNN
-F 1 "2.94k 0.1%" V 6850 1450 50  0000 C CNN
+F 1 "2.15k 0.1%" V 6850 1450 50  0000 C CNN
 F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 6880 1550 50  0001 C CNN
 F 3 "~" H 6950 1550 50  0001 C CNN
 	1    6950 1550
@@ -1147,8 +1147,6 @@ Wire Wire Line
 Connection ~ 7100 1550
 Text GLabel 7100 1100 0    50   Input ~ 0
 DAC_OUT_A
-Text GLabel 6800 1550 0    50   Input ~ 0
-VREF_A
 Text GLabel 8000 1200 2    50   Input ~ 0
 CV_A
 $Comp
@@ -1178,7 +1176,7 @@ L Device:R R19
 U 1 1 5E19F099
 P 9500 1550
 F 0 "R19" V 9293 1550 50  0000 C CNN
-F 1 "9.09k 0.1%" V 9384 1550 50  0000 C CNN
+F 1 "9.10k 0.1%" V 9384 1550 50  0000 C CNN
 F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 9430 1550 50  0001 C CNN
 F 3 "~" H 9500 1550 50  0001 C CNN
 	1    9500 1550
@@ -1189,7 +1187,7 @@ L Device:R R17
 U 1 1 5E19F0A3
 P 8850 1550
 F 0 "R17" V 8650 1450 50  0000 C CNN
-F 1 "2.94k 0.1%" V 8750 1450 50  0000 C CNN
+F 1 "2.15k 0.1%" V 8750 1450 50  0000 C CNN
 F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 8780 1550 50  0001 C CNN
 F 3 "~" H 8850 1550 50  0001 C CNN
 	1    8850 1550
@@ -1206,8 +1204,6 @@ Wire Wire Line
 Connection ~ 9000 1550
 Text GLabel 9000 1100 0    50   Input ~ 0
 DAC_OUT_B
-Text GLabel 8700 1550 0    50   Input ~ 0
-VREF_B
 Text GLabel 9900 1200 2    50   Input ~ 0
 CV_B
 $Comp
@@ -1237,7 +1233,7 @@ L Device:R R8
 U 1 1 5E1A8979
 P 7550 2350
 F 0 "R8" V 7343 2350 50  0000 C CNN
-F 1 "9.09k 0.1%" V 7434 2350 50  0000 C CNN
+F 1 "9.10k 0.1%" V 7434 2350 50  0000 C CNN
 F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 7480 2350 50  0001 C CNN
 F 3 "~" H 7550 2350 50  0001 C CNN
 	1    7550 2350
@@ -1248,7 +1244,7 @@ L Device:R R5
 U 1 1 5E1A897F
 P 6900 2350
 F 0 "R5" V 6700 2250 50  0000 C CNN
-F 1 "2.94k 0.1%" V 6800 2250 50  0000 C CNN
+F 1 "2.15k 0.1%" V 6800 2250 50  0000 C CNN
 F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 6830 2350 50  0001 C CNN
 F 3 "~" H 6900 2350 50  0001 C CNN
 	1    6900 2350
@@ -1265,8 +1261,6 @@ Wire Wire Line
 Connection ~ 7050 2350
 Text GLabel 7050 1900 0    50   Input ~ 0
 DAC_OUT_C
-Text GLabel 6750 2350 0    50   Input ~ 0
-VREF_C
 Text GLabel 7950 2000 2    50   Input ~ 0
 CV_C
 $Comp
@@ -1296,7 +1290,7 @@ L Device:R R18
 U 1 1 5E1ACC40
 P 9450 2350
 F 0 "R18" V 9243 2350 50  0000 C CNN
-F 1 "9.09k 0.1%" V 9334 2350 50  0000 C CNN
+F 1 "9.10k 0.1%" V 9334 2350 50  0000 C CNN
 F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 9380 2350 50  0001 C CNN
 F 3 "~" H 9450 2350 50  0001 C CNN
 	1    9450 2350
@@ -1307,7 +1301,7 @@ L Device:R R16
 U 1 1 5E1ACC46
 P 8800 2350
 F 0 "R16" V 8600 2250 50  0000 C CNN
-F 1 "2.94k 0.1%" V 8700 2250 50  0000 C CNN
+F 1 "2.15k 0.1%" V 8700 2250 50  0000 C CNN
 F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 8730 2350 50  0001 C CNN
 F 3 "~" H 8800 2350 50  0001 C CNN
 	1    8800 2350
@@ -1324,8 +1318,6 @@ Wire Wire Line
 Connection ~ 8950 2350
 Text GLabel 8950 1900 0    50   Input ~ 0
 DAC_OUT_D
-Text GLabel 8650 2350 0    50   Input ~ 0
-VREF_D
 Text GLabel 9850 2000 2    50   Input ~ 0
 CV_D
 $Comp
@@ -1418,198 +1410,45 @@ Wire Wire Line
 Wire Notes Line
 	6100 550  6100 2550
 Text Notes 6150 750  0    39   ~ 0
-Scale 0-2.5v input from DACs to:\n* 0 to +10v (ref == 0v)\n* -5 to +5v (ref == 1.648v)
+Scale 0-2.5v input from DACs to\n-5v to +8v
 Text Notes 10200 650  0    50   ~ 10
 Range Amplifiers
 Text Notes 7250 750  0    39   ~ 0
-Gain:\n- 0.1% resistors: 4.08 to 4.09.\n- 1% resistors: 4.05 to 4.13\n
-Text Notes 8300 750  0    39   ~ 0
-Vout max:\n- 0.1% resistors: 10.2v to 10.3v\n- 1% resistors: 10.1v to 10.3v
+Gain:\n2.15k Rin: 5.22\n2.10k Rin: 5.32\n
+Text Notes 8300 800  0    39   ~ 0
+Vout max:\n8.1v\nVout min:\n-5.1v
 Wire Notes Line
 	2400 500  2400 3600
 Wire Notes Line
 	2400 2050 4200 2050
-Text GLabel 5000 3000 3    50   Input ~ 0
+Text GLabel 10275 3875 3    50   Input ~ 0
 GATE_A_OUT
-Text GLabel 4900 3000 3    50   Input ~ 0
+Text GLabel 10175 3875 3    50   Input ~ 0
 GATE_B_OUT
-Text GLabel 4800 3000 3    50   Input ~ 0
+Text GLabel 10075 3875 3    50   Input ~ 0
 GATE_C_OUT
-Text GLabel 4700 3000 3    50   Input ~ 0
+Text GLabel 9975 3875 3    50   Input ~ 0
 GATE_D_OUT
-Text GLabel 3450 3000 3    50   Input ~ 0
+Text GLabel 8725 3875 3    50   Input ~ 0
 CV_A
-Text GLabel 3550 3000 3    50   Input ~ 0
+Text GLabel 8825 3875 3    50   Input ~ 0
 CV_B
-Text GLabel 3650 3000 3    50   Input ~ 0
+Text GLabel 8925 3875 3    50   Input ~ 0
 CV_C
-Text GLabel 3750 3000 3    50   Input ~ 0
+Text GLabel 9025 3875 3    50   Input ~ 0
 CV_D
-Text GLabel 8750 3550 0    50   Input ~ 0
-RANGE_A
-Text GLabel 8750 4050 0    50   Input ~ 0
-RANGE_B
-Text GLabel 9950 3550 2    50   Input ~ 0
-RANGE_C
-Text GLabel 9950 4050 2    50   Input ~ 0
-RANGE_D
-$Comp
-L power:GND #PWR0153
-U 1 1 5E22700A
-P 8750 3650
-F 0 "#PWR0153" H 8750 3400 50  0001 C CNN
-F 1 "GND" V 8755 3522 50  0000 R CNN
-F 2 "" H 8750 3650 50  0001 C CNN
-F 3 "" H 8750 3650 50  0001 C CNN
-	1    8750 3650
-	0    1    1    0   
-$EndComp
-$Comp
-L power:GND #PWR0155
-U 1 1 5E227745
-P 8750 4150
-F 0 "#PWR0155" H 8750 3900 50  0001 C CNN
-F 1 "GND" V 8755 4022 50  0000 R CNN
-F 2 "" H 8750 4150 50  0001 C CNN
-F 3 "" H 8750 4150 50  0001 C CNN
-	1    8750 4150
-	0    1    1    0   
-$EndComp
-$Comp
-L power:GND #PWR0156
-U 1 1 5E227A03
-P 9950 3650
-F 0 "#PWR0156" H 9950 3400 50  0001 C CNN
-F 1 "GND" V 9955 3522 50  0000 R CNN
-F 2 "" H 9950 3650 50  0001 C CNN
-F 3 "" H 9950 3650 50  0001 C CNN
-	1    9950 3650
-	0    -1   -1   0   
-$EndComp
-$Comp
-L power:GND #PWR0157
-U 1 1 5E228379
-P 9950 4150
-F 0 "#PWR0157" H 9950 3900 50  0001 C CNN
-F 1 "GND" V 9955 4022 50  0000 R CNN
-F 2 "" H 9950 4150 50  0001 C CNN
-F 3 "" H 9950 4150 50  0001 C CNN
-	1    9950 4150
-	0    -1   -1   0   
-$EndComp
-Text GLabel 8750 3750 0    50   Input ~ 0
-MIDVREF
-Text GLabel 8750 4250 0    50   Input ~ 0
-MIDVREF
-Text GLabel 9950 3750 2    50   Input ~ 0
-MIDVREF
-Text GLabel 9950 4250 2    50   Input ~ 0
-MIDVREF
-Text GLabel 8750 3850 0    50   Input ~ 0
-VREF_A
-Text GLabel 8750 4350 0    50   Input ~ 0
-VREF_B
-Text GLabel 9950 3850 2    50   Input ~ 0
-VREF_C
-Text GLabel 9950 4350 2    50   Input ~ 0
-VREF_D
-$Comp
-L power:GND #PWR0158
-U 1 1 5E229F91
-P 9300 4650
-F 0 "#PWR0158" H 9300 4400 50  0001 C CNN
-F 1 "GND" V 9305 4522 50  0000 R CNN
-F 2 "" H 9300 4650 50  0001 C CNN
-F 3 "" H 9300 4650 50  0001 C CNN
-	1    9300 4650
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0159
-U 1 1 5E22A900
-P 9400 4650
-F 0 "#PWR0159" H 9400 4400 50  0001 C CNN
-F 1 "GND" V 9405 4522 50  0000 R CNN
-F 2 "" H 9400 4650 50  0001 C CNN
-F 3 "" H 9400 4650 50  0001 C CNN
-	1    9400 4650
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C C18
-U 1 1 5E22BB4F
-P 8550 4750
-F 0 "C18" H 8435 4704 50  0000 R CNN
-F 1 "0.1uF" H 8435 4795 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 8588 4600 50  0001 C CNN
-F 3 "~" H 8550 4750 50  0001 C CNN
-	1    8550 4750
-	-1   0    0    1   
-$EndComp
-$Comp
-L power:GND #PWR0160
-U 1 1 5E22BB59
-P 8550 4900
-F 0 "#PWR0160" H 8550 4650 50  0001 C CNN
-F 1 "GND" V 8550 4700 50  0000 C CNN
-F 2 "" H 8550 4900 50  0001 C CNN
-F 3 "" H 8550 4900 50  0001 C CNN
-	1    8550 4900
-	0    -1   -1   0   
-$EndComp
-$Comp
-L precision-dac-cv-scaler:TMUX1134 U9
-U 1 1 5E224473
-P 9350 4000
-F 0 "U9" H 9350 4717 50  0000 C CNN
-F 1 "TMUX1134" H 9350 4626 50  0000 C CNN
-F 2 "Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm" H 9250 3850 50  0001 C CNN
-F 3 "" H 9250 3850 50  0001 C CNN
-	1    9350 4000
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+3V3 #PWR0167
-U 1 1 5E228F19
-P 9200 4650
-F 0 "#PWR0167" H 9200 4500 50  0001 C CNN
-F 1 "+3V3" V 9200 4900 50  0000 C CNN
-F 2 "" H 9200 4650 50  0001 C CNN
-F 3 "" H 9200 4650 50  0001 C CNN
-	1    9200 4650
-	-1   0    0    1   
-$EndComp
-$Comp
-L power:+3V3 #PWR0168
-U 1 1 5E231E99
-P 8550 4600
-F 0 "#PWR0168" H 8550 4450 50  0001 C CNN
-F 1 "+3V3" V 8550 4850 50  0000 C CNN
-F 2 "" H 8550 4600 50  0001 C CNN
-F 3 "" H 8550 4600 50  0001 C CNN
-	1    8550 4600
-	0    1    1    0   
-$EndComp
-Wire Notes Line
-	7300 3050 11200 3050
-Wire Notes Line
-	7300 3050 7300 6500
 Wire Notes Line
 	11200 500  500  500 
 Wire Notes Line
 	11200 500  11200 6500
 Wire Notes Line
 	6100 2550 11200 2550
-Text Notes 10600 3150 0    50   ~ 10
-Range selector
-Text GLabel 5625 3200 3    50   Input ~ 0
+Text GLabel 10900 4075 3    50   Input ~ 0
 MOSI
 Text GLabel 4150 4450 1    50   Input ~ 0
 MISO
-Text GLabel 5475 3200 3    50   Input ~ 0
+Text GLabel 10750 4075 3    50   Input ~ 0
 MISO
-Text GLabel 3450 7100 3    50   Input ~ 0
-RANGE_A
 $Comp
 L mainboard-rescue:SAMD51J-atmel-sam U3
 U 1 1 5D182B6D
@@ -1621,15 +1460,9 @@ F 3 "" H 3400 5800 60  0001 C CNN
 	1    3400 5800
 	1    0    0    -1  
 $EndComp
-Text GLabel 3550 7100 3    50   Input ~ 0
-RANGE_B
-Text GLabel 3650 7100 3    50   Input ~ 0
-RANGE_C
-Text GLabel 3750 7100 3    50   Input ~ 0
-RANGE_D
-Text GLabel 3150 3000 3    50   Input ~ 0
+Text GLabel 8425 3875 3    50   Input ~ 0
 SWDIO
-Text GLabel 4300 3000 3    50   Input ~ 0
+Text GLabel 9575 3875 3    50   Input ~ 0
 Reset
 $Comp
 L Connector:TestPoint TP3
@@ -1747,12 +1580,12 @@ $EndComp
 $Comp
 L power:+3V3 #PWR0173
 U 1 1 5E2995DF
-P 3350 3000
-F 0 "#PWR0173" H 3350 2850 50  0001 C CNN
-F 1 "+3V3" V 3350 3150 50  0000 L CNN
-F 2 "" H 3350 3000 50  0001 C CNN
-F 3 "" H 3350 3000 50  0001 C CNN
-	1    3350 3000
+P 8625 3875
+F 0 "#PWR0173" H 8625 3725 50  0001 C CNN
+F 1 "+3V3" V 8625 4025 50  0000 L CNN
+F 2 "" H 8625 3875 50  0001 C CNN
+F 3 "" H 8625 3875 50  0001 C CNN
+	1    8625 3875
 	-1   0    0    1   
 $EndComp
 $Comp
@@ -1781,8 +1614,8 @@ L Device:D D1
 U 1 1 5E17C817
 P 1650 900
 F 0 "D1" H 1775 950 50  0000 C CNN
-F 1 "BAS16J,135" H 1925 1025 50  0000 C CNN
-F 2 "Diode_SMD:D_SOD-323F" H 1650 900 50  0001 C CNN
+F 1 "1N4148W" H 1925 1025 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 1650 900 50  0001 C CNN
 F 3 "~" H 1650 900 50  0001 C CNN
 	1    1650 900 
 	1    0    0    -1  
@@ -1790,78 +1623,78 @@ $EndComp
 $Comp
 L Connector:Conn_01x10_Female J2
 U 1 1 5E674F2E
-P 3350 2800
-F 0 "J2" V 3515 2730 50  0000 C CNN
-F 1 "Conn_01x10_Female" V 3424 2730 50  0000 C CNN
-F 2 "Connectors:1X10_LOCK" H 3350 2800 50  0001 C CNN
-F 3 "~" H 3350 2800 50  0001 C CNN
-	1    3350 2800
+P 8625 3675
+F 0 "J2" V 8790 3605 50  0000 C CNN
+F 1 "Conn_01x10_Female" V 8699 3605 50  0000 C CNN
+F 2 "Connectors:1X10_LOCK" H 8625 3675 50  0001 C CNN
+F 3 "~" H 8625 3675 50  0001 C CNN
+	1    8625 3675
 	0    -1   -1   0   
 $EndComp
 $Comp
 L Connector:Conn_01x10_Female J3
 U 1 1 5E676944
-P 4600 2800
-F 0 "J3" V 4765 2730 50  0000 C CNN
-F 1 "Conn_01x10_Female" V 4674 2730 50  0000 C CNN
-F 2 "Connectors:1X10_LOCK" H 4600 2800 50  0001 C CNN
-F 3 "~" H 4600 2800 50  0001 C CNN
-	1    4600 2800
+P 9875 3675
+F 0 "J3" V 10040 3605 50  0000 C CNN
+F 1 "Conn_01x10_Female" V 9949 3605 50  0000 C CNN
+F 2 "Connectors:1X10_LOCK" H 9875 3675 50  0001 C CNN
+F 3 "~" H 9875 3675 50  0001 C CNN
+	1    9875 3675
 	0    -1   -1   0   
 $EndComp
 $Comp
 L power:GND #PWR0174
 U 1 1 5E67E886
-P 2950 3000
-F 0 "#PWR0174" H 2950 2750 50  0001 C CNN
-F 1 "GND" V 2950 2800 50  0000 C CNN
-F 2 "" H 2950 3000 50  0001 C CNN
-F 3 "" H 2950 3000 50  0001 C CNN
-	1    2950 3000
+P 8225 3875
+F 0 "#PWR0174" H 8225 3625 50  0001 C CNN
+F 1 "GND" V 8225 3675 50  0000 C CNN
+F 2 "" H 8225 3875 50  0001 C CNN
+F 3 "" H 8225 3875 50  0001 C CNN
+	1    8225 3875
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0175
 U 1 1 5E67F3D8
-P 3850 3000
-F 0 "#PWR0175" H 3850 2750 50  0001 C CNN
-F 1 "GND" V 3850 2800 50  0000 C CNN
-F 2 "" H 3850 3000 50  0001 C CNN
-F 3 "" H 3850 3000 50  0001 C CNN
-	1    3850 3000
+P 9125 3875
+F 0 "#PWR0175" H 9125 3625 50  0001 C CNN
+F 1 "GND" V 9125 3675 50  0000 C CNN
+F 2 "" H 9125 3875 50  0001 C CNN
+F 3 "" H 9125 3875 50  0001 C CNN
+	1    9125 3875
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0176
 U 1 1 5E67F93D
-P 4200 3000
-F 0 "#PWR0176" H 4200 2750 50  0001 C CNN
-F 1 "GND" V 4200 2800 50  0000 C CNN
-F 2 "" H 4200 3000 50  0001 C CNN
-F 3 "" H 4200 3000 50  0001 C CNN
-	1    4200 3000
+P 9475 3875
+F 0 "#PWR0176" H 9475 3625 50  0001 C CNN
+F 1 "GND" V 9475 3675 50  0000 C CNN
+F 2 "" H 9475 3875 50  0001 C CNN
+F 3 "" H 9475 3875 50  0001 C CNN
+	1    9475 3875
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0177
 U 1 1 5E67FCE8
-P 4600 3000
-F 0 "#PWR0177" H 4600 2750 50  0001 C CNN
-F 1 "GND" V 4600 2800 50  0000 C CNN
-F 2 "" H 4600 3000 50  0001 C CNN
-F 3 "" H 4600 3000 50  0001 C CNN
-	1    4600 3000
+P 9875 3875
+F 0 "#PWR0177" H 9875 3625 50  0001 C CNN
+F 1 "GND" V 9875 3675 50  0000 C CNN
+F 2 "" H 9875 3875 50  0001 C CNN
+F 3 "" H 9875 3875 50  0001 C CNN
+	1    9875 3875
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0178
 U 1 1 5E68025F
-P 5100 3000
-F 0 "#PWR0178" H 5100 2750 50  0001 C CNN
-F 1 "GND" V 5100 2800 50  0000 C CNN
-F 2 "" H 5100 3000 50  0001 C CNN
-F 3 "" H 5100 3000 50  0001 C CNN
-	1    5100 3000
+P 10375 3875
+F 0 "#PWR0178" H 10375 3625 50  0001 C CNN
+F 1 "GND" V 10375 3675 50  0000 C CNN
+F 2 "" H 10375 3875 50  0001 C CNN
+F 3 "" H 10375 3875 50  0001 C CNN
+	1    10375 3875
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -2022,4 +1855,18 @@ F 3 "" H 3750 1600 50  0001 C CNN
 	1    3750 1600
 	0    1    1    0   
 $EndComp
+Wire Notes Line
+	7300 3600 7300 6500
+Text GLabel 6750 2350 0    50   Input ~ 0
+MIDVREF
+Text GLabel 6800 1550 0    50   Input ~ 0
+MIDVREF
+Text GLabel 8650 2350 0    50   Input ~ 0
+MIDVREF
+Text GLabel 8700 1550 0    50   Input ~ 0
+MIDVREF
+NoConn ~ 3450 7100
+NoConn ~ 3550 7100
+NoConn ~ 3650 7100
+NoConn ~ 3750 7100
 $EndSCHEMATC
