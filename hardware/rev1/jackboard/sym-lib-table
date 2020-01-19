@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name Sol)(type Legacy)(uri ${KIPRJMOD}/jackboard.lib)(options "")(descr ""))
+  (lib (name jackboard-rescue)(type Legacy)(uri ${KIPRJMOD}/jackboard-rescue.lib)(options "")(descr ""))
+)
