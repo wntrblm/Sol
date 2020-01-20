@@ -28,6 +28,7 @@ from winterbloom_sol.helpers import (
     voct,
     was_key_pressed,
 )
+from winterbloom_sol.lfo import SawtoothLFO, SineLFO, TriangleLFO
 from winterbloom_sol.slew_limiter import SlewLimiter
 from winterbloom_sol.sol import Sol, State
 from winterbloom_sol.trigger import Retrigger, Trigger
@@ -44,10 +45,13 @@ __all__ = [
     "offset_for_pitch_bend",
     "Retrigger",
     "run",
+    "SawtoothLFO",
     "should_trigger_clock",
+    "SineLFO",
     "SlewLimiter",
     "Sol",
     "State",
+    "TriangleLFO",
     "Trigger",
     "voct",
     "was_key_pressed",
