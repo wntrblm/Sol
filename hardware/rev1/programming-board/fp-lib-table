@@ -1,0 +1,4 @@
+(fp_lib_table
+  (lib (name "Winterbloom - Sol")(type KiCad)(uri "${KIPRJMOD}/Winterbloom - Sol.pretty")(options "")(descr ""))
+  (lib (name programming-board)(type KiCad)(uri ${KIPRJMOD}/programming-board.pretty)(options "")(descr ""))
+)

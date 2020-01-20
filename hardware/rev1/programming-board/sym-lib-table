@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name Sol)(type Legacy)(uri ${KIPRJMOD}/programming-board.lib)(options "")(descr ""))
+  (lib (name programming-board-rescue)(type Legacy)(uri ${KIPRJMOD}/programming-board-rescue.lib)(options "")(descr ""))
+)

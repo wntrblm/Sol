@@ -1,0 +1,415 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title "Sol programming-board"
+Date "2020-01-15"
+Rev "Rev1 v1"
+Comp "Winterbloom"
+Comment1 "Alethea Flowers"
+Comment2 "thea.codes"
+Comment3 "CC-BY-SA 4.0"
+Comment4 ""
+$EndDescr
+Text GLabel 1050 1225 3    50   Input ~ 0
+SWCLK
+Text GLabel 2400 1225 3    50   Input ~ 0
+D+
+Text GLabel 2500 1225 3    50   Input ~ 0
+D-
+Text GLabel 1250 1225 3    50   Input ~ 0
+NEOPIXEL
+Wire Notes Line
+	6900 6500 6900 7750
+Wire Notes Line
+	6900 6500 11200 6500
+Text GLabel 3000 1225 3    50   Input ~ 0
+GATE_A_OUT
+Text GLabel 2900 1225 3    50   Input ~ 0
+GATE_B_OUT
+Text GLabel 2800 1225 3    50   Input ~ 0
+GATE_C_OUT
+Text GLabel 2700 1225 3    50   Input ~ 0
+GATE_D_OUT
+Text GLabel 1450 1225 3    50   Input ~ 0
+CV_A
+Text GLabel 1550 1225 3    50   Input ~ 0
+CV_B
+Text GLabel 1650 1225 3    50   Input ~ 0
+CV_C
+Text GLabel 1750 1225 3    50   Input ~ 0
+CV_D
+Text GLabel 1150 1225 3    50   Input ~ 0
+SWDIO
+Text GLabel 2300 1225 3    50   Input ~ 0
+Reset
+$Comp
+L power:+3V3 #PWR0173
+U 1 1 5E2995DF
+P 1350 1225
+F 0 "#PWR0173" H 1350 1075 50  0001 C CNN
+F 1 "+3V3" V 1350 1375 50  0000 L CNN
+F 2 "" H 1350 1225 50  0001 C CNN
+F 3 "" H 1350 1225 50  0001 C CNN
+	1    1350 1225
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:Conn_01x10_Female J2
+U 1 1 5E674F2E
+P 1350 1025
+F 0 "J2" V 1515 955 50  0000 C CNN
+F 1 "Conn_01x10_Female" V 1424 955 50  0000 C CNN
+F 2 "Connectors:1X10_LOCK" H 1350 1025 50  0001 C CNN
+F 3 "~" H 1350 1025 50  0001 C CNN
+	1    1350 1025
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector:Conn_01x10_Female J3
+U 1 1 5E676944
+P 2600 1025
+F 0 "J3" V 2765 955 50  0000 C CNN
+F 1 "Conn_01x10_Female" V 2674 955 50  0000 C CNN
+F 2 "Connectors:1X10_LOCK" H 2600 1025 50  0001 C CNN
+F 3 "~" H 2600 1025 50  0001 C CNN
+	1    2600 1025
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR0174
+U 1 1 5E67E886
+P 950 1225
+F 0 "#PWR0174" H 950 975 50  0001 C CNN
+F 1 "GND" V 950 1025 50  0000 C CNN
+F 2 "" H 950 1225 50  0001 C CNN
+F 3 "" H 950 1225 50  0001 C CNN
+	1    950  1225
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0175
+U 1 1 5E67F3D8
+P 1850 1225
+F 0 "#PWR0175" H 1850 975 50  0001 C CNN
+F 1 "GND" V 1850 1025 50  0000 C CNN
+F 2 "" H 1850 1225 50  0001 C CNN
+F 3 "" H 1850 1225 50  0001 C CNN
+	1    1850 1225
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0176
+U 1 1 5E67F93D
+P 2200 1225
+F 0 "#PWR0176" H 2200 975 50  0001 C CNN
+F 1 "GND" V 2200 1025 50  0000 C CNN
+F 2 "" H 2200 1225 50  0001 C CNN
+F 3 "" H 2200 1225 50  0001 C CNN
+	1    2200 1225
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0177
+U 1 1 5E67FCE8
+P 2600 1225
+F 0 "#PWR0177" H 2600 975 50  0001 C CNN
+F 1 "GND" V 2600 1025 50  0000 C CNN
+F 2 "" H 2600 1225 50  0001 C CNN
+F 3 "" H 2600 1225 50  0001 C CNN
+	1    2600 1225
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0178
+U 1 1 5E68025F
+P 3100 1225
+F 0 "#PWR0178" H 3100 975 50  0001 C CNN
+F 1 "GND" V 3100 1025 50  0000 C CNN
+F 2 "" H 3100 1225 50  0001 C CNN
+F 3 "" H 3100 1225 50  0001 C CNN
+	1    3100 1225
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:USB_B J11
+U 1 1 5E210782
+P 4200 1275
+F 0 "J11" H 4257 1742 50  0000 C CNN
+F 1 "USB_B" H 4257 1651 50  0000 C CNN
+F 2 "Connector_USB:USB_B_TE_5787834_Vertical" H 4350 1225 50  0001 C CNN
+F 3 " ~" H 4350 1225 50  0001 C CNN
+	1    4200 1275
+	1    0    0    -1  
+$EndComp
+Text GLabel 4500 1375 2    50   Input ~ 0
+D-
+Text GLabel 4500 1275 2    50   Input ~ 0
+D+
+$Comp
+L power:GND #PWR0109
+U 1 1 5E212515
+P 4100 1675
+F 0 "#PWR0109" H 4100 1425 50  0001 C CNN
+F 1 "GND" V 4100 1475 50  0000 C CNN
+F 2 "" H 4100 1675 50  0001 C CNN
+F 3 "" H 4100 1675 50  0001 C CNN
+	1    4100 1675
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0110
+U 1 1 5E2129DC
+P 4200 1675
+F 0 "#PWR0110" H 4200 1425 50  0001 C CNN
+F 1 "GND" V 4200 1475 50  0000 C CNN
+F 2 "" H 4200 1675 50  0001 C CNN
+F 3 "" H 4200 1675 50  0001 C CNN
+	1    4200 1675
+	1    0    0    -1  
+$EndComp
+NoConn ~ 4500 1075
+$Comp
+L LED:NeoPixel_THT D1
+U 1 1 5E2137A8
+P 5350 2725
+F 0 "D1" H 5694 2771 50  0000 L CNN
+F 1 "NeoPixel_THT" H 5694 2680 50  0000 L CNN
+F 2 "LED_THT:LED_D5.0mm-4_RGB" H 5400 2425 50  0001 L TNN
+F 3 "https://www.adafruit.com/product/1938" H 5450 2350 50  0001 L TNN
+	1    5350 2725
+	1    0    0    -1  
+$EndComp
+Text GLabel 5050 2725 0    50   Input ~ 0
+NEOPIXEL
+NoConn ~ 5650 2725
+$Comp
+L power:GND #PWR0111
+U 1 1 5E214B0E
+P 5350 3025
+F 0 "#PWR0111" H 5350 2775 50  0001 C CNN
+F 1 "GND" V 5350 2825 50  0000 C CNN
+F 2 "" H 5350 3025 50  0001 C CNN
+F 3 "" H 5350 3025 50  0001 C CNN
+	1    5350 3025
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3V3 #PWR0112
+U 1 1 5E2150B5
+P 5350 2425
+F 0 "#PWR0112" H 5350 2275 50  0001 C CNN
+F 1 "+3V3" V 5350 2575 50  0000 L CNN
+F 2 "" H 5350 2425 50  0001 C CNN
+F 3 "" H 5350 2425 50  0001 C CNN
+	1    5350 2425
+	1    0    0    -1  
+$EndComp
+$Comp
+L SparkFun-Connectors:CORTEX_DEBUG_PTH J1
+U 1 1 5E257E86
+P 3575 2775
+F 0 "J1" H 3575 3285 45  0000 C CNN
+F 1 "CORTEX_DEBUG_PTH" H 3575 3201 45  0000 C CNN
+F 2 "Connectors:2X5-PTH-1.27MM" H 3575 3175 20  0001 C CNN
+F 3 "" H 3575 2775 50  0001 C CNN
+F 4 "XXX-00000" H 3575 3106 60  0000 C CNN "Field4"
+	1    3575 2775
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3V3 #PWR0101
+U 1 1 5E2588E4
+P 3075 2575
+F 0 "#PWR0101" H 3075 2425 50  0001 C CNN
+F 1 "+3V3" V 3075 2725 50  0000 L CNN
+F 2 "" H 3075 2575 50  0001 C CNN
+F 3 "" H 3075 2575 50  0001 C CNN
+	1    3075 2575
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR0102
+U 1 1 5E258E18
+P 3075 2675
+F 0 "#PWR0102" H 3075 2425 50  0001 C CNN
+F 1 "GND" V 3075 2475 50  0000 C CNN
+F 2 "" H 3075 2675 50  0001 C CNN
+F 3 "" H 3075 2675 50  0001 C CNN
+	1    3075 2675
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR0103
+U 1 1 5E2593A5
+P 3075 2775
+F 0 "#PWR0103" H 3075 2525 50  0001 C CNN
+F 1 "GND" V 3075 2575 50  0000 C CNN
+F 2 "" H 3075 2775 50  0001 C CNN
+F 3 "" H 3075 2775 50  0001 C CNN
+	1    3075 2775
+	0    1    1    0   
+$EndComp
+Text GLabel 4075 2575 2    50   Input ~ 0
+SWDIO
+Text GLabel 4075 2675 2    50   Input ~ 0
+SWCLK
+Text GLabel 4075 2975 2    50   Input ~ 0
+Reset
+NoConn ~ 3075 2875
+NoConn ~ 3075 2975
+NoConn ~ 4075 2775
+NoConn ~ 4075 2875
+$Comp
+L Switch:SW_Push SW1
+U 1 1 5E25CAF5
+P 1525 2850
+F 0 "SW1" H 1525 3135 50  0000 C CNN
+F 1 "SW_Push" H 1525 3044 50  0000 C CNN
+F 2 "Button_Switch_THT:SW_PUSH_6mm" H 1525 3050 50  0001 C CNN
+F 3 "~" H 1525 3050 50  0001 C CNN
+	1    1525 2850
+	1    0    0    -1  
+$EndComp
+Text GLabel 1325 2850 0    50   Input ~ 0
+Reset
+$Comp
+L power:GND #PWR0104
+U 1 1 5E25D3EA
+P 1725 2850
+F 0 "#PWR0104" H 1725 2600 50  0001 C CNN
+F 1 "GND" V 1725 2650 50  0000 C CNN
+F 2 "" H 1725 2850 50  0001 C CNN
+F 3 "" H 1725 2850 50  0001 C CNN
+	1    1725 2850
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector:TestPoint A1
+U 1 1 5E25DEAE
+P 1250 4025
+F 0 "A1" H 1192 4051 50  0000 R CNN
+F 1 "TestPoint" H 1192 4142 50  0000 R CNN
+F 2 "TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm" H 1450 4025 50  0001 C CNN
+F 3 "~" H 1450 4025 50  0001 C CNN
+	1    1250 4025
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:TestPoint B1
+U 1 1 5E25E7D9
+P 1725 4025
+F 0 "B1" H 1667 4051 50  0000 R CNN
+F 1 "TestPoint" H 1667 4142 50  0000 R CNN
+F 2 "TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm" H 1925 4025 50  0001 C CNN
+F 3 "~" H 1925 4025 50  0001 C CNN
+	1    1725 4025
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:TestPoint C1
+U 1 1 5E25ECEB
+P 2200 4025
+F 0 "C1" H 2142 4051 50  0000 R CNN
+F 1 "TestPoint" H 2142 4142 50  0000 R CNN
+F 2 "TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm" H 2400 4025 50  0001 C CNN
+F 3 "~" H 2400 4025 50  0001 C CNN
+	1    2200 4025
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:TestPoint D2
+U 1 1 5E25F1D7
+P 2675 4025
+F 0 "D2" H 2617 4051 50  0000 R CNN
+F 1 "TestPoint" H 2617 4142 50  0000 R CNN
+F 2 "TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm" H 2875 4025 50  0001 C CNN
+F 3 "~" H 2875 4025 50  0001 C CNN
+	1    2675 4025
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:TestPoint ONE1
+U 1 1 5E25F829
+P 1250 5225
+F 0 "ONE1" H 1192 5251 50  0000 R CNN
+F 1 "TestPoint" H 1192 5342 50  0000 R CNN
+F 2 "TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm" H 1450 5225 50  0001 C CNN
+F 3 "~" H 1450 5225 50  0001 C CNN
+	1    1250 5225
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:TestPoint TWO1
+U 1 1 5E25F833
+P 1725 5225
+F 0 "TWO1" H 1667 5251 50  0000 R CNN
+F 1 "TestPoint" H 1667 5342 50  0000 R CNN
+F 2 "TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm" H 1925 5225 50  0001 C CNN
+F 3 "~" H 1925 5225 50  0001 C CNN
+	1    1725 5225
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:TestPoint THR1
+U 1 1 5E25F83D
+P 2200 5225
+F 0 "THR1" H 2142 5251 50  0000 R CNN
+F 1 "TestPoint" H 2142 5342 50  0000 R CNN
+F 2 "TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm" H 2400 5225 50  0001 C CNN
+F 3 "~" H 2400 5225 50  0001 C CNN
+	1    2200 5225
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:TestPoint FOUR1
+U 1 1 5E25F847
+P 2675 5225
+F 0 "FOUR1" H 2617 5251 50  0000 R CNN
+F 1 "TestPoint" H 2617 5342 50  0000 R CNN
+F 2 "TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm" H 2875 5225 50  0001 C CNN
+F 3 "~" H 2875 5225 50  0001 C CNN
+	1    2675 5225
+	-1   0    0    1   
+$EndComp
+Text GLabel 1250 4025 1    50   Input ~ 0
+CV_A
+Text GLabel 1725 4025 1    50   Input ~ 0
+CV_B
+Text GLabel 2200 4025 1    50   Input ~ 0
+CV_C
+Text GLabel 2675 4025 1    50   Input ~ 0
+CV_D
+Text GLabel 1250 5225 1    50   Input ~ 0
+GATE_A_OUT
+Text GLabel 1725 5225 1    50   Input ~ 0
+GATE_B_OUT
+Text GLabel 2200 5225 1    50   Input ~ 0
+GATE_C_OUT
+Text GLabel 2675 5225 1    50   Input ~ 0
+GATE_D_OUT
+$Comp
+L Connector:TestPoint GND1
+U 1 1 5E264B57
+P 3325 4025
+F 0 "GND1" H 3267 4051 50  0000 R CNN
+F 1 "TestPoint" H 3267 4142 50  0000 R CNN
+F 2 "TestPoint:TestPoint_THTPad_D2.0mm_Drill1.0mm" H 3525 4025 50  0001 C CNN
+F 3 "~" H 3525 4025 50  0001 C CNN
+	1    3325 4025
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR0105
+U 1 1 5E264E7B
+P 3325 4025
+F 0 "#PWR0105" H 3325 3775 50  0001 C CNN
+F 1 "GND" V 3325 3825 50  0000 C CNN
+F 2 "" H 3325 4025 50  0001 C CNN
+F 3 "" H 3325 4025 50  0001 C CNN
+	1    3325 4025
+	-1   0    0    1   
+$EndComp
+$EndSCHEMATC
