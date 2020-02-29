@@ -32,6 +32,13 @@ import winterbloom_smolmidi as smolmidi
 import winterbloom_voltageio as voltageio
 from winterbloom_sol import _midi_ext, _utils, trigger
 
+try:
+    import calibration
+except ImportError:
+    raise RuntimeError(
+        """Your device is missing its calibration data! Do not fear, you can restore this by downloading the calibration data and uploading it to your device. Go to https://wntr.dev/sol/calibration for assistance."""
+    )
+
 
 class State:
     """
@@ -183,9 +190,13 @@ class Outputs:
         self._dac = ad5689.create_from_pins(cs=board.DAC_CS)
         self._dac.soft_reset()
         self._cv_a = voltageio.VoltageOut(self._dac.a)
-        self._cv_a.linear_calibration(10.26)
+        self._cv_a.direct_calibration(calibration.channel_a)
         self._cv_b = voltageio.VoltageOut(self._dac.b)
-        self._cv_b.linear_calibration(10.26)
+        self._cv_b.direct_calibration(calibration.channel_b)
+        self._cv_c = voltageio.VoltageOut(self._dac.a)
+        self._cv_c.direct_calibration(calibration.channel_c)
+        self._cv_d = voltageio.VoltageOut(self._dac.b)
+        self._cv_d.direct_calibration(calibration.channel_d)
         self._gate_1 = digitalio.DigitalInOut(board.G1)
         self._gate_1.direction = digitalio.Direction.OUTPUT
         self._gate_2 = digitalio.DigitalInOut(board.G2)
