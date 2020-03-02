@@ -193,9 +193,9 @@ class Outputs:
         self._cv_a.direct_calibration(calibration.channel_a)
         self._cv_b = voltageio.VoltageOut(self._dac.b)
         self._cv_b.direct_calibration(calibration.channel_b)
-        self._cv_c = voltageio.VoltageOut(self._dac.a)
+        self._cv_c = voltageio.VoltageOut(self._dac.c)
         self._cv_c.direct_calibration(calibration.channel_c)
-        self._cv_d = voltageio.VoltageOut(self._dac.b)
+        self._cv_d = voltageio.VoltageOut(self._dac.d)
         self._cv_d.direct_calibration(calibration.channel_d)
         self._gate_1 = digitalio.DigitalInOut(board.G1)
         self._gate_1.direction = digitalio.Direction.OUTPUT
