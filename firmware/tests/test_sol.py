@@ -82,21 +82,27 @@ class TestOutputs:
 
         assert outputs.cv_a == 0.0
         assert outputs.cv_b == 0.0
+        assert outputs.cv_c == 0.0
+        assert outputs.cv_d == 0.0
         assert outputs.gate_1 is False
         assert outputs.gate_2 is False
         assert outputs.gate_3 is False
         assert outputs.gate_4 is False
 
-        assert str(outputs) == "<Outputs A:0, B:0, 1:False, 2:False, 3:False, 4:False>"
+        assert str(outputs) == "<Outputs A:0, B:0, C:0, D:0, 1:False, 2:False, 3:False, 4:False>"
 
     def test_drive_cv_outs(self):
         outputs = sol.Outputs()
 
-        outputs.cv_a = 10.0
-        outputs.cv_b = 10.0
+        outputs.cv_a = 8.0
+        outputs.cv_b = 8.0
+        outputs.cv_c = 8.0
+        outputs.cv_d = 8.0
 
-        assert outputs.cv_a == 10.0
-        assert outputs.cv_b == 10.0
+        assert outputs.cv_a == 8.0
+        assert outputs.cv_b == 8.0
+        assert outputs.cv_c == 8.0
+        assert outputs.cv_d == 8.0
 
         assert outputs._cv_a._analog_out._driver.spi_device.spi.data
 

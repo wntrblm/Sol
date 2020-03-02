@@ -217,6 +217,8 @@ class Outputs:
 
     cv_a = _utils.ValueForwardingProperty("_cv_a", "voltage")
     cv_b = _utils.ValueForwardingProperty("_cv_b", "voltage")
+    cv_c = _utils.ValueForwardingProperty("_cv_c", "voltage")
+    cv_d = _utils.ValueForwardingProperty("_cv_d", "voltage")
     gate_1 = _utils.ValueForwardingProperty("_gate_1")
     trigger_gate_1 = _utils.ValueForwardingProperty("_gate_1_trigger", "trigger")
     retrigger_gate_1 = _utils.ValueForwardingProperty("_gate_1_retrigger", "retrigger")
@@ -231,8 +233,8 @@ class Outputs:
     retrigger_gate_4 = _utils.ValueForwardingProperty("_gate_4_retrigger", "retrigger")
 
     def __str__(self):
-        return "<Outputs A:{}, B:{}, 1:{}, 2:{}, 3:{}, 4:{}>".format(
-            self.cv_a, self.cv_b, self.gate_1, self.gate_2, self.gate_3, self.gate_4
+        return "<Outputs A:{}, B:{}, C:{}, D:{}, 1:{}, 2:{}, 3:{}, 4:{}>".format(
+            self.cv_a, self.cv_b, self.cv_c, self.cv_d, self.gate_1, self.gate_2, self.gate_3, self.gate_4
         )
 
     @micropython.native
