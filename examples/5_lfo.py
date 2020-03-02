@@ -22,9 +22,9 @@ saw_lfo = sol.SawtoothLFO(0)
 def loop(last, state, outputs):
     # For the first LFO, we'll send its value to CV A.
     # Since the LFO's value will be between -1 and +1,
-    # we'll scale it up to -2 to +2 and center it around
-    # 2v, so the LFO will swing from 0v to +4v.
-    outputs.cv_a = 2.0 + sine_lfo.output * 2.0
+    # we'll scale it up to -2 to +2 so the LFO will swing
+    # from -2v to +2v.
+    outputs.cv_a = sine_lfo.output * 2.0
     
     # For the second LFO, we need to update its frequency
     # based on the mod wheel value. Since the mod wheel
@@ -35,7 +35,7 @@ def loop(last, state, outputs):
     # Now that we've set the frequency, we can output
     # its value to CV B just the same way we did with
     # the first LFO.
-    outputs.cv_b = 2.0 + saw_lfo.output * 2.0
+    outputs.cv_b = saw_lfo.output * 2.0
 
 
 sol.run(loop)

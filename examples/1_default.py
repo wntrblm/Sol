@@ -3,7 +3,7 @@
 Output mapping:
 
 - CV A: Note CV (v/oct), including pitch bend.
-- CV B: Modulation wheel CV from 0-10v.
+- CV B: Modulation wheel CV from 0-8v.
 - Gate 1: Note Gate/Retrigger.
 - Gate 2: Note Trigger.
 - Gate 3: Midi Clock: triggers on 1/16th notes.
@@ -54,10 +54,10 @@ def loop(last, state, outputs):
     # Set CV B's value based on the the Modulation Wheel.
     # The modulation wheel is MIDI controller 1 (CC 1).
     # The value from the state is from 0-1.0 so scale it to
-    # 0-10v. If you want the range to be lower, change 10.0
+    # 0-8v. If you want the range to be lower, change 8.0
     # to something else. For example, if you wanted it to
-    # go from 0-8v, change it to 8.0.
-    outputs.cv_b = 10.0 * state.cc(1)
+    # go from 0-5v, change it to 5.0.
+    outputs.cv_b = 8.0 * state.cc(1)
 
     # Trigger Gate 3 on every 16th note.
     # If you want to trigger on a different division,

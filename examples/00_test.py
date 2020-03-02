@@ -2,8 +2,8 @@
 
 Output mapping:
 
-- CV A: 0-10v sine wave
-- CV B: 0-10v cosine wave
+- CV A, C: -5 to +5v sine wave
+- CV B, D: -5 to +5v cosine wave
 - Gates: on/off toggle
 
 """
@@ -24,8 +24,10 @@ def loop(last, state, outputs):
     You can read more about the state here: TODO.
     And more about the outputs here: TODO.
     """
-    outputs.cv_a = 5 + (5 * math.sin(3.14 * 2 * (time.monotonic() / 20.0)))
-    outputs.cv_b = 5 + (5 * math.cos(3.14 * 2 * (time.monotonic() / 20.0)))
+    outputs.cv_a = 5.0 * math.sin(3.14 * 2 * (time.monotonic() / 20.0))
+    outputs.cv_b = 5.0 * math.cos(3.14 * 2 * (time.monotonic() / 20.0))
+    outputs.cv_c = 5.0 * math.sin(3.14 * 2 * (time.monotonic() / 20.0))
+    outputs.cv_d = 5.0 * math.cos(3.14 * 2 * (time.monotonic() / 20.0))
 
     outputs.gate_1 = (int(time.monotonic()) % 5 == 0)
     outputs.gate_2 = (int(time.monotonic()) % 5 == 0)
