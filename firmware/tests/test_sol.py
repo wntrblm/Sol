@@ -89,7 +89,10 @@ class TestOutputs:
         assert outputs.gate_3 is False
         assert outputs.gate_4 is False
 
-        assert str(outputs) == "<Outputs A:0, B:0, C:0, D:0, 1:False, 2:False, 3:False, 4:False>"
+        assert (
+            str(outputs)
+            == "<Outputs A:0, B:0, C:0, D:0, 1:False, 2:False, 3:False, 4:False>"
+        )
 
     def test_drive_cv_outs(self):
         outputs = sol.Outputs()

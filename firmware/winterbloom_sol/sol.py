@@ -27,9 +27,9 @@ import digitalio
 import micropython
 import neopixel
 import usb_midi
-from winterbloom_ad_dacs import ad5686
 import winterbloom_smolmidi as smolmidi
 import winterbloom_voltageio as voltageio
+from winterbloom_ad_dacs import ad5686
 from winterbloom_sol import _midi_ext, _utils, trigger
 
 try:
@@ -234,7 +234,14 @@ class Outputs:
 
     def __str__(self):
         return "<Outputs A:{}, B:{}, C:{}, D:{}, 1:{}, 2:{}, 3:{}, 4:{}>".format(
-            self.cv_a, self.cv_b, self.cv_c, self.cv_d, self.gate_1, self.gate_2, self.gate_3, self.gate_4
+            self.cv_a,
+            self.cv_b,
+            self.cv_c,
+            self.cv_d,
+            self.gate_1,
+            self.gate_2,
+            self.gate_3,
+            self.gate_4,
         )
 
     @micropython.native
