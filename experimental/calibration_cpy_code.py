@@ -1,5 +1,5 @@
 import board
-import winterbloom_ad5689 as ad5689
+from winterbloom_ad_dacs import ad5686
 import winterbloom_voltageio
 import supervisor
 import neopixel
@@ -10,7 +10,7 @@ pix = neopixel.NeoPixel(board.NEOPIXEL, 1, pixel_order=(0, 1, 2))
 pix.brightness = 0.1
 pix[0] = (255, 0, 255)
 
-dac = ad5689.create_from_pins(cs=board.DAC_CS)
+dac = ad5686.create_from_pins(cs=board.DAC_CS)
 vio_a = winterbloom_voltageio.VoltageOut(dac.a)
 vio_b = winterbloom_voltageio.VoltageOut(dac.b)
 vio_c = winterbloom_voltageio.VoltageOut(dac.c)

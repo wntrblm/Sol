@@ -27,7 +27,7 @@ import digitalio
 import micropython
 import neopixel
 import usb_midi
-import winterbloom_ad5689 as ad5689
+from winterbloom_ad_dacs import ad5686
 import winterbloom_smolmidi as smolmidi
 import winterbloom_voltageio as voltageio
 from winterbloom_sol import _midi_ext, _utils, trigger
@@ -187,7 +187,7 @@ class Outputs:
     easy access to set them."""
 
     def __init__(self):
-        self._dac = ad5689.create_from_pins(cs=board.DAC_CS)
+        self._dac = ad5686.create_from_pins(cs=board.DAC_CS)
         self._dac.soft_reset()
         self._cv_a = voltageio.VoltageOut(self._dac.a)
         self._cv_a.direct_calibration(calibration.channel_a)
