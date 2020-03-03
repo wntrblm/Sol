@@ -1,5 +1,6 @@
 EESchema Schematic File Version 4
-EELAYER 30 0
+LIBS:jackboard-cache
+EELAYER 29 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -406,5 +407,29 @@ F 2 "" H 5350 2425 50  0001 C CNN
 F 3 "" H 5350 2425 50  0001 C CNN
 	1    5350 2425
 	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_Push SW1
+U 1 1 5E5DC434
+P 1500 4150
+F 0 "SW1" H 1500 4435 50  0000 C CNN
+F 1 "SW_Push" H 1500 4344 50  0000 C CNN
+F 2 "Button_Switch_THT:SW_PUSH_6mm" H 1500 4350 50  0001 C CNN
+F 3 "~" H 1500 4350 50  0001 C CNN
+	1    1500 4150
+	1    0    0    -1  
+$EndComp
+Text GLabel 1300 4150 0    50   Input ~ 0
+Reset
+$Comp
+L power:GND #PWR0113
+U 1 1 5E5DD193
+P 1700 4150
+F 0 "#PWR0113" H 1700 3900 50  0001 C CNN
+F 1 "GND" V 1700 3950 50  0000 C CNN
+F 2 "" H 1700 4150 50  0001 C CNN
+F 3 "" H 1700 4150 50  0001 C CNN
+	1    1700 4150
+	0    -1   -1   0   
 $EndComp
 $EndSCHEMATC
