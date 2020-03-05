@@ -29,6 +29,7 @@ from winterbloom_sol.helpers import (
     was_key_pressed,
 )
 from winterbloom_sol.lfo import SawtoothLFO, SineLFO, TriangleLFO
+from winterbloom_sol.poly import Poly
 from winterbloom_sol.slew_limiter import SlewLimiter
 from winterbloom_sol.sol import Sol, State
 from winterbloom_sol.trigger import Retrigger, Trigger
@@ -43,6 +44,7 @@ __all__ = [
     "ADSR",
     "note_to_volts_per_octave",
     "offset_for_pitch_bend",
+    "Poly",
     "Retrigger",
     "run",
     "SawtoothLFO",
