@@ -55,6 +55,7 @@ class State:
         self._cc = [0] * 128
         self.playing = False
         self.clock = 0
+        self.clock_frequency = 0
 
     @property
     @micropython.native
@@ -270,6 +271,7 @@ class Sol:
             smolmidi.MidiIn(usb_midi.ports[0])
         )
         self._clocks = 0
+        self._last_clock = time.monotonic_ns()
 
     @micropython.native
     def _process_midi(self, msg, state):
@@ -312,6 +314,12 @@ class Sol:
 
         elif msg.type == smolmidi.CLOCK:
             self._clocks += 1
+            # Every quarter note, re-calcuate the current BPM/clock frequency
+            if self._clocks % 24 == 0:
+                now = time.monotonic_ns()
+                period = now - self._last_clock
+                state.clock_frequency = 60000000000 / period
+                self._last_clock = now
 
     def run(self, loop):
         last = State()
