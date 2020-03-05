@@ -47,7 +47,7 @@ class State:
     """
 
     def __init__(self):
-        self._notes = {}
+        self.notes = {}
         self.message = None
         self.velocity = 0
         self.pitch_bend = 0
@@ -64,12 +64,12 @@ class State:
     @property
     @micropython.native
     def latest_note(self):
-        if not self._notes:
+        if not self.notes:
             return None
 
         latest_note = None
         latest_time = 0
-        for note, note_time in self._notes.items():
+        for note, note_time in self.notes.items():
             if latest_time == 0 or note_time > latest_time:
                 latest_note = note
                 latest_time = note_time
@@ -79,12 +79,12 @@ class State:
     @property
     @micropython.native
     def oldest_note(self):
-        if not self._notes:
+        if not self.notes:
             return None
 
         oldest_note = None
         oldest_time = 0
-        for note, note_time in self._notes.items():
+        for note, note_time in self.notes.items():
             if oldest_time == 0 or note_time < oldest_time:
                 oldest_note = note
                 oldest_time = note_time
@@ -94,11 +94,11 @@ class State:
     @property
     @micropython.native
     def highest_note(self):
-        if not self._notes:
+        if not self.notes:
             return None
 
         highest_note = 0
-        for note in self._notes.keys():
+        for note in self.notes.keys():
             if highest_note == 0 or note > highest_note:
                 highest_note = note
 
@@ -107,11 +107,11 @@ class State:
     @property
     @micropython.native
     def lowest_note(self):
-        if not self._notes:
+        if not self.notes:
             return None
 
         lowest_note = 0
-        for note in self._notes.keys():
+        for note in self.notes.keys():
             if lowest_note == 0 or note < lowest_note:
                 lowest_note = note
 
@@ -123,7 +123,7 @@ class State:
 
     @micropython.native
     def copy_from(self, other):
-        self._notes = other._notes.copy()
+        self.notes = other.notes.copy()
         self.message = other.message
         self.velocity = other.velocity
         self.pitch_bend = other.pitch_bend
@@ -282,15 +282,15 @@ class Sol:
             # Some controllers send note on with velocity 0
             # to signal note off.
             if msg.data[1] == 0:
-                state._notes.pop(msg.data[0], None)
+                state.notes.pop(msg.data[0], None)
                 state.velocity = 0
                 state.message.type = smolmidi.NOTE_OFF
             else:
-                state._notes[msg.data[0]] = time.monotonic_ns()
+                state.notes[msg.data[0]] = time.monotonic_ns()
                 state.velocity = msg.data[1] / 127.0
 
         elif msg.type == smolmidi.NOTE_OFF:
-            state._notes.pop(msg.data[0], None)
+            state.notes.pop(msg.data[0], None)
             state.velocity = msg.data[1] / 127.0
 
         elif msg.type == smolmidi.CC:

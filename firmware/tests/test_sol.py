@@ -12,7 +12,7 @@ from winterbloom_sol import sol
 class TestStateNoteStrategies:
     def make_state(self):
         state = sol.State()
-        state._notes = {40: 4, 41: 3, 43: 2, 44: 1}
+        state.notes = {40: 4, 41: 3, 43: 2, 44: 1}
         return state
 
     def test_latest_note(self):
@@ -51,7 +51,7 @@ class TestState:
         state_a = sol.State()
         state_b = sol.State()
 
-        state_a._notes = {42: 0}
+        state_a.notes = {42: 0}
         state_a.message = object()
         state_a.velocity = 43
         state_a.pitch_bend == 45
@@ -70,7 +70,7 @@ class TestState:
             assert state_b.cc(n) == state_a.cc(n)
 
         # Check for deep copy
-        state_a._notes = {43: 0}
+        state_a.notes = {43: 0}
         assert state_b.note != state_a.note
         state_a._cc[0] = 100
         assert state_b.cc(0) != state_a.cc(0)
