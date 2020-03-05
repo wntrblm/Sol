@@ -8,6 +8,8 @@ import usb_midi
 import winterbloom_smolmidi as smolmidi
 from winterbloom_sol import sol
 
+_NS_TO_S = 1000000000
+
 
 class TestStateNoteStrategies:
     def make_state(self):
@@ -109,7 +111,7 @@ class TestOutputs:
 
         assert outputs._cv_a._analog_out._driver.spi_device.spi.data
 
-    @mock.patch("time.monotonic", autospec=True)
+    @mock.patch("time.monotonic_ns", autospec=True)
     def test_trigger_step(self, time_monotonic):
         outputs = sol.Outputs()
 
@@ -117,19 +119,19 @@ class TestOutputs:
         outputs.trigger_gate_1()
         outputs.retrigger_gate_2()
 
-        time_monotonic.return_value = 0.014
+        time_monotonic.return_value = 0.014 * _NS_TO_S
         outputs.step()
         assert outputs.gate_1 is True
         assert outputs.gate_2 is True
 
-        time_monotonic.return_value = 0.016
+        time_monotonic.return_value = 0.016 * _NS_TO_S
         outputs.step()
         assert outputs.gate_1 is False
         assert outputs.gate_2 is True
 
         outputs.retrigger_gate_2()
         assert outputs.gate_2 is False
-        time_monotonic.return_value = 0.032
+        time_monotonic.return_value = 0.032 * _NS_TO_S
         outputs.step()
         assert outputs.gate_2 is True
 
