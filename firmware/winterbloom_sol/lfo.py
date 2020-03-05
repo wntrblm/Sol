@@ -46,6 +46,9 @@ class _PhaseAccumulator:
         while self._phase > 1.0:
             self._phase -= 1.0
 
+    def restart(self):
+        self._phase = 0
+
 
 class SineLFO(_PhaseAccumulator):
     def __init__(self, frequency):
