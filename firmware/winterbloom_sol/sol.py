@@ -20,24 +20,61 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+import os
+import struct
 import time
 
 import board
 import digitalio
+import microcontroller
 import micropython
 import neopixel
 import usb_midi
 import winterbloom_smolmidi as smolmidi
 import winterbloom_voltageio as voltageio
-from winterbloom_ad_dacs import ad5686
+from winterbloom_ad_dacs import ad5686, ad5689
 from winterbloom_sol import _midi_ext, _utils, trigger
 
-try:
-    import calibration
-except ImportError:
-    raise RuntimeError(
-        """Your device is missing its calibration data! Do not fear, you can restore this by downloading the calibration data and uploading it to your device. Go to https://wntr.dev/sol/calibration for assistance."""
-    )
+
+def _is_beta():
+    try:
+        os.stat("/sol_beta")
+        return True
+    except OSError:
+        return False
+
+
+def _load_calibration():
+    # Attempt to load from non-volatile memory first.
+    try:
+        magic_number, length = struct.unpack("HH", microcontroller.nvm[0:4])
+
+        if magic_number != 0x6969:
+            raise ValueError()
+
+        data_string = bytes(microcontroller.nvm[4 : 4 + length]).decode("utf-8")
+        exec_locals = {}
+
+        exec(data_string, exec_locals)
+
+        return exec_locals["calibration"]
+
+    except ValueError:
+        pass
+
+    # NVM Failed, try loading from the filesystem.
+    try:
+        import calibration
+
+        return calibration.calibration
+    except ImportError:
+        raise RuntimeError(
+            """Your device is missing its calibration data! Do not fear, you can restore this by downloading the calibration data and uploading it to your device. Go to https://wntr.dev/sol/calibration for assistance."""
+        )
+
+
+def _beta_nominal_calibration():
+    return dict(a={0: 0, 10.23: 65535}, b={0: 0, 10.23: 65535})
 
 
 class State:
@@ -188,16 +225,30 @@ class Outputs:
     easy access to set them."""
 
     def __init__(self):
-        self._dac = ad5686.create_from_pins(cs=board.DAC_CS)
+        if _is_beta():
+            dac_driver = ad5689
+            # 5689 is calibrated from nominal values.
+            calibration = _beta_nominal_calibration()
+        else:
+            dac_driver = ad5686
+            # 5686 is externally calibrated.
+            calibration = _load_calibration()
+
+        self._dac = dac_driver.create_from_pins(cs=board.DAC_CS)
         self._dac.soft_reset()
+
         self._cv_a = voltageio.VoltageOut(self._dac.a)
-        self._cv_a.direct_calibration(calibration.channel_a)
+        self._cv_a.direct_calibration(calibration["a"])
         self._cv_b = voltageio.VoltageOut(self._dac.b)
-        self._cv_b.direct_calibration(calibration.channel_b)
-        self._cv_c = voltageio.VoltageOut(self._dac.c)
-        self._cv_c.direct_calibration(calibration.channel_c)
-        self._cv_d = voltageio.VoltageOut(self._dac.d)
-        self._cv_d.direct_calibration(calibration.channel_d)
+        self._cv_b.direct_calibration(calibration["b"])
+
+        # 5686 has 4 channels.
+        if dac_driver == ad5686:
+            self._cv_c = voltageio.VoltageOut(self._dac.c)
+            self._cv_c.direct_calibration(calibration["c"])
+            self._cv_d = voltageio.VoltageOut(self._dac.d)
+            self._cv_d.direct_calibration(calibration["d"])
+
         self._gate_1 = digitalio.DigitalInOut(board.G1)
         self._gate_1.direction = digitalio.Direction.OUTPUT
         self._gate_2 = digitalio.DigitalInOut(board.G2)
@@ -206,6 +257,7 @@ class Outputs:
         self._gate_3.direction = digitalio.Direction.OUTPUT
         self._gate_4 = digitalio.DigitalInOut(board.G4)
         self._gate_4.direction = digitalio.Direction.OUTPUT
+
         self._gate_1_trigger = trigger.Trigger(self._gate_1)
         self._gate_2_trigger = trigger.Trigger(self._gate_2)
         self._gate_3_trigger = trigger.Trigger(self._gate_3)
@@ -214,6 +266,7 @@ class Outputs:
         self._gate_2_retrigger = trigger.Retrigger(self._gate_2)
         self._gate_3_retrigger = trigger.Retrigger(self._gate_3)
         self._gate_4_retrigger = trigger.Retrigger(self._gate_4)
+
         self.led = StatusLED()
 
     cv_a = _utils.ValueForwardingProperty("_cv_a", "voltage")

@@ -4,6 +4,7 @@ import winterbloom_voltageio
 import supervisor
 import neopixel
 import microcontroller
+import struct
 
 supervisor.disable_autoreload()
 pix = neopixel.NeoPixel(board.NEOPIXEL, 1, pixel_order=(0, 1, 2))
@@ -41,6 +42,13 @@ def set_voltage(channel, voltage):
 
 def get_cpu_id():
     print(''.join('{:02x}'.format(x) for x in microcontroller.cpu.uid))
+
+
+def write_calibration_to_nvm(calibration_data):
+    calibration_data = calibration_data.encode("utf-8")
+    microcontroller.nvm[0:2] = b"\x69\x69"
+    microcontroller.nvm[2:4] = struct.pack("H", len(calibration_data))
+    microcontroller.nvm[4:4+len(calibration_data)] = calibration_data
 
 
 print("ready")
