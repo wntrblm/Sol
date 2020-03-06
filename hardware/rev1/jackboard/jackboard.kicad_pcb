@@ -204,7 +204,7 @@
     (pad 4 thru_hole oval (at 3.93 0) (size 1.07 1.8) (drill 0.9) (layers *.Cu *.Mask)
       (net 3 NEOPIXEL))
     (model ${KISYS3DMOD}/LED_THT.3dshapes/LED_D5.0mm-4_RGB.wrl
-      (at (xyz 0 0 0))
+      (offset (xyz 0 0 2.5))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
     )
@@ -1003,6 +1003,11 @@
       (net 14 CV_D) (solder_mask_margin 0.1016))
     (pad 10 thru_hole circle (at 22.86 0.127 270) (size 1.8796 1.8796) (drill 1.016) (layers *.Cu *.Mask)
       (net 1 GND) (solder_mask_margin 0.1016))
+    (model ${KIPRJMOD}/3dmodels/pin-header-1x10-male.step
+      (offset (xyz 11.5 0 -1.5))
+      (scale (xyz 1 1 1))
+      (rotate (xyz 90 0 0))
+    )
   )
 
   (module Connectors:1X10_LOCK locked (layer F.Cu) (tedit 5963D80F) (tstamp 5E166242)
@@ -1099,6 +1104,11 @@
       (net 8 GATE_A_OUT) (solder_mask_margin 0.1016))
     (pad 10 thru_hole circle (at 22.86 0.127 270) (size 1.8796 1.8796) (drill 1.016) (layers *.Cu *.Mask)
       (net 1 GND) (solder_mask_margin 0.1016))
+    (model ${KIPRJMOD}/3dmodels/pin-header-1x10-male.step
+      (offset (xyz 11.5 0 -1.5))
+      (scale (xyz 1 1 1))
+      (rotate (xyz 90 0 0))
+    )
   )
 
   (module Button_Switch_THT:SW_PUSH_6mm (layer F.Cu) (tedit 5A02FE31) (tstamp 5E5E16B4)
