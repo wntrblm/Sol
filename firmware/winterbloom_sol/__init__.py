@@ -22,6 +22,7 @@
 
 from winterbloom_sol.adsr import ADSR
 from winterbloom_sol.helpers import (
+    map,
     note_to_volts_per_octave,
     offset_for_pitch_bend,
     should_trigger_clock,
@@ -42,6 +43,7 @@ def run(loop):
 
 __all__ = [
     "ADSR",
+    "map",
     "note_to_volts_per_octave",
     "offset_for_pitch_bend",
     "Poly",

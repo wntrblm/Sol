@@ -73,3 +73,7 @@ def should_trigger_clock(state, division):
         return True
     else:
         return False
+
+
+def map(value, src_low, src_hi, dst_low, dst_hi):
+    return (value - src_low) * (dst_hi - dst_low) / (src_hi - src_low) + dst_low
