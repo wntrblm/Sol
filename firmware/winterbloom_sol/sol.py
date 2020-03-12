@@ -20,61 +20,17 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-import os
-import struct
 import time
 
 import board
 import digitalio
-import microcontroller
 import micropython
 import neopixel
 import usb_midi
 import winterbloom_smolmidi as smolmidi
 import winterbloom_voltageio as voltageio
 from winterbloom_ad_dacs import ad5686, ad5689
-from winterbloom_sol import _midi_ext, _utils, trigger
-
-
-def _is_beta():
-    try:
-        os.stat("/sol_beta")
-        return True
-    except OSError:
-        return False
-
-
-def _load_calibration():
-    # Attempt to load from non-volatile memory first.
-    try:
-        magic_number, length = struct.unpack("HH", microcontroller.nvm[0:4])
-
-        if magic_number != 0x6969:
-            raise ValueError()
-
-        data_string = bytes(microcontroller.nvm[4 : 4 + length]).decode("utf-8")
-        exec_locals = {}
-
-        exec(data_string, exec_locals)
-
-        return exec_locals["calibration"]
-
-    except ValueError:
-        pass
-
-    # NVM Failed, try loading from the filesystem.
-    try:
-        import calibration
-
-        return calibration.calibration
-    except ImportError:
-        raise RuntimeError(
-            """Your device is missing its calibration data! Do not fear, you can restore this by downloading the calibration data and uploading it to your device. Go to https://wntr.dev/sol/calibration for assistance."""
-        )
-
-
-def _beta_nominal_calibration():
-    return dict(a={0: 0, 10.23: 65535}, b={0: 0, 10.23: 65535})
+from winterbloom_sol import _calibration, _midi_ext, _utils, trigger
 
 
 class State:
@@ -225,14 +181,14 @@ class Outputs:
     easy access to set them."""
 
     def __init__(self):
-        if _is_beta():
+        if _utils.is_beta():
             dac_driver = ad5689
             # 5689 is calibrated from nominal values.
-            calibration = _beta_nominal_calibration()
+            calibration = _calibration.beta_nominal_calibration()
         else:
             dac_driver = ad5686
             # 5686 is externally calibrated.
-            calibration = _load_calibration()
+            calibration = _calibration.load_calibration()
 
         self._dac = dac_driver.create_from_pins(cs=board.DAC_CS)
         self._dac.soft_reset()

@@ -20,6 +20,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+import os
+
 import micropython
 
 
@@ -89,3 +91,11 @@ def lerp(start, end, time):
 @micropython.native
 def isclose(a, b, rel_tol=1e-9, abs_tol=0.0):
     return abs(a - b) <= max(rel_tol * max(abs(a), abs(b)), abs_tol)
+
+
+def is_beta():
+    try:
+        os.stat("/sol_beta")
+        return True
+    except OSError:
+        return False
