@@ -1,0 +1,13 @@
+h1 a, h2 a {
+    color: #b8c6ca;
+    font-size: 50%;
+    margin-left: 0.4em;
+}
+
+ul.nav li.first-level {
+    display: none;
+}
+
+footer small:last-child {
+    display: none;
+}

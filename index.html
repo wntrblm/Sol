@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    
+    <title>User Guide - Winterbloom Sol User Guide</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="css/base.min.css" rel="stylesheet">
+    <link href="css/cinder.min.css" rel="stylesheet">
+
+    
+    <link href="css/overrides.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body class="homepage" >
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            <a class="navbar-brand" href=".">Winterbloom Sol User Guide</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/theacodes/Winterbloom-Sol/edit/master/user_guide/docs/index.md"><i class="fab fa-github"></i> Edit on GitHub</a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#winterbloom-sol-user-guide">Winterbloom Sol User Guide</a></li>
+            <li class="second-level"><a href="#getting-support-and-help">Getting support and help</a></li>
+                
+            <li class="second-level"><a href="#installing-the-module">Installing the module</a></li>
+                
+            <li class="second-level"><a href="#connecting-via-midi">Connecting via MIDI</a></li>
+                
+            <li class="second-level"><a href="#making-your-first-connections">Making your first connections</a></li>
+                
+            <li class="second-level"><a href="#modifying-the-program">Modifying the program</a></li>
+                
+            <li class="second-level"><a href="#help-this-thing-isnt-working-and-its-blinking-at-me">Help! This thing isn't working and it's blinking at me!</a></li>
+                
+            <li class="second-level"><a href="#included-example-programs">Included example programs</a></li>
+                
+            <li class="second-level"><a href="#about-the-state-outputs-and-helper-functions">About the state, outputs, and helper functions</a></li>
+                
+            <li class="second-level"><a href="#updating-the-firmware">Updating the firmware</a></li>
+                
+            <li class="second-level"><a href="#restoring-lost-calibration">Restoring lost calibration</a></li>
+                
+            <li class="second-level"><a href="#frequently-asked-questions">Frequently asked questions</a></li>
+                
+            <li class="second-level"><a href="#acknowledgments-and-thanks">Acknowledgments and thanks</a></li>
+                
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="winterbloom-sol-user-guide">Winterbloom Sol User Guide<a class="headerlink" href="#winterbloom-sol-user-guide" title="Permanent link">#</a></h1>
+<p>Sol is a uniquely customizable USB MIDI to CV/Gate module. It's designed to be useful right out of the box but flexible enough to accommodate a ton of different CV/Gate generation needs. It's meant to be useful to newcomers, deeply experienced Eurorack enthusiasts, and most in between. With four CV outs and four gate outputs, it can perform all sorts of tasks for your Eurorack synthesizer.</p>
+<h2 id="getting-support-and-help">Getting support and help<a class="headerlink" href="#getting-support-and-help" title="Permanent link">#</a></h2>
+<p>We want you to have a wonderful experience with your module. If you need help or run into problems, please reach out to us. Email is the best way for product issues, whereas Discord and GitHub are great for getting advice and help on how to customize your module.</p>
+<ul>
+<li>Send us <a href="mailto:support@winterbloom.com">an email</a>.</li>
+<li>File a bug <a href="https://github.com/theacodes/Winterbloom-Sol">on GitHub</a></li>
+<li>Reach out on the <a href="https://discord.gg/UpfqghQ">Discord</a></li>
+</ul>
+<h2 id="installing-the-module">Installing the module<a class="headerlink" href="#installing-the-module" title="Permanent link">#</a></h2>
+<p>To install this into your Eurorack setup:</p>
+<ol>
+<li>Connect a Eurorack power cable to your power supply and the back of the module. <strong>Note that even though the power connector on the module is keyed, double check that the red stripe is on the side labeled <code>red stripe</code>!</strong></li>
+<li>Screw the module to your rack's rails.</li>
+<li>Connect a USB cable to the USB connector on the front of the module and to your computer.</li>
+</ol>
+<p>You should see a drive named <code>CIRCUITPY</code> on your computer at this point. If not, please reach out to us! You should also see a MIDI device named <code>Sol Audio</code>. The LED on the front of the module should temporarily flash yellow and red before turning light blue- light blue means all is well.</p>
+<h2 id="connecting-via-midi">Connecting via MIDI<a class="headerlink" href="#connecting-via-midi" title="Permanent link">#</a></h2>
+<p>Once the module is installed and connected to your computer, you should see a MIDI device named <code>Sol Audio</code>. You can use this as a MIDI output in your DAW of choice, but here's some pointers for some common ones:</p>
+<p>In <strong>Ableton Live</strong>, you'll need to enable <em>Track</em> and <em>Sync</em> for <code>Sol Audio</code> output in <em>Preferences &gt; MIDI.</em></p>
+<p><img alt="images/Annotation_2019-12-08_172221.png" src="images/Annotation_2019-12-08_172221.png" /></p>
+<p>If you don't enable <em>Sync</em>, Live won't send MIDI clock data.</p>
+<p>If you're using <strong>Orca</strong>, it should automatically detect Sol. Make sure the MIDI output device says <code>Sol Audio</code></p>
+<p><img alt="images/Annotation_2019-12-08_173238.png" src="images/Annotation_2019-12-08_173238.png" /></p>
+<h2 id="making-your-first-connections">Making your first connections<a class="headerlink" href="#making-your-first-connections" title="Permanent link">#</a></h2>
+<p>Sol has eight outputs. Four are continuous CV outputs and the other four are gate/trigger outputs:</p>
+<ul>
+<li><strong>CVs A, B, C, &amp; D</strong>: -5 to +8v.</li>
+<li><strong>Gates 1, 2, 3, &amp; 4</strong>: Gate/trigger 0 or 5v.</li>
+</ul>
+<p>These outputs can be used by the program on the module to serve various functions. The default program uses the outputs as follows:</p>
+<ul>
+<li><strong>CV A</strong>: Note pitch (1v/Octave)</li>
+<li><strong>CV B</strong>: Mod wheel (0 to 8v)</li>
+<li><strong>CV C</strong>: Note velocity  (0 to 8v)</li>
+<li><strong>CV D</strong>: Channel pressure (0 to 8v)</li>
+<li><strong>Gate 1</strong>: Note gate (w/ re-triggering)</li>
+<li><strong>Gate 2</strong>: Note trigger</li>
+<li><strong>Gate 3</strong>: MIDI transport (high when playing, low when paused/stopped)</li>
+<li><strong>Gate 4</strong>: MIDI clock (emits a pulse for every 8th note)</li>
+</ul>
+<p>Let's try these out! Connect <code>CV A</code> (the note pitch CV) to the V/Oct input of an oscillator. If you have an ADSR/Envelope generator, connect <code>Gate 1</code> (the note gate) to its input. If you don't, just connect the output of the oscillator to your output module.</p>
+<p><img alt="images/first-connection.png" src="images/first-connection.png" /></p>
+<p>Now, using your DAW of choice, play some MIDI notes. You should see the LED on the front of the module change as it receives MIDI data and it should, of course, make some lovely sounds through your oscillator (and envelope generator, if you have one). Congrats, you've made your first connections! 🎉</p>
+<p>If things aren't working right now, reach out! Nothing else in this guide will work if this part isn't working!</p>
+<p>Now, if you have a filter, connect your oscillator through the filter and connect <code>CV B</code> (the mod wheel CV) to the filter's frequency CV input. </p>
+<p><img alt="images/second-connection.png" src="images/second-connection.png" /></p>
+<p>Now, while playing some notes try using the mod wheel. You should see the mod wheel change the filter frequency. Try it with the other CV outputs as well! <code>CV C</code> is the note velocity and <code>CV D</code> is the channel pressure.</p>
+<p>Congrats! You now know how the default program works! 🎉</p>
+<h2 id="modifying-the-program">Modifying the program<a class="headerlink" href="#modifying-the-program" title="Permanent link">#</a></h2>
+<p>Now that you know the basics it's time to get familiar with customizing the program that's running on Sol.</p>
+<p>Sol should show up both as a MIDI output device <strong>and</strong> a small external drive named <code>CIRCUITPY</code>. In that drive, you should find a file named <code>code.py</code>. Sol runs <a href="https://circuitpython.org">CircuitPython</a> which means that its firmware is written in the approachable <a href="https://python.org">Python</a> programming language and you don't need any special knowledge or compilers to make changes to it. So, open up that file in your favorite text editor, we're going to make some changes!</p>
+<p>If you don't have a text editor - that's okay! While you could use Notepad (Windows) or TextEdit (Mac), these can sometimes have issues with CircuitPython devices like Sol. I'd recommend <a href="https://learn.adafruit.com/welcome-to-circuitpython/installing-mu-editor">installing Mu</a> if you're new to this whole world. You can read more about editing code for CircuitPython in <a href="https://learn.adafruit.com/welcome-to-circuitpython/creating-and-editing-code">Adafruit's guide</a>.</p>
+<p>In the <code>code.py</code> you should see a line that looks like this:</p>
+<pre><code class="python">outputs.cv_a = sol.voct(state)
+</code></pre>
+
+<p>Modify this line so that it reads:</p>
+<pre><code class="python">outputs.cv_a = sol.voct(state) - 1.0
+</code></pre>
+
+<div class="admonition warning">
+<p class="admonition-title">Be careful</p>
+<p>Python is <em>whitespace-sensitive</em>. That means tabs and spaces are important! Make sure that you don't accidentally change the indentation level of this line.</p>
+</div>
+<p>This change subtracts 1 volt from the note CV output. So, it should make it sound as if all notes are played one octave lower. <strong>Save the file</strong>. You should notice the module "reboot" - it may flash green and red for a second but after it should settle back into its idle state with the LED showing a light blue color.</p>
+<p>Once it's settled, try playing notes again. You should notice that they're an octave lower.</p>
+<p>If you see the module flashing yellow/red, see the section below on finding problems or reach out!</p>
+<p><strong>Congrats</strong>, you've made your first change to how the module works!  🎉</p>
+<p>This might seem like a trivial change (and it is!) but it's meant to show how customization works on this module. You just edit a file and save - there is no need for custom compilers, complicated software, or even experience with programming.</p>
+<p>As a next challenge, you can change the mod wheel output (<code>CV B</code>) to be -5v to +5v instead of the default 0 to 8v!</p>
+<p>I encourage you to read through <a href="#included-example-programs">the example programs</a>, <a href="#about-the-state-and-outputs">the various inputs and outputs</a>, <a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/examples/1_default.py">the default program</a>, and learn more about <a href="https://learn.adafruit.com/welcome-to-circuitpython/overview">CircuitPython</a> so you can get the most of your module. Also, please come chat on the <a href="https://discord.gg/UpfqghQ">Discord</a> where you can ask questions and see what others are doing with their Sol!</p>
+<h2 id="help-this-thing-isnt-working-and-its-blinking-at-me">Help! This thing isn't working and it's blinking at me!<a class="headerlink" href="#help-this-thing-isnt-working-and-its-blinking-at-me" title="Permanent link">#</a></h2>
+<p>If it's blinking at you that means there's some sort of error in the program. Don't worry, you can get it figured out.</p>
+<p>If you connect using the <a href="https://learn.adafruit.com/welcome-to-circuitpython/kattni-connecting-to-the-serial-console">serial console</a> you should be able to see the error. If you don't see it right away, you might need to reset the board (either by pressing the little button on the bottom of the module or power cycling your synth). Sometimes you can press <code>Ctrl+C</code> followed by <code>Ctrl+D</code> in the serial console to get the board to reset and tell you the error.</p>
+<p>In any case, reach out on <a href="https://discord.gg/UpfqghQ">Discord</a> and we can walk you through figuring out what went wrong.</p>
+<h2 id="included-example-programs">Included example programs<a class="headerlink" href="#included-example-programs" title="Permanent link">#</a></h2>
+<p>There are several included example programs to learn from and use. If you want to use these, copy their contents to <code>code.py</code> on the <code>CIRCUITPY</code> drive. <strong>Be sure to save it as the correct name,</strong> if you don't name it <code>code.py</code> it won't change anything. If you want to restore the original <code>code.py</code> it is <a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/examples/1_default.py">here</a>.</p>
+<ol>
+<li><a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/examples/2_slew_limiter.py">Slew limiter example</a>: Shows how to use a <code>SlewLimiter</code> to introduce legato.</li>
+<li><a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/examples/3_adsr.py">ADSR example</a>: Shows how to use one of the CV outputs as an ADSR envelope generator.</li>
+<li><a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/examples/4_clocks.py">Clocks example</a>: Shows how to use the MIDI clock to output trigger pulses at various note markers.</li>
+<li><a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/examples/5_lfo.py">LFO example</a>: Shows how to use Sol's built in LFO generators.</li>
+<li><a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/examples/6_poly.py">Polyphony example</a>: Shows how to use Sol's <code>Poly</code> helper to output CV &amp; gate for multiple notes at once.</li>
+<li><a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/examples/7_random.py">Random</a>: Shows how to use Sol as a random modulation source.</li>
+<li><a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/examples/1_default.py">The default program</a>: As mentioned above, this handles the basic use case of outputting note CV, note gate, mod wheel CC, and some MIDI clock and transport gates. It's fairly complicated compared to the other examples here, so we recommend starting with some of the other examples as they tend to be a bit easier to digest.</li>
+</ol>
+<h2 id="about-the-state-outputs-and-helper-functions">About the state, outputs, and helper functions<a class="headerlink" href="#about-the-state-outputs-and-helper-functions" title="Permanent link">#</a></h2>
+<p>The <code>loop</code> function gets called with three parameters:</p>
+<ul>
+<li><code>last</code> the previous <code>state</code>.</li>
+<li><code>state</code> the current state.</li>
+<li><code>outputs</code> the outputs.</li>
+</ul>
+<p>As you get deeper into customizing your module, you might wonder what all is available from the <code>state</code> and <code>output</code> objects in the loop.</p>
+<p>The <a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/firmware/winterbloom_sol/sol.py#L36"><strong>State</strong> objects</a> lets you take a look at the MIDI state, it has the following properties:</p>
+<ul>
+<li><code>state.note</code> and <code>state.latest_note</code> which both give the most recent note played. For example, if middle C was the last note played it will be <code>60</code>. If no note is played, it'll be <code>None</code>.</li>
+<li><code>state.oldest_note</code> gives the oldest note being played.</li>
+<li><code>state.lowest_note</code> gives the lowest note being played.</li>
+<li><code>state.highest_note</code> gives the highest note being played.</li>
+<li><code>state.cc(number)</code> gives the value of the MIDI continuous controller. For example, to get the mod wheel you'd use <code>state.cc(1)</code> . The value is from <code>0.0 - 1.0</code>.</li>
+<li><code>state.velocity</code> gives the velocity value of the most recent note. The value is from <code>0.0 - 1.0</code>.</li>
+<li><code>state.pressure</code> gives the channel pressure. The value is from <code>0.0 - 1.0</code>.</li>
+<li><code>state.pitch_bend</code> gives the pitch bend amount. The value is from <code>0.0 - 1.0</code>.</li>
+<li><code>state.playing</code> is <code>True</code> if the MIDI transport is playing, and is <code>False</code> if it's paused or stopped.</li>
+<li><code>state.clock</code> gives the count of MIDI clocks received. There are 24 MIDI clocks per quarter note. Take a look at the <code>should_trigger_clock</code> helper function as well.</li>
+<li><code>state.clock_frequency</code> gives you the BPM for the MIDI clocks.</li>
+<li><code>state.message</code> gives you direct access to the last MIDI message received. This comes from SmolMIDI and you can see its implementation <a href="https://github.com/theacodes/Winterbloom_SmolMIDI/blob/master/winterbloom_smolmidi.py#L79">here</a>.</li>
+</ul>
+<p>The <a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/firmware/winterbloom_sol/sol.py#L179"><strong>Outputs</strong> object</a> lets you control the output jacks. It has the following properties:</p>
+<ul>
+<li><code>outputs.cv_a</code>, <code>outputs.cv_b</code>, <code>outputs.cv_c</code>, <code>outputs.cv_d</code> are the CV outputs. You can set it to a number between <code>-5.0</code> and <code>8.0</code>. This is in volts. Setting <code>outputs.cv_a = 5.0</code> will output 5v on CV A.</li>
+<li><code>outputs.gate_1</code>, <code>outputs.gate_2</code>, <code>outputs.gate_3</code>, and <code>outputs.gate_4</code> are the gate outputs. They can be <code>True</code> or <code>False</code>. Setting to <code>True</code> will output 5v on that gate, setting to <code>False</code> will output 0v on that gate.</li>
+<li><code>outputs.trigger_gate_1()</code>, etc. are helper methods to send trigger pulses through one of the gate. Calling this will cause the gate to be <code>True</code> for a short period of time before returning to <code>False</code>.</li>
+<li><code>outputs.retrigger_gate_1()</code>, etc. are helper methods to "retrigger" one of the gate outputs. Calling this will cause the gate to go <code>False</code> for a short period of time before returning to <code>True</code>.</li>
+</ul>
+<p>Sol also has several helper methods that can be used for common tasks:</p>
+<ul>
+<li><code>sol.note_to_volts_per_octave(note)</code> returns the volts for a give MIDI note name. For example <code>sol.note_to_volts_per_octave(60)</code> will give <code>3.0</code>.</li>
+<li><code>sol.offset_for_pitchbend(pitch_bend, range)</code> will give a pitch bend volt offset for the given pitch bend value. For example, if you want your pitch bend to give you 1 octave of range up and down, you'd do something like <code>outputs.cv_a = sol.note_to_volts_per_octave(state.note) + sol.offset_for_pitchbend(state.pitch_bend, range=1.0)</code></li>
+<li><code>sol.voct(state)</code> combines the above two helpers into one convenient helper that returns a voltage for the given state's note and also takes pitch bend into account.</li>
+<li><code>sol.was_key_pressed(state)</code> returns <code>True</code> is a new note was pressed.</li>
+<li><code>sol.should_trigger_clock(state, division)</code> return <code>True</code> if the clock matches the note division. For example, <code>sol.should_trigger_clock(state, 1/16)</code> will return <code>True</code> once for every sixteenth note.</li>
+<li><code>sol.map(value, low, high, new_low, new_high)</code>: re-maps a value to a different range. For example, <code>sol.map(0.5, 0.0, 1.0, 0.0, 10.0)</code> will return <code>5.0</code>.</li>
+</ul>
+<h2 id="updating-the-firmware">Updating the firmware<a class="headerlink" href="#updating-the-firmware" title="Permanent link">#</a></h2>
+<p>Updating the firmware requires two steps: Updating CircuitPython and updating Sol's libraries.</p>
+<h3>Updating CircuitPython</h3>
+<ol>
+<li><a href="https://circuitpython.org/board/winterbloom_sol/">Download the latest version of CircuitPython for Winterbloom Sol</a>.</li>
+<li>Place Sol in bootloader mode by pressing the reset button twice quickly. The reset button is located under the panel to the left of the LED. There is a small hole in the panel that you can use a paperclip to press the button if needed. Once in bootloader mode, you should see a drive on your computer named <code>SOLBOOT</code>.</li>
+<li>Copy the <code>uf2</code> file from step 1 to the <code>SOLBOOT</code> drive. Sol should restart by itself.</li>
+</ol>
+<h3>Updating Sol's libraries</h3>
+<ol>
+<li><a href="https://github.com/theacodes/Winterbloom-Sol/releases">Download the latest release bundle for Sol</a>.</li>
+<li>Unzip the release bundle, and then copy the contents to Sol's <code>CIRCUITPY</code> drive, replacing any existing files.</li>
+<li>Reboot Sol by power cycling your synthesizer or pressing the reset button again.</li>
+</ol>
+<h2 id="restoring-lost-calibration">Restoring lost calibration<a class="headerlink" href="#restoring-lost-calibration" title="Permanent link">#</a></h2>
+<p>Sol is calibrated during manufacturing and we keep a copy of your factory calibration in case it gets lost. If your module is in panic mode and says that it has lost its calibration then this can help. Please connect your module via USB, open this page in Chrome, and click the button below. If this doesn't work, please <a href="#getting-help-and-support">reach out to us</a>.</p>
+<p><button id="restore-connect-button" type="button">🔌 Connect</button>
+<pre id="restore-output"></pre>
+<script src="calibration_restore.js" type="module"></script></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is based on pretty experimental web technology so it might not work the first time. Try it a few times and see if it works, if not, reach out to us.</p>
+</div>
+<h2 id="frequently-asked-questions">Frequently asked questions<a class="headerlink" href="#frequently-asked-questions" title="Permanent link">#</a></h2>
+<p>Got a question not answered here? <a href="#getting-support-and-help">Reach out</a>, we'll be happy to help!</p>
+<h3>Can Sol be used as a MIDI Host? Can I connect a USB MIDI device directly to Sol?</h3>
+<p>Since Sol is re-programmable and we imagined that most folks would use it attached to a computer, we didn't include this functionality - especially since it would cost more money. However, if you want to go "computerless" you can use a Raspberry Pi as your MIDI host. See <a href="https://hackaday.io/project/164073-raspberry-pi-usb-host-midi-hub">here</a>. </p>
+<h3>Does Sol support MIDI 2.0?</h3>
+<p>Not <em>yet</em>. We're waiting to get our hands on hardware and software that support MIDI 2.0 so we can add it to Sol. As far as we know, there's no reason we won't be able to add this via a firmware update. If you're interested in helping out, please <a href="#getting-support-and-help">reach out</a>.</p>
+<h3>Can Sol output audio on its CV outputs?</h3>
+<p>Not with the default CircuitPython-based firmware. CircuitPython is designed to be approachable and easy to use, but it comes at the cost of not being as fast as firmware written in C. If you're feeling super brave, Sol is completely open source so you could write your own firmware in C and do whatever you'd like. The hardware uses a DAC that can do 1MSPS, so in theory it could output at audio rate.</p>
+<h2 id="acknowledgments-and-thanks">Acknowledgments and thanks<a class="headerlink" href="#acknowledgments-and-thanks" title="Permanent link">#</a></h2>
+<p>Sol would not be possible without support from the following people:</p>
+<ul>
+<li>Scott Shawcroft</li>
+<li>John Edgar Park</li>
+<li>Scotland Symons</li>
+<li>Echo Harker</li>
+<li>Andi McClure</li>
+</ul>
+<p>Sol would also not be possible without the help of the CircuitPython community and Adafruit Industries.</p></div>
+        
+        
+    </div>
+
+    <footer class="col-md-12 text-center">
+        
+        <hr>
+        <p>
+        <small>© 2020 Winterbloom, licensed under Creative Commons CC BY-SA 4.0</small><br>
+        
+        <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+        </p>
+
+        
+        
+    </footer>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/bootstrap-3.0.3.min.js"></script>
+    
+    <script>var base_url = "."</script>
+    
+    <script src="js/base.js"></script>
+    <script src="search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>
+
+<!--
+MkDocs version : 1.1
+Build Date UTC : 2020-04-07 02:42:24
+-->
