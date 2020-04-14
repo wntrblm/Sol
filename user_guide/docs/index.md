@@ -47,6 +47,8 @@ Sol has eight outputs. Four are continuous CV outputs and the other four are gat
 
 These outputs can be used by the program on the module to serve various functions. The default program uses the outputs as follows:
 
+![images/sol-program-labels](images/sol-program-labels.png)
+
 - **CV A**: Note pitch (1v/Octave)
 - **CV B**: Mod wheel (0 to 8v)
 - **CV C**: Note velocity  (0 to 8v)
