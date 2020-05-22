@@ -4,6 +4,8 @@ Output mapping:
 
 - CV A: Note CV (v/oct), including pitch bend.
 - CV B: Modulation wheel CV from 0-8v.
+- CV C: Note velocity.
+- CV D: Channel pressure.
 - Gate 1: Note Gate/Retrigger.
 - Gate 2: Note Trigger.
 - Gate 3: Midi Clock: triggers on 1/16th notes.
@@ -58,6 +60,13 @@ def loop(last, state, outputs):
     # to something else. For example, if you wanted it to
     # go from 0-5v, change it to 5.0.
     outputs.cv_b = 8.0 * state.cc(1)
+
+    # Likewise, for CV B and C, set the value based on
+    # the key velocity and channel pressure. You can
+    # adjust the ranges just like with CV B above.
+    outputs.cv_c = 8.0 * state.velocity
+    outputs.cv_d = 8.0 * state.pressure
+
 
     # Trigger Gate 3 on every 16th note.
     # If you want to trigger on a different division,
