@@ -44,6 +44,11 @@ def get_cpu_id():
     print(''.join('{:02x}'.format(x) for x in microcontroller.cpu.uid))
 
 
+# This is a dumb hack but it gets around a weird bug with calling the first function
+# from the calibration program. :shrug:
+et_cpu_id = get_cpu_id
+
+
 def write_calibration_to_nvm(calibration_data):
     calibration_data = calibration_data.encode("utf-8")
     microcontroller.nvm[0:2] = b"\x69\x69"
