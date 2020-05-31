@@ -314,6 +314,12 @@ class Sol:
         elif msg.type == smolmidi.CHANNEL_PRESSURE:
             state.pressure = msg.data[0] / 127.0
 
+        # Alias polyphonic aftertouch to pressure. While this discards the
+        # note information, it does make this easier to get at for most
+        # users. It's also always possible to access the raw MIDI message.
+        elif msg.type == smolmidi.AFTERTOUCH:
+            state.pressure = msg.data[1] / 127.0
+
         elif msg.type == smolmidi.START or msg.type == smolmidi.CONTINUE:
             state.playing = True
 
