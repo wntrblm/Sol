@@ -28,4 +28,5 @@ def test(session):
         "--cov=winterbloom_sol",
         "--cov-report=term-missing",
         "tests",
+        *session.posargs
     )

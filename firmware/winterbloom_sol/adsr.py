@@ -68,6 +68,95 @@ class ADSR:
         self.decay = decay
         self.sustain = sustain
         self.release = release
+        # Envelope state: 0 - idle, 1 - attack, 2 - decay, 3 - sustain, 4 - release.
+        self._state = 0
+        self._state_time = 0
+        self._accum = 0.0
+        self._last_update = 0
+        self._release_start_level = 0
+
+    def start(self):
+        self._state = 1
+        self._state_time = 0
+        self._last_update = time.monotonic_ns()
+
+    def stop(self):
+        if self._state == 4 or self._state == 0:
+            return
+        self._state = 4
+        self._state_time = 0
+        self._release_start_level = self._accum
+        self._last_update = time.monotonic_ns()
+
+    @property
+    def output(self):
+        now = time.monotonic_ns()
+        dt = (now - self._last_update) / _NS_TO_S
+        self._state_time += dt
+
+        # Idle
+        if self._state == 0:
+            self._accum = 0
+
+        # Attack
+        if self._state == 1:
+            if self.attack == 0:
+                self._accum = 1.0
+                self._state = 2
+            else:
+                self._accum += 1.0 / self.attack * dt
+                if self._accum > 1.0 or self._state_time > self.attack:
+                    # Special case for attack- since the ADSR can be
+                    # re-triggered, the attack phase can take less
+                    # time than expected. Figure out how much extra time
+                    # there is an carry it over to the decay state.
+                    expected_val = 1.0 / self.attack * self._state_time
+                    extra_time = (self._accum - expected_val) / self.attack
+                    self._accum = 1.0
+                    self._state = 2
+                    # Leave remaining state time so that if an update
+                    # covers some time in attack and some time in decay
+                    # the value can be correctly calculated
+                    self._state_time = dt = self._state_time - self.attack + extra_time
+
+        # Decay
+        if self._state == 2:
+            if self.decay == 0:
+                self._accum = self.sustain
+                self._state = 3
+            else:
+                self._accum -= (1.0 - self.sustain) / self.decay * dt
+                if self._accum < self.sustain or self._state_time > self.decay:
+                    self._accum = self.sustain
+                    self._state_time = 0
+                    self._state = 3
+
+        # Sustain
+        elif self._state == 3:
+            self._accum = self.sustain
+
+        # Release
+        elif self._state == 4:
+            if self.release == 0:
+                self._accum = 0.0
+                self._state = 0
+            else:
+                self._accum -= self._release_start_level / self.release * dt
+                if self._accum < 0.0 or self._state_time > self.release:
+                    self._accum = 0.0
+                    self._state_time = 0
+                    self._state = 0
+
+        self._last_update = now
+        return self._accum
+
+
+class DisjointADSR:
+    def __init__(self, attack, decay, sustain, release):
+        self.attack = attack
+        self.decay = decay
+        self.sustain = sustain
+        self.release = release
         self._trigger_time = None
         self._release_time = None
 

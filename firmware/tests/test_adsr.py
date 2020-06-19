@@ -8,16 +8,15 @@ from winterbloom_sol import adsr
 _NS_TO_S = 1000000000
 
 
-class TestADSR:
+class _ADSRTestCase:
     def test_default_state(self):
-        env = adsr.ADSR(0, 0, 0, 0)
+        env = self.cls(0, 0, 0, 0)
         assert env.output == 0.0
-
 
     @mock.patch("time.monotonic_ns", autospec=True)
     def test_cycle(self, monotonic_ns):
         monotonic_ns.return_value = 0
-        env = adsr.ADSR(1.0, 1.0, 0.5, 1.0)
+        env = self.cls(1.0, 1.0, 0.5, 1.0)
 
         assert env.output == 0
 
@@ -57,11 +56,10 @@ class TestADSR:
         monotonic_ns.return_value = 11.0 * _NS_TO_S
         assert env.output == 0.0
 
-
     @mock.patch("time.monotonic_ns", autospec=True)
     def test_no_attack(self, monotonic_ns):
         monotonic_ns.return_value = 0
-        env = adsr.ADSR(0, 1.0, 0.5, 1.0)
+        env = self.cls(0, 1.0, 0.5, 1.0)
 
         assert env.output == 0
 
@@ -78,11 +76,10 @@ class TestADSR:
         monotonic_ns.return_value = 1.0 * _NS_TO_S
         assert env.output == 0.5
 
-
     @mock.patch("time.monotonic_ns", autospec=True)
     def test_no_decay(self, monotonic_ns):
         monotonic_ns.return_value = 0
-        env = adsr.ADSR(1.0, 0, 0.5, 1.0)
+        env = self.cls(1.0, 0, 0.5, 1.0)
 
         assert env.output == 0
 
@@ -98,11 +95,10 @@ class TestADSR:
         monotonic_ns.return_value = 1.1 * _NS_TO_S
         assert env.output == 0.5
 
-
     @mock.patch("time.monotonic_ns", autospec=True)
     def test_no_release(self, monotonic_ns):
         monotonic_ns.return_value = 0
-        env = adsr.ADSR(1.0, 1.0, 0.5, 0.0)
+        env = self.cls(1.0, 1.0, 0.5, 0.0)
 
         assert env.output == 0
 
@@ -114,4 +110,56 @@ class TestADSR:
         # Since there's no release, it should immediately
         # drop to zero.
         env.stop()
+        assert env.output == 0
+
+
+class TestADSR(_ADSRTestCase):
+    cls = adsr.ADSR
+
+    @mock.patch("time.monotonic_ns", autospec=True)
+    def test_retrigger(self, monotonic_ns):
+        monotonic_ns.return_value = 0
+        env = self.cls(1.0, 1.0, 0.5, 1.0)
+
+        env.start()
+
+        # Advance to the sustain phase.
+        monotonic_ns.return_value = 2.5 * _NS_TO_S
+        assert env.output == 0.5
+
+        # Re-trigger
+        env.start()
+
+        # Output should *not* immediately jump to 0.
+        # It should remain at the sustain level.
+        assert env.output == 0.5
+
+        # Advance half a second, this should end the attack phase.
+        monotonic_ns.return_value = 3 * _NS_TO_S
+        assert env.output == 1.0
+
+        # Advancing another half second should put it in the
+        # middle of the decay phase
+        monotonic_ns.return_value = 3.5 * _NS_TO_S
+        assert env.output == 0.75
+
+
+class TestDisjointADSR(_ADSRTestCase):
+    cls = adsr.DisjointADSR
+
+    @mock.patch("time.monotonic_ns", autospec=True)
+    def test_disjoint(self, monotonic_ns):
+        monotonic_ns.return_value = 0
+        env = self.cls(1.0, 1.0, 0.5, 1.0)
+
+        env.start()
+
+        # Advance to the sustain phase.
+        monotonic_ns.return_value = 2.5 * _NS_TO_S
+        assert env.output == 0.5
+
+        # Re-trigger
+        env.start()
+
+        # Output should immediately jump to 0
         assert env.output == 0
