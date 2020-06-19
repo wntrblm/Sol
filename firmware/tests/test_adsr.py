@@ -138,11 +138,6 @@ class TestADSR(_ADSRTestCase):
         monotonic_ns.return_value = 3 * _NS_TO_S
         assert env.output == 1.0
 
-        # Advancing another half second should put it in the
-        # middle of the decay phase
-        monotonic_ns.return_value = 3.5 * _NS_TO_S
-        assert env.output == 0.75
-
 
 class TestDisjointADSR(_ADSRTestCase):
     cls = adsr.DisjointADSR

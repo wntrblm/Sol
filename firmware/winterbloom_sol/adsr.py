@@ -62,7 +62,6 @@ class ADSR:
         outputs.cv_b = adsr.output * 10.0
 
     """
-
     def __init__(self, attack, decay, sustain, release):
         self.attack = attack
         self.decay = decay
@@ -111,14 +110,13 @@ class ADSR:
                     # time than expected. Figure out how much extra time
                     # there is an carry it over to the decay state.
                     expected_val = 1.0 / self.attack * self._state_time
-                    extra_time = (self._accum - expected_val) / self.attack
                     self._accum = 1.0
                     self._state = 2
                     # Leave remaining state time so that if an update
                     # covers some time in attack and some time in decay
                     # the value can be correctly calculated
-                    self._state_time = dt = self._state_time - self.attack + extra_time
-
+                    self._state_time = dt = self._state_time - min(self.attack * expected_val, self.attack)
+        
         # Decay
         if self._state == 2:
             if self.decay == 0:
@@ -130,7 +128,7 @@ class ADSR:
                     self._accum = self.sustain
                     self._state_time = 0
                     self._state = 3
-
+        
         # Sustain
         elif self._state == 3:
             self._accum = self.sustain
@@ -146,12 +144,13 @@ class ADSR:
                     self._accum = 0.0
                     self._state_time = 0
                     self._state = 0
-
+        
         self._last_update = now
         return self._accum
 
 
 class DisjointADSR:
+
     def __init__(self, attack, decay, sustain, release):
         self.attack = attack
         self.decay = decay
