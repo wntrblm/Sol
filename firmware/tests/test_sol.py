@@ -110,6 +110,19 @@ class TestOutputs:
         assert outputs.cv_d == 8.0
 
         assert outputs._cv_a._analog_out._driver.spi_device.spi.data
+    
+    def test_set_cv(self):
+        outputs = sol.Outputs()
+
+        outputs.set_cv("a", 8.0)
+        outputs.set_cv("b", 7.0)
+        outputs.set_cv("c", 6.0)
+        outputs.set_cv("d", 5.0)
+
+        assert outputs.cv_a == 8.0
+        assert outputs.cv_b == 7.0
+        assert outputs.cv_c == 6.0
+        assert outputs.cv_d == 5.0
 
     @mock.patch("time.monotonic_ns", autospec=True)
     def test_trigger_step(self, time_monotonic):
