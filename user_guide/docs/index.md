@@ -158,7 +158,7 @@ The [**State** objects](https://github.com/theacodes/Winterbloom-Sol/blob/master
 - `state.playing` is `True` if the MIDI transport is playing, and is `False` if it's paused or stopped.
 - `state.clock` gives the count of MIDI clocks received. There are 24 MIDI clocks per quarter note. Take a look at the `should_trigger_clock` helper function as well.
 - `state.clock_frequency` gives you the BPM for the MIDI clocks.
-- `state.message` gives you direct access to the last MIDI message received. This comes from SmolMIDI and you can see its implementation [here](https://github.com/theacodes/Winterbloom_SmolMIDI/blob/master/winterbloom_smolmidi.py#L79).
+- `state.message` gives you direct access to the last MIDI message received (see below).
 
 The [**Outputs** object](https://github.com/theacodes/Winterbloom-Sol/blob/master/firmware/winterbloom_sol/sol.py#L179) lets you control the output jacks. It has the following properties:
 
@@ -176,6 +176,11 @@ Sol also has several helper methods that can be used for common tasks:
 - `sol.should_trigger_clock(state, division)` return `True` if the clock matches the note division. For example, `sol.should_trigger_clock(state, 1/16)` will return `True` once for every sixteenth note.
 - `sol.map(value, low, high, new_low, new_high)`: re-maps a value to a different range. For example, `sol.map(0.5, 0.0, 1.0, 0.0, 10.0)` will return `5.0`.
 
+The [**MIDI** message object](https://github.com/theacodes/Winterbloom_SmolMIDI/blob/master/winterbloom_smolmidi.py#L79) contains just three fields:
+- `message.type`, the type of the message. SmolMIDI provides several MIDI message types, such as `smolmidi.NOTE_ON` and `smolmidi.CC`.
+- `message.channel`, the channel on to which the message is associated, or `None` if not applicable. Note that, unlike in most higher-level MIDI applications, this value is zero-indexed; `message.channel == 0` means what most applications
+call channel 1.
+- `message.data`, a byte array of the data transmitted with the message. For example, a `NOTE_ON` message's data is a single byte representing the note being turned on, which can be used with the note to V/Oct helper: `sol.note_to_volts_per_octave(message.data[0])`.
 
 ## Updating the firmware
 
