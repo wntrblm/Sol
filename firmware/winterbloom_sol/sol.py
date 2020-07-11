@@ -254,6 +254,27 @@ class Outputs:
             self.gate_4,
         )
 
+    def set_cv(self, output, value):
+        output = output.lower()
+        if output not in ["a", "b", "c", "d"]:
+            raise ValueError("No such CV channel '{}'".format(output))
+        getattr(self, "_cv_" + output).voltage = value
+
+    def set_gate(self, output, value):
+        if output not in list(range(1, 5)):
+            raise ValueError("No such gate channel '{}'".format(output))
+        getattr(self, "_gate_{}".format(output)).value = value
+
+    def trigger_gate(self, output):
+        if output not in list(range(1, 5)):
+            raise ValueError("No such gate channel '{}'".format(output))
+        getattr(self, "_gate_{}_trigger".format(output))()
+
+    def retrigger_gate(self, output):
+        if output not in list(range(1, 5)):
+            raise ValueError("No such gate channel '{}'".format(output))
+        getattr(self, "_gate_{}_retrigger".format(output))()
+
     @micropython.native
     def step(self):
         self._gate_1_trigger.step()

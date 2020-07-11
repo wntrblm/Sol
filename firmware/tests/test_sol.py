@@ -96,6 +96,19 @@ class TestOutputs:
             == "<Outputs A:0, B:0, C:0, D:0, 1:False, 2:False, 3:False, 4:False>"
         )
 
+    def test_set_gate(self):
+        outputs = sol.Outputs()
+
+        outputs.set_gate(1, True)
+        outputs.set_gate(2, True)
+        outputs.set_gate(3, True)
+        outputs.set_gate(4, True)
+
+        assert outputs.gate_1 is True
+        assert outputs.gate_2 is True
+        assert outputs.gate_3 is True
+        assert outputs.gate_4 is True
+
     def test_drive_cv_outs(self):
         outputs = sol.Outputs()
 
@@ -110,6 +123,19 @@ class TestOutputs:
         assert outputs.cv_d == 8.0
 
         assert outputs._cv_a._analog_out._driver.spi_device.spi.data
+
+    def test_set_cv(self):
+        outputs = sol.Outputs()
+
+        outputs.set_cv("a", 8.0)
+        outputs.set_cv("b", 7.0)
+        outputs.set_cv("c", 6.0)
+        outputs.set_cv("d", 5.0)
+
+        assert outputs.cv_a == 8.0
+        assert outputs.cv_b == 7.0
+        assert outputs.cv_c == 6.0
+        assert outputs.cv_d == 5.0
 
     @mock.patch("time.monotonic_ns", autospec=True)
     def test_trigger_step(self, time_monotonic):
@@ -133,6 +159,36 @@ class TestOutputs:
         assert outputs.gate_2 is False
         time_monotonic.return_value = 0.032 * _NS_TO_S
         outputs.step()
+        assert outputs.gate_2 is True
+
+    @mock.patch("time.monotonic_ns", autospec=True)
+    def test_trigger_parametric(self, time_monotonic):
+        outputs = sol.Outputs()
+
+        time_monotonic.return_value = 0
+        outputs.trigger_gate(1)
+        outputs.retrigger_gate(2)
+
+        time_monotonic.return_value = 0.014 * _NS_TO_S
+        outputs.step()
+        assert outputs.gate_1 is True
+        assert outputs.gate_2 is True
+
+        time_monotonic.return_value = 0.016 * _NS_TO_S
+        outputs.step()
+        assert outputs.gate_1 is False
+        assert outputs.gate_2 is True
+
+        outputs.retrigger_gate(2)
+
+        time_monotonic.return_value = 0.018 * _NS_TO_S
+        outputs.step()
+        assert outputs.gate_1 is False
+        assert outputs.gate_2 is False
+
+        time_monotonic.return_value = 0.032 * _NS_TO_S
+        outputs.step()
+        assert outputs.gate_1 is False
         assert outputs.gate_2 is True
 
 
