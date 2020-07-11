@@ -163,6 +163,7 @@ The [**State** objects](https://github.com/theacodes/Winterbloom-Sol/blob/master
 The [**Outputs** object](https://github.com/theacodes/Winterbloom-Sol/blob/master/firmware/winterbloom_sol/sol.py#L179) lets you control the output jacks. It has the following properties:
 
 - `outputs.cv_a`, `outputs.cv_b`, `outputs.cv_c`, `outputs.cv_d` are the CV outputs. You can set it to a number between `-5.0` and `8.0`. This is in volts. Setting `outputs.cv_a = 5.0` will output 5v on CV A.
+- `outputs.set_cv(output, value)` sets the given output to the given value, just like using `outputs.cv_a` et. al. Calling `outputs.set_cv("a", 5.0)` will output 5v on CV A.
 - `outputs.gate_1`, `outputs.gate_2`, `outputs.gate_3`, and `outputs.gate_4` are the gate outputs. They can be `True` or `False`. Setting to `True` will output 5v on that gate, setting to `False` will output 0v on that gate.
 - `outputs.trigger_gate_1()`, etc. are helper methods to send trigger pulses through one of the gate. Calling this will cause the gate to be `True` for a short period of time before returning to `False`.
 - `outputs.retrigger_gate_1()`, etc. are helper methods to "retrigger" one of the gate outputs. Calling this will cause the gate to go `False` for a short period of time before returning to `True`.
