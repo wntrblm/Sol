@@ -258,15 +258,7 @@ class Outputs:
         output = output.lower()
         if output not in ["a", "b", "c", "d"]:
             raise ValueError("No such CV channel '{}'".format(output))
-        if output is "a":
-            self.cv_a = value
-        elif output is "b":
-            self.cv_b = value
-        elif output is "c":
-            self.cv_c = value
-        elif output is "d":
-            self.cv_d = value
-        
+        getattr(self, "_cv_" + output).voltage = value
 
     @micropython.native
     def step(self):
