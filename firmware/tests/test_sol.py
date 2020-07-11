@@ -161,6 +161,36 @@ class TestOutputs:
         outputs.step()
         assert outputs.gate_2 is True
 
+    @mock.patch("time.monotonic_ns", autospec=True)
+    def test_trigger_parametric(self, time_monotonic):
+        outputs = sol.Outputs()
+
+        time_monotonic.return_value = 0
+        outputs.trigger_gate(1)
+        outputs.retrigger_gate(2)
+
+        time_monotonic.return_value = 0.014 * _NS_TO_S
+        outputs.step()
+        assert outputs.gate_1 is True
+        assert outputs.gate_2 is True
+
+        time_monotonic.return_value = 0.016 * _NS_TO_S
+        outputs.step()
+        assert outputs.gate_1 is False
+        assert outputs.gate_2 is True
+
+        outputs.retrigger_gate(2)
+
+        time_monotonic.return_value = 0.018 * _NS_TO_S
+        outputs.step()
+        assert outputs.gate_1 is False
+        assert outputs.gate_2 is False
+
+        time_monotonic.return_value = 0.032 * _NS_TO_S
+        outputs.step()
+        assert outputs.gate_1 is False
+        assert outputs.gate_2 is True
+
 
 def make_message(type, *data):
     msg = smolmidi.Message()
