@@ -96,6 +96,19 @@ class TestOutputs:
             == "<Outputs A:0, B:0, C:0, D:0, 1:False, 2:False, 3:False, 4:False>"
         )
 
+    def test_set_gate(self):
+        outputs = sol.Outputs()
+
+        outputs.set_gate(1, True)
+        outputs.set_gate(2, True)
+        outputs.set_gate(3, True)
+        outputs.set_gate(4, True)
+
+        assert outputs.gate_1 is True
+        assert outputs.gate_2 is True
+        assert outputs.gate_3 is True
+        assert outputs.gate_4 is True
+
     def test_drive_cv_outs(self):
         outputs = sol.Outputs()
 
@@ -110,7 +123,7 @@ class TestOutputs:
         assert outputs.cv_d == 8.0
 
         assert outputs._cv_a._analog_out._driver.spi_device.spi.data
-    
+
     def test_set_cv(self):
         outputs = sol.Outputs()
 

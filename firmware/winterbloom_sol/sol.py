@@ -260,6 +260,11 @@ class Outputs:
             raise ValueError("No such CV channel '{}'".format(output))
         getattr(self, "_cv_" + output).voltage = value
 
+    def set_gate(self, output, value):
+        if output not in list(range(1, 5)):
+            raise ValueError("No such gate channel '{}'".format(output))
+        getattr(self, "_gate_" + str(output)).value = value
+
     @micropython.native
     def step(self):
         self._gate_1_trigger.step()
