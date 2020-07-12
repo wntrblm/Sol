@@ -45,7 +45,7 @@ class State:
         self.velocity = 0
         self.pitch_bend = 0
         self.pressure = 0
-        self._cc = [0] * 128
+        self._cc = bytearray(128)
         self.playing = False
         self.clock = 0
         self.clock_frequency = 0
@@ -123,14 +123,7 @@ class State:
         self.pitch_bend = other.pitch_bend
         self.playing = other.playing
         self.clock = other.clock
-
-        # Don't use range because it can be *really* slow.
-        self_ccs = self._cc
-        other_ccs = other._cc
-        n = 0
-        while n < 128:
-            self_ccs[n] = other_ccs[n]
-            n += 1
+        self._cc[:] = other._cc[:]
 
 
 class StatusLED:
