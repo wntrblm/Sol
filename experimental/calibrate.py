@@ -1,16 +1,24 @@
-import visa
 import serial
 import serial.tools.list_ports
 import time
 import math
 import statistics
-import win32api
 import os.path
 import shutil
 import io
 import subprocess
 
 import utils
+
+try:
+    import visa
+except ImportError:
+    visa = None
+
+try:
+    import win32api
+except ImportError:
+    win32api = None
 
 
 METER_RESOURCE_NAME = "USB0::0x05E6::0x6500::04450405::INSTR"

@@ -1,7 +1,11 @@
 import os.path
 import pathlib
-import win32api
 import subprocess
+
+try:
+    import win32api
+except ImportError:
+    win32api = None
 
 def find_drive_by_name(name):
     drives = win32api.GetLogicalDriveStrings()
@@ -14,6 +18,9 @@ def find_drive_by_name(name):
 
 
 def flush(path):
+    if win32api is None:
+        return
+
     drive, _ = os.path.splitdrive(path)
     subprocess.run(["sync", drive], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 

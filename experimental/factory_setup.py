@@ -4,6 +4,7 @@ import os
 import subprocess
 import utils
 import shutil
+import sys
 import zipfile
 
 import requests
@@ -11,8 +12,6 @@ import requests
 import calibrate
 
 JLINK_PATH = "C:\Program Files (x86)\SEGGER\JLink\JLink.exe"
-assert os.path.exists("bootloader.bin")
-assert os.path.exists("firmware.uf2")
 
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 FIRMWARE_DIR = os.path.join(ROOT_DIR, "firmware")
@@ -47,16 +46,18 @@ def program_circuitpython():
     utils.copyfile("firmware.uf2", os.path.join(bootloader_drive, "NEW.uf2"))
 
 
-def deploy_circuitpython_code():
+def deploy_circuitpython_code(destination=None):
     print("========== DEPLOYING CODE ==========")
     # Wait for the circuitpython drive to show up.
     time.sleep(5)
-    cpy_drive = utils.find_drive_by_name("CIRCUITPY")
+
+    if not destination:
+        destination = utils.find_drive_by_name("CIRCUITPY")
 
     utils.clean_pycache(FIRMWARE_DIR)
     utils.clean_pycache(EXAMPLES_DIR)
 
-    os.makedirs(os.path.join(cpy_drive, "lib"), exist_ok=True)
+    os.makedirs(os.path.join(destination, "lib"), exist_ok=True)
 
     for src, dst in FILES_TO_DEPLOY.items():
         if src.startswith("https://"):
@@ -68,21 +69,21 @@ def deploy_circuitpython_code():
                 file_data = zipfh.read(zip_path)
             
             dst = os.path.join(dst, os.path.basename(zip_path))
-            with open(os.path.join(cpy_drive, dst), "wb") as fh:
+            with open(os.path.join(destination, dst), "wb") as fh:
                 fh.write(file_data)
                 
         else:
             if os.path.isdir(src):
-                dst = os.path.join(cpy_drive, dst, os.path.basename(src))
+                dst = os.path.join(destination, dst, os.path.basename(src))
                 if os.path.exists(dst):
                     shutil.rmtree(dst)
                 shutil.copytree(src, dst)
             else:
-                shutil.copy(src, os.path.join(cpy_drive, dst))
+                shutil.copy(src, os.path.join(destination, dst))
 
         print(f"Copied {src} to {dst}")
     
-    utils.flush(cpy_drive)
+    utils.flush(destination)
     
 
 def run_calibration():
@@ -91,6 +92,13 @@ def run_calibration():
 
 
 def main():
+    if sys.argv[1] == "publish":
+        deploy_circuitpython_code("distribution")
+        return
+
+    assert os.path.exists("bootloader.bin")
+    assert os.path.exists("firmware.uf2")
+
     try:
         bootloader_drive = utils.find_drive_by_name("SOLBOOT")
     except:
