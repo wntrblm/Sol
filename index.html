@@ -24,6 +24,10 @@
     <link href="css/cinder.min.css" rel="stylesheet">
 
     
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
     <link href="css/overrides.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -218,14 +222,18 @@
 <li><code>state.playing</code> is <code>True</code> if the MIDI transport is playing, and is <code>False</code> if it's paused or stopped.</li>
 <li><code>state.clock</code> gives the count of MIDI clocks received. There are 24 MIDI clocks per quarter note. Take a look at the <code>should_trigger_clock</code> helper function as well.</li>
 <li><code>state.clock_frequency</code> gives you the BPM for the MIDI clocks.</li>
-<li><code>state.message</code> gives you direct access to the last MIDI message received. This comes from SmolMIDI and you can see its implementation <a href="https://github.com/theacodes/Winterbloom_SmolMIDI/blob/master/winterbloom_smolmidi.py#L79">here</a>.</li>
+<li><code>state.message</code> gives you direct access to the last MIDI message received (see below).</li>
 </ul>
 <p>The <a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/firmware/winterbloom_sol/sol.py#L179"><strong>Outputs</strong> object</a> lets you control the output jacks. It has the following properties:</p>
 <ul>
 <li><code>outputs.cv_a</code>, <code>outputs.cv_b</code>, <code>outputs.cv_c</code>, <code>outputs.cv_d</code> are the CV outputs. You can set it to a number between <code>-5.0</code> and <code>8.0</code>. This is in volts. Setting <code>outputs.cv_a = 5.0</code> will output 5v on CV A.</li>
+<li><code>outputs.set_cv(output, value)</code> sets the given CV output to the given value, just like using <code>outputs.cv_a</code> et. al. Calling <code>outputs.set_cv("a", 5.0)</code> will output 5v on CV A.</li>
 <li><code>outputs.gate_1</code>, <code>outputs.gate_2</code>, <code>outputs.gate_3</code>, and <code>outputs.gate_4</code> are the gate outputs. They can be <code>True</code> or <code>False</code>. Setting to <code>True</code> will output 5v on that gate, setting to <code>False</code> will output 0v on that gate.</li>
+<li><code>outputs.set_gate(output, value)</code> sets the given gate output to the given value (<code>True</code> or <code>False</code>.)</li>
 <li><code>outputs.trigger_gate_1()</code>, etc. are helper methods to send trigger pulses through one of the gate. Calling this will cause the gate to be <code>True</code> for a short period of time before returning to <code>False</code>.</li>
+<li><code>outputs.trigger_gate(output)</code> triggers the given gate output just like <code>outputs.trigger_gate_1()</code> and friends.</li>
 <li><code>outputs.retrigger_gate_1()</code>, etc. are helper methods to "retrigger" one of the gate outputs. Calling this will cause the gate to go <code>False</code> for a short period of time before returning to <code>True</code>.</li>
+<li><code>outputs.retrigger_gate(output)</code> retriggers the given gate output just like <code>outputs.retrigger_gate_1()</code> and friends.</li>
 </ul>
 <p>Sol also has several helper methods that can be used for common tasks:</p>
 <ul>
@@ -236,6 +244,11 @@
 <li><code>sol.should_trigger_clock(state, division)</code> return <code>True</code> if the clock matches the note division. For example, <code>sol.should_trigger_clock(state, 1/16)</code> will return <code>True</code> once for every sixteenth note.</li>
 <li><code>sol.map(value, low, high, new_low, new_high)</code>: re-maps a value to a different range. For example, <code>sol.map(0.5, 0.0, 1.0, 0.0, 10.0)</code> will return <code>5.0</code>.</li>
 </ul>
+<p>The <a href="https://github.com/theacodes/Winterbloom_SmolMIDI/blob/master/winterbloom_smolmidi.py#L79"><strong>MIDI</strong> message object</a> contains just three fields:
+- <code>message.type</code>, the type of the message. SmolMIDI provides several MIDI message types, such as <code>smolmidi.NOTE_ON</code> and <code>smolmidi.CC</code>.
+- <code>message.channel</code>, the channel on to which the message is associated, or <code>None</code> if not applicable. Note that, unlike in most higher-level MIDI applications, this value is zero-indexed; <code>message.channel == 0</code> means what most applications
+call channel 1.
+- <code>message.data</code>, a byte array of the data transmitted with the message. For example, a <code>NOTE_ON</code> message's data is a single byte representing the note being turned on, which can be used with the note to V/Oct helper: <code>sol.note_to_volts_per_octave(message.data[0])</code>.</p>
 <h2 id="updating-the-firmware">Updating the firmware<a class="headerlink" href="#updating-the-firmware" title="Permanent link">#</a></h2>
 <p>Updating the firmware requires two steps: Updating CircuitPython and updating Sol's libraries.</p>
 <h3>Updating CircuitPython</h3>
@@ -295,7 +308,13 @@
     </footer>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap-3.0.3.min.js"></script>
+
     
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
     <script>var base_url = "."</script>
     
     <script src="js/base.js"></script>
@@ -372,6 +391,6 @@
 </html>
 
 <!--
-MkDocs version : 1.1
-Build Date UTC : 2020-04-14 02:43:42
+MkDocs version : 1.1.2
+Build Date UTC : 2020-09-28 20:59:03.684841+00:00
 -->
