@@ -29,7 +29,6 @@ from winterbloom_sol import sol
 SEMITONE = semitone = 1 / 12
 
 
-@micropython.native
 def note_to_volts_per_octave(note):
     # C1 is MIDI Note 24, and A0 is the lowest common MIDI note. So we'll make 0v C1.
     note = note - 24
@@ -39,7 +38,6 @@ def note_to_volts_per_octave(note):
     return note * SEMITONE
 
 
-@micropython.native
 def offset_for_pitch_bend(pitch_bend, range=2):
     return (pitch_bend * range) * SEMITONE
 
@@ -65,7 +63,6 @@ def was_key_pressed(state):
         return False
 
 
-@micropython.native
 def should_trigger_clock(state, division):
     operand = int(96 / division)
 
