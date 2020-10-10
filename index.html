@@ -55,6 +55,16 @@
 <p>If you don't enable <em>Sync</em>, Live won't send MIDI clock data.</p>
 <p>If you're using <strong>Orca</strong>, it should automatically detect Sol. Make sure the MIDI output device says <code>Sol Audio</code></p>
 <p><img alt="images/Annotation_2019-12-08_173238.png" src="images/Annotation_2019-12-08_173238.png" /></p>
+<p>Sol works out of the box with <strong>JACK</strong> on Linux, as an Advanced LSA MIDI device.
+If your DAW uses JACK MIDI rather than ALSA MIDI, you will need to install <code>a2jmidid</code>:</p>
+<div class="highlight"><pre><span></span><code>$ sudo apt install a2jmidid
+</code></pre></div>
+
+<p>Then, enable it in your JACK settings:</p>
+<p><img alt="images/jack_a2jmidid.png" src="images/jack_a2jmidid.png" /></p>
+<p>Now Sol will appear as a MIDI device under the JACK MIDI panel, and you can easily connect your DAW and other MIDI devices.
+Sol will still work as an Advanced LSA MIDI device for use with, for instance, ORCA.</p>
+<p><img alt="jack_a2j_w_daw_and_controller.png" src="images/jack_a2j_w_daw_and_controller.png" /></p>
 <h2 id="making-your-first-connections">Making your first connections<a class="headerlink" href="#making-your-first-connections" title="Permanent link">#</a></h2>
 <p>Sol has eight outputs. Four are continuous CV outputs and the other four are gate/trigger outputs:</p>
 <ul>
