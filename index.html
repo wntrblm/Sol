@@ -1,119 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<head>
-    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-    
-    
-    <link rel="shortcut icon" href="img/favicon.ico">
+		
+		<link rel="shortcut icon" href="/favicon.ico">
 
-    
     <title>User Guide - Winterbloom Sol User Guide</title>
-    
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
-    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
-    <link href="css/bootstrap-custom.min.css" rel="stylesheet">
-    <link href="css/base.min.css" rel="stylesheet">
-    <link href="css/cinder.min.css" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="/bootstrap.min.css" rel="stylesheet">
 
-    
-        
-        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
-        
-    
-    <link href="css/overrides.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="/style.css" rel="stylesheet">
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-        <![endif]-->
+    <!-- Syntax highlighting css -->
+		<link href="/pygments.css" rel="stylesheet">
 
-    
-
-     
-</head>
-
-<body class="homepage" >
-
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  </head>
+  <body>
     <div class="container">
+			<nav class="navbar navbar-expand-lg navbar-light">
+				<a class="navbar-brand" href="/">
+					<img src="/winterbloom-logo.png" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+				</a>
+				
+			</nav>
 
-        <!-- Collapsed navigation -->
-        <div class="navbar-header">
-            <!-- Expander button -->
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            
-
-            <!-- Main title -->
-
-            <a class="navbar-brand" href=".">Winterbloom Sol User Guide</a>
-        </div>
-
-        <!-- Expanded navigation -->
-        <div class="navbar-collapse collapse">
-
-            <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
-                            <i class="fas fa-search"></i> Search
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/theacodes/Winterbloom-Sol/edit/master/user_guide/docs/index.md"><i class="fab fa-github"></i> Edit on GitHub</a>
-                    </li>
-            </ul>
-        </div>
-    </div>
-</div>
-
-    <div class="container">
-        
-        
-        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
-    <ul class="nav bs-sidenav">
-        <li class="first-level active"><a href="#winterbloom-sol-user-guide">Winterbloom Sol User Guide</a></li>
-            <li class="second-level"><a href="#getting-support-and-help">Getting support and help</a></li>
-                
-            <li class="second-level"><a href="#installing-the-module">Installing the module</a></li>
-                
-            <li class="second-level"><a href="#connecting-via-midi">Connecting via MIDI</a></li>
-                
-            <li class="second-level"><a href="#making-your-first-connections">Making your first connections</a></li>
-                
-            <li class="second-level"><a href="#modifying-the-program">Modifying the program</a></li>
-                
-            <li class="second-level"><a href="#help-this-thing-isnt-working-and-its-blinking-at-me">Help! This thing isn't working and it's blinking at me!</a></li>
-                
-            <li class="second-level"><a href="#included-example-programs">Included example programs</a></li>
-                
-            <li class="second-level"><a href="#about-the-state-outputs-and-helper-functions">About the state, outputs, and helper functions</a></li>
-                
-            <li class="second-level"><a href="#updating-the-firmware">Updating the firmware</a></li>
-                
-            <li class="second-level"><a href="#restoring-lost-calibration">Restoring lost calibration</a></li>
-                
-            <li class="second-level"><a href="#frequently-asked-questions">Frequently asked questions</a></li>
-                
-            <li class="second-level"><a href="#acknowledgments-and-thanks">Acknowledgments and thanks</a></li>
-                
-    </ul>
-</div></div>
-        <div class="col-md-9" role="main">
-
-<h1 id="winterbloom-sol-user-guide">Winterbloom Sol User Guide<a class="headerlink" href="#winterbloom-sol-user-guide" title="Permanent link">#</a></h1>
+			<article>
+				<h1 id="winterbloom-sol-user-guide">Winterbloom Sol User Guide<a class="headerlink" href="#winterbloom-sol-user-guide" title="Permanent link">#</a></h1>
 <p>Sol is a uniquely customizable USB MIDI to CV/Gate module. It's designed to be useful right out of the box but flexible enough to accommodate a ton of different CV/Gate generation needs. It's meant to be useful to newcomers, deeply experienced Eurorack enthusiasts, and most in between. With four CV outs and four gate outputs, it can perform all sorts of tasks for your Eurorack synthesizer.</p>
 <h2 id="getting-support-and-help">Getting support and help<a class="headerlink" href="#getting-support-and-help" title="Permanent link">#</a></h2>
 <p>We want you to have a wonderful experience with your module. If you need help or run into problems, please reach out to us. Email is the best way for product issues, whereas Discord and GitHub are great for getting advice and help on how to customize your module.</p>
@@ -168,12 +86,12 @@
 <p>Sol should show up both as a MIDI output device <strong>and</strong> a small external drive named <code>CIRCUITPY</code>. In that drive, you should find a file named <code>code.py</code>. Sol runs <a href="https://circuitpython.org">CircuitPython</a> which means that its firmware is written in the approachable <a href="https://python.org">Python</a> programming language and you don't need any special knowledge or compilers to make changes to it. So, open up that file in your favorite text editor, we're going to make some changes!</p>
 <p>If you don't have a text editor - that's okay! While you could use Notepad (Windows) or TextEdit (Mac), these can sometimes have issues with CircuitPython devices like Sol. I'd recommend <a href="https://learn.adafruit.com/welcome-to-circuitpython/installing-mu-editor">installing Mu</a> if you're new to this whole world. You can read more about editing code for CircuitPython in <a href="https://learn.adafruit.com/welcome-to-circuitpython/creating-and-editing-code">Adafruit's guide</a>.</p>
 <p>In the <code>code.py</code> you should see a line that looks like this:</p>
-<pre><code class="python">outputs.cv_a = sol.voct(state)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">outputs</span><span class="o">.</span><span class="n">cv_a</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">voct</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+</code></pre></div>
 
 <p>Modify this line so that it reads:</p>
-<pre><code class="python">outputs.cv_a = sol.voct(state) - 1.0
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">outputs</span><span class="o">.</span><span class="n">cv_a</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">voct</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.0</span>
+</code></pre></div>
 
 <div class="admonition warning">
 <p class="admonition-title">Be careful</p>
@@ -244,11 +162,13 @@
 <li><code>sol.should_trigger_clock(state, division)</code> return <code>True</code> if the clock matches the note division. For example, <code>sol.should_trigger_clock(state, 1/16)</code> will return <code>True</code> once for every sixteenth note.</li>
 <li><code>sol.map(value, low, high, new_low, new_high)</code>: re-maps a value to a different range. For example, <code>sol.map(0.5, 0.0, 1.0, 0.0, 10.0)</code> will return <code>5.0</code>.</li>
 </ul>
-<p>The <a href="https://github.com/theacodes/Winterbloom_SmolMIDI/blob/master/winterbloom_smolmidi.py#L79"><strong>MIDI</strong> message object</a> contains just three fields:
-- <code>message.type</code>, the type of the message. SmolMIDI provides several MIDI message types, such as <code>smolmidi.NOTE_ON</code> and <code>smolmidi.CC</code>.
-- <code>message.channel</code>, the channel on to which the message is associated, or <code>None</code> if not applicable. Note that, unlike in most higher-level MIDI applications, this value is zero-indexed; <code>message.channel == 0</code> means what most applications
-call channel 1.
-- <code>message.data</code>, a byte array of the data transmitted with the message. For example, a <code>NOTE_ON</code> message's data is a single byte representing the note being turned on, which can be used with the note to V/Oct helper: <code>sol.note_to_volts_per_octave(message.data[0])</code>.</p>
+<p>The <a href="https://github.com/theacodes/Winterbloom_SmolMIDI/blob/master/winterbloom_smolmidi.py#L79"><strong>MIDI</strong> message object</a> contains just three fields:</p>
+<ul>
+<li><code>message.type</code>, the type of the message. SmolMIDI provides several MIDI message types, such as <code>smolmidi.NOTE_ON</code> and <code>smolmidi.CC</code>.</li>
+<li><code>message.channel</code>, the channel on to which the message is associated, or <code>None</code> if not applicable. Note that, unlike in most higher-level MIDI applications, this value is zero-indexed; <code>message.channel == 0</code> means what most applications
+call channel 1.</li>
+<li><code>message.data</code>, a byte array of the data transmitted with the message. For example, a <code>NOTE_ON</code> message's data is a single byte representing the note being turned on, which can be used with the note to V/Oct helper: <code>sol.note_to_volts_per_octave(message.data[0])</code>.</li>
+</ul>
 <h2 id="updating-the-firmware">Updating the firmware<a class="headerlink" href="#updating-the-firmware" title="Permanent link">#</a></h2>
 <p>Updating the firmware requires two steps: Updating CircuitPython and updating Sol's libraries.</p>
 <h3>Updating CircuitPython</h3>
@@ -289,108 +209,22 @@ call channel 1.
 <li>Echo Harker</li>
 <li>Andi McClure</li>
 </ul>
-<p>Sol would also not be possible without the help of the CircuitPython community and Adafruit Industries.</p></div>
-        
-        
-    </div>
+<p>Sol would also not be possible without the help of the CircuitPython community and Adafruit Industries.</p>
+			</article>
 
-    <footer class="col-md-12 text-center">
-        
-        <hr>
-        <p>
-        <small>© 2020 Winterbloom, licensed under Creative Commons CC BY-SA 4.0</small><br>
-        
-        <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
-        </p>
-
-        
-        
-    </footer>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="js/bootstrap-3.0.3.min.js"></script>
-
-    
-    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
-        
-    <script>hljs.initHighlightingOnLoad();</script>
-    
-
-    <script>var base_url = "."</script>
-    
-    <script src="js/base.js"></script>
-    <script src="search/main.js"></script>
-
-    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">
-                    <span aria-hidden="true">&times;</span>
-                    <span class="sr-only">Close</span>
-                </button>
-                <h4 class="modal-title" id="searchModalLabel">Search</h4>
-            </div>
-            <div class="modal-body">
-                <p>
-                    From here you can search these documents. Enter
-                    your search terms below.
-                </p>
-                <form>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
-                    </div>
-                </form>
-                <div id="mkdocs-search-results"></div>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
-</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            </div>
-            <div class="modal-body">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th style="width: 20%;">Keys</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="help shortcut"><kbd>?</kbd></td>
-                    <td>Open this help</td>
-                  </tr>
-                  <tr>
-                    <td class="next shortcut"><kbd>n</kbd></td>
-                    <td>Next page</td>
-                  </tr>
-                  <tr>
-                    <td class="prev shortcut"><kbd>p</kbd></td>
-                    <td>Previous page</td>
-                  </tr>
-                  <tr>
-                    <td class="search shortcut"><kbd>s</kbd></td>
-                    <td>Search</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
-</div>
-    </body>
-
+			<footer>
+				<p class="copyright">
+					© 2020 Winterbloom, licensed under Creative Commons CC BY-SA 4.0
+				</p>
+				<p class="edit-me">
+					Found an issue? <a href="mailto:support@winterbloom.com">Send us a message</a> or <a href="https://github.com/theacodes/Winterbloom-Sol/edit/master/user_guide/docs/index.md">Edit this page on GitHub</a>.
+				</p>
+				<p class="updated">
+					Last updated on October 10, 2020
+				</p>
+			</footer>
+		</div>
+	</body>
+	
+	<script type="text/javascript" src="/script.js"></script>
 </html>
-
-<!--
-MkDocs version : 1.1.2
-Build Date UTC : 2020-09-28 20:59:03.684841+00:00
--->
