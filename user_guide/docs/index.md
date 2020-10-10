@@ -181,6 +181,7 @@ Sol also has several helper methods that can be used for common tasks:
 - `sol.map(value, low, high, new_low, new_high)`: re-maps a value to a different range. For example, `sol.map(0.5, 0.0, 1.0, 0.0, 10.0)` will return `5.0`.
 
 The [**MIDI** message object](https://github.com/theacodes/Winterbloom_SmolMIDI/blob/master/winterbloom_smolmidi.py#L79) contains just three fields:
+
 - `message.type`, the type of the message. SmolMIDI provides several MIDI message types, such as `smolmidi.NOTE_ON` and `smolmidi.CC`.
 - `message.channel`, the channel on to which the message is associated, or `None` if not applicable. Note that, unlike in most higher-level MIDI applications, this value is zero-indexed; `message.channel == 0` means what most applications
 call channel 1.
