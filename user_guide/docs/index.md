@@ -37,6 +37,22 @@ If you're using **Orca**, it should automatically detect Sol. Make sure the MIDI
 
 ![images/Annotation_2019-12-08_173238.png](images/Annotation_2019-12-08_173238.png)
 
+Sol works out of the box with **JACK** on Linux, as an Advanced LSA MIDI device.
+If your DAW uses JACK MIDI rather than ALSA MIDI, you will need to install `a2jmidid`:
+
+```bash
+$ sudo apt install a2jmidid
+```
+
+Then, enable it in your JACK settings:
+
+![images/jack_a2jmidid.png](images/jack_a2jmidid.png)
+
+Now Sol will appear as a MIDI device under the JACK MIDI panel, and you can easily connect your DAW and other MIDI devices.
+Sol will still work as an Advanced LSA MIDI device for use with, for instance, ORCA.
+
+![jack_a2j_w_daw_and_controller.png](images/jack_a2j_w_daw_and_controller.png)
+
 
 ## Making your first connections
 
