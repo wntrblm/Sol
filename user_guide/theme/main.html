@@ -12,13 +12,13 @@
     <title>{% if page.title %}{{ page.title }} - {% endif %}{{ config.site_name }}</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="/bootstrap.min.css" rel="stylesheet">
+    <link href="{{'bootstrap.min.css'|url}}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="/style.css" rel="stylesheet">
+    <link href="{{'style.css'|url}}" rel="stylesheet">
 
     <!-- Syntax highlighting css -->
-		<link href="/pygments.css" rel="stylesheet">
+		<link href="{{'pygments.css'|url}}" rel="stylesheet">
 		
     {%- for path in config['extra_css'] %}
     <link href="{{ path|url }}" rel="stylesheet">
@@ -28,8 +28,8 @@
   <body>
     <div class="container">
 			<nav class="navbar navbar-expand-lg navbar-light">
-				<a class="navbar-brand" href="/">
-					<img src="/winterbloom-logo.png" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+				<a class="navbar-brand" href="{{base_url}}">
+					<img src="{{'winterbloom-logo.png'|url}}" height="30" class="d-inline-block align-middle" alt="" loading="lazy">
 				</a>
 				{% if nav|length>1 %}
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,5 +63,5 @@
 		</div>
 	</body>
 	
-	<script type="text/javascript" src="/script.js"></script>
+	<script type="text/javascript" src="{{'script.js'|url}}"></script>
 </html>
