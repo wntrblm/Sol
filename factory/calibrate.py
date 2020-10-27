@@ -11,7 +11,7 @@ import subprocess
 import utils
 
 try:
-    import visa
+    import pyvisa as visa
 except ImportError:
     visa = None
 
@@ -52,13 +52,21 @@ class Meter:
         self.port.write(":SENS:VOLT:AVER ON")
         return self.port.query_ascii_values(":READ?")[0]
 
+    def read_voltage_fast(self):
+        self.port.write("*RST")
+        self.port.write(':SENS:FUNC "VOLT:DC"')
+        self.port.write(":SENS:VOLT:RANG 10")
+        self.port.write(":SENS:VOLT:INP AUTO")
+        self.port.write(":SENS:VOLT:AZER ON")
+        return self.port.query_ascii_values(":READ?")[0]
+
 
 
 class Sol:
-    VERBOSE = True
     DAC_SETTLING_TIME = 0.1
 
-    def __init__(self):
+    def __init__(self, verbose):
+        self.verbose = verbose
         self._connect()
 
     def _connect(self):
@@ -69,9 +77,10 @@ class Sol:
             timeout=1)
     
     def reset(self):
+        print("Waiting for Sol to reset...")
         for n in range(10):
             line = self.port.readline().decode("utf-8").strip()
-            if self.VERBOSE:
+            if self.verbose:
                 print("Sol: ", line)
             if line == "ready":
                 break
@@ -82,7 +91,7 @@ class Sol:
         output = ''
         while True:
             line = self.port.readline().decode("utf-8").strip()
-            if self.VERBOSE:
+            if self.verbose:
                 print("Sol: ", line)
             if line == "done":
                 break
@@ -147,11 +156,11 @@ def generate_calibration_file(channel_calibrations):
     return buf.getvalue()
 
 
-def main():
+def main(verbose=False):
     circuitpython_drive = find_circuitpython_drive()
-    resource_manager = visa.ResourceManager("@ni")
+    resource_manager = visa.ResourceManager("@ivi")
     meter = Meter(resource_manager)
-    sol = Sol()
+    sol = Sol(verbose=verbose)
     copy_calibration_script(circuitpython_drive)
     time.sleep(3)  # Wait a few second for circuitpython to maybe reload.
     sol.reset()
@@ -165,7 +174,19 @@ def main():
     try:
         for channel in ("a", "b", "c", "d"):
             print(f"========= Channel {channel} =========")
-            input(f"Connect to channel {channel}, press enter when ready.")
+            print(f"Connect to channel {channel}...")
+
+            sol.set_dac(channel, 0)
+            for n in range(100):
+                if meter.read_voltage_fast() < -4.8:
+                    break
+                time.sleep(0.1)
+            else:
+                raise RuntimeError("Channel connection failed!")
+
+            # Sleep another second to account for bouncing
+            time.sleep(1)
+
             calibration_values = {}
             channel_voltages[channel] = {}
 
@@ -222,6 +243,8 @@ def main():
     utils.copyfile(calibration_file_path, os.path.join(circuitpython_drive, "calibration.py"))
 
     restore_code_py(circuitpython_drive)
+
+    utils.unmount(circuitpython_drive)
 
     print("Done.")
 

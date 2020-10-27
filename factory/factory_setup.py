@@ -11,8 +11,6 @@ import requests
 
 import calibrate
 
-JLINK_PATH = "C:\Program Files (x86)\SEGGER\JLink\JLink.exe"
-
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 FIRMWARE_DIR = os.path.join(ROOT_DIR, "firmware")
 LIB_DIR = os.path.join(FIRMWARE_DIR, "lib")
@@ -35,24 +33,24 @@ FILES_TO_DEPLOY = {
 def program_bootloader():
     print("========== PROGRAMMING BOOTLOADER ==========")
     subprocess.check_call(
-        [JLINK_PATH, "-device", "ATSAMD51J20", "-autoconnect", "1", "-if", "SWD", "-speed", "4000", "-CommanderScript", "flash-bootloader.jlink"]
+        [utils.JLINK_PATH, "-device", "ATSAMD51J20", "-autoconnect", "1", "-if", "SWD", "-speed", "4000", "-CommanderScript", "flash-bootloader.jlink"]
     )
 
 
 def program_circuitpython():
     print("========== PROGRAMMING CIRCUITPYTHON ==========")
-    input("Connect usb cable, press enter.")
-    bootloader_drive = utils.find_drive_by_name("SOLBOOT")
+    print("Waiting for boot drive...")
+    bootloader_drive = utils.wait_for_drive("SOLBOOT")
+    print("Found, programming CircuitPython...")
     utils.copyfile("firmware.uf2", os.path.join(bootloader_drive, "NEW.uf2"))
 
 
 def deploy_circuitpython_code(destination=None):
     print("========== DEPLOYING CODE ==========")
-    # Wait for the circuitpython drive to show up.
-    time.sleep(5)
 
     if not destination:
-        destination = utils.find_drive_by_name("CIRCUITPY")
+        print("Waiting for CIRCUITPY drive...")
+        destination = utils.wait_for_drive("CIRCUITPY")
 
     utils.clean_pycache(FIRMWARE_DIR)
     utils.clean_pycache(EXAMPLES_DIR)
@@ -92,7 +90,7 @@ def run_calibration():
 
 
 def main():
-    if sys.argv[1] == "publish":
+    if len(sys.argv) > 1 and sys.argv[1] == "publish":
         deploy_circuitpython_code("distribution")
         return
 
