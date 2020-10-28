@@ -24,7 +24,8 @@ except ImportError:
 METER_RESOURCE_NAME = "USB0::0x05E6::0x6500::04450405::INSTR"
 SOL_USB_DEVICE_ID = "239A:8062"
 METER_AVERAGE_COUNT = 20  # 50 for production
-MILIVOLTS_PER_CODE = 13 / (2**16) * 1000
+MILIVOLTS_PER_CODE = 13 / (2 ** 16) * 1000
+
 
 class Meter:
     TIMEOUT = 10 * 1000
@@ -61,7 +62,6 @@ class Meter:
         return self.port.query_ascii_values(":READ?")[0]
 
 
-
 class Sol:
     DAC_SETTLING_TIME = 0.1
 
@@ -71,11 +71,8 @@ class Sol:
 
     def _connect(self):
         port_info = list(serial.tools.list_ports.grep(SOL_USB_DEVICE_ID))[0]
-        self.port = serial.Serial(
-            port_info.device,
-            baudrate=115200,
-            timeout=1)
-    
+        self.port = serial.Serial(port_info.device, baudrate=115200, timeout=1)
+
     def reset(self):
         print("Waiting for Sol to reset...")
         for n in range(10):
@@ -88,7 +85,7 @@ class Sol:
     def call(self, expr):
         self.port.write(f"{expr}\r\n".encode("utf-8"))
         self.port.flush()
-        output = ''
+        output = ""
         while True:
             line = self.port.readline().decode("utf-8").strip()
             if self.verbose:
@@ -101,10 +98,10 @@ class Sol:
             if line.startswith("NameError"):  # The repl didn't pick up the command.
                 error = self.port.read(size=500).decode("utf-8")
                 return call(self, expr)
-            
+
             if not line.startswith(expr):
                 output += line
-        
+
         return output
 
     def set_dac(self, channel, dac_code):
@@ -122,7 +119,7 @@ class Sol:
         return self.call("get_cpu_id()")
 
     def write_calibration_to_nvm(self, calibration_data):
-        self.call(f"write_calibration_to_nvm(\"\"\"{calibration_data}\"\"\")")
+        self.call(f'write_calibration_to_nvm("""{calibration_data}""")')
 
 
 def find_circuitpython_drive():
@@ -134,16 +131,19 @@ def copy_calibration_script(circuitpython_drive):
     if not os.path.exists(os.path.join(circuitpython_drive, "code-bak.py")):
         utils.copyfile(
             os.path.join(circuitpython_drive, "code.py"),
-            os.path.join(circuitpython_drive, "code-bak.py"))
+            os.path.join(circuitpython_drive, "code-bak.py"),
+        )
     utils.copyfile(
         os.path.join(os.path.dirname(__file__), "calibration_cpy_code.py"),
-        os.path.join(circuitpython_drive, "code.py"))
+        os.path.join(circuitpython_drive, "code.py"),
+    )
 
 
 def restore_code_py(circuitpython_drive):
     utils.copyfile(
         os.path.join(circuitpython_drive, "code-bak.py"),
-        os.path.join(circuitpython_drive, "code.py"))
+        os.path.join(circuitpython_drive, "code.py"),
+    )
     os.unlink(os.path.join(circuitpython_drive, "code-bak.py"))
 
 
@@ -151,7 +151,7 @@ def generate_calibration_file(channel_calibrations):
     buf = io.StringIO()
     buf.write("calibration = {")
     for channel, calibration in channel_calibrations.items():
-        buf.write(f"\"{channel}\": {calibration},\n")
+        buf.write(f'"{channel}": {calibration},\n')
     buf.write("}\n")
     return buf.getvalue()
 
@@ -191,7 +191,7 @@ def main(verbose=False):
             channel_voltages[channel] = {}
 
             for step in range(16):
-                dac_code = int((2**16 - 1) * step / 15)
+                dac_code = int((2 ** 16 - 1) * step / 15)
                 sol.set_dac(channel, dac_code)
                 voltage = meter.read_voltage()
                 calibration_values[voltage] = dac_code
@@ -204,9 +204,10 @@ def main(verbose=False):
                 sol.set_voltage(channel, desired_voltage)
                 measured_voltage = meter.read_voltage()
                 channel_voltages[channel][desired_voltage] = measured_voltage
-                print(f"Desired voltage: {desired_voltage}, Measured voltage: {measured_voltage}")
+                print(
+                    f"Desired voltage: {desired_voltage}, Measured voltage: {measured_voltage}"
+                )
 
-        
         calibration_file_contents = generate_calibration_file(channel_calibrations)
         sol.write_calibration_to_nvm(calibration_file_contents)
 
@@ -219,7 +220,9 @@ def main(verbose=False):
             continue
 
         print(f"Channel {channel}:")
-        differences = [abs(desired - measured) for desired, measured in voltages.items()]
+        differences = [
+            abs(desired - measured) for desired, measured in voltages.items()
+        ]
         avg = statistics.mean(differences) * 1000
         dev = statistics.stdev(differences) * 1000
         worst = max(differences) * 1000
@@ -229,10 +232,11 @@ def main(verbose=False):
         print(f"Worst: {worst:.3f} mV ({worst / MILIVOLTS_PER_CODE:.0f} lsb)")
         print(f"Best: {best:.3f} mV ({best / MILIVOLTS_PER_CODE:.0f} lsb)")
 
-
     print(f"Saving calibration to calibrations/{cpu_id} and {circuitpython_drive}")
 
-    calibration_file_path = os.path.join(os.path.dirname(__file__), 'calibrations', f'{cpu_id}.py')
+    calibration_file_path = os.path.join(
+        os.path.dirname(__file__), "calibrations", f"{cpu_id}.py"
+    )
 
     with open(calibration_file_path, "w") as fh:
         fh.write("# This is generated by the factory when assembling your\n")
@@ -240,7 +244,9 @@ def main(verbose=False):
         fh.write(calibration_file_contents)
         fh.flush()
 
-    utils.copyfile(calibration_file_path, os.path.join(circuitpython_drive, "calibration.py"))
+    utils.copyfile(
+        calibration_file_path, os.path.join(circuitpython_drive, "calibration.py")
+    )
 
     restore_code_py(circuitpython_drive)
 

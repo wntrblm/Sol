@@ -29,7 +29,9 @@ FILES_TO_DEPLOY = {
     os.path.join(FIRMWARE_DIR, "winterbloom_sol"): "lib",
     os.path.join(FIRMWARE_DIR, "LICENSE"): ".",
     os.path.join(FIRMWARE_DIR, "README.HTM"): ".",
-    os.path.join(LIB_DIR, "adafruit_circuitpython_busdevice/adafruit_bus_device"): "lib",
+    os.path.join(
+        LIB_DIR, "adafruit_circuitpython_busdevice/adafruit_bus_device"
+    ): "lib",
     os.path.join(LIB_DIR, "winterbloom_ad_dacs/winterbloom_ad_dacs"): "lib",
     os.path.join(LIB_DIR, "winterbloom_voltageio/winterbloom_voltageio.py"): "lib",
     os.path.join(LIB_DIR, "winterbloom_smolmidi/winterbloom_smolmidi.py"): "lib",
@@ -65,7 +67,7 @@ def deploy_circuitpython_code(destination=None):
     utils.download_files_to_cache(FILES_TO_DOWNLOAD)
     print("Copying files...")
     utils.deploy_files(FILES_TO_DEPLOY, destination)
-    
+
 
 def run_calibration():
     print("========== CALIBRATION & TEST ==========")
@@ -76,22 +78,26 @@ def main():
     if len(sys.argv) > 1 and sys.argv[1] == "publish":
         deploy_circuitpython_code("distribution")
         return
-    
+
     try:
         circuitpython_drive = utils.find_drive_by_name("CIRCUITPY")
     except:
         circuitpython_drive = None
-    
+
     if not circuitpython_drive:
         program_firmware()
 
-    if circuitpython_drive and os.path.exists(os.path.join(circuitpython_drive, "code.py")):
+    if circuitpython_drive and os.path.exists(
+        os.path.join(circuitpython_drive, "code.py")
+    ):
         if input("redeploy code? y/n: ").strip() == "y":
             deploy_circuitpython_code()
     else:
         deploy_circuitpython_code()
 
-    if not circuitpython_drive or not os.path.exists(os.path.join(circuitpython_drive, "calibration.py")):
+    if not circuitpython_drive or not os.path.exists(
+        os.path.join(circuitpython_drive, "calibration.py")
+    ):
         run_calibration()
 
 

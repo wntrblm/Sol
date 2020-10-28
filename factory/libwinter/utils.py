@@ -14,6 +14,7 @@ from libwinter import uf2conv
 
 try:
     import win32api
+
     WINDOWS = True
 except ImportError:
     WINDOWS = False
@@ -33,14 +34,16 @@ elif MACOS:
 
 
 CACHE_DIRECTORY = ".cache"
-BOOTLOADER_RELEASES_URL = "https://api.github.com/repos/adafruit/uf2-samdx1/releases/latest"
+BOOTLOADER_RELEASES_URL = (
+    "https://api.github.com/repos/adafruit/uf2-samdx1/releases/latest"
+)
 CIRCUITPYTHON_RELEASES_BASE = "https://adafruit-circuit-python.s3.amazonaws.com/"
 CIRCUITPYTHON_RELEASES_URL = "https://adafruit-circuit-python.s3.amazonaws.com/?list-type=2&prefix=bin/{device_name}/en_US/"
 
 
 def _find_drive_by_name_windows(name):
     drives = win32api.GetLogicalDriveStrings()
-    drives = drives.split('\000')[:-1]
+    drives = drives.split("\000")[:-1]
     for drive in drives:
         info = win32api.GetVolumeInformation(drive)
         if info[0] == name:
@@ -75,14 +78,16 @@ def wait_for_drive(name, timeout=10):
         except RuntimeError:
             time.sleep(1)
             pass
-    
+
     raise RuntimeError(f"Drive {path} never showed up.")
 
 
 def flush(path):
     if WINDOWS:
         drive, _ = os.path.splitdrive(path)
-        subprocess.run(["sync", drive], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        subprocess.run(
+            ["sync", drive], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
+        )
     elif MACOS:
         mountpoint = os.path.join(os.path.join(*os.path.split(path)[:2]))
         fd = os.open(mountpoint, os.O_RDONLY)
@@ -102,7 +107,7 @@ def unmount(path):
             if items[2] == path:
                 disk = items[0].split("/").pop()
                 break
-        
+
         if disk is None:
             print(f"Warning: unable to find device for {path}")
             return
@@ -147,7 +152,7 @@ def deploy_files(srcs_and_dsts, destination):
 
         src = os.path.relpath(src, start=os.path.join(os.curdir, ".."))
         print(f"Copied {src} to {dst}")
-    
+
     flush(destination)
 
 
@@ -172,7 +177,12 @@ def find_latest_circuitpython(device_name):
     response = requests.get(CIRCUITPYTHON_RELEASES_URL.format(device_name=device_name))
     doc = xml.dom.minidom.parseString(response.text)
     files = doc.getElementsByTagName("Contents")
-    files.sort(key=lambda tag: tag.getElementsByTagName("LastModified")[0].firstChild.nodeValue, reverse=True)
+    files.sort(
+        key=lambda tag: tag.getElementsByTagName("LastModified")[
+            0
+        ].firstChild.nodeValue,
+        reverse=True,
+    )
 
     for file in files:
         key = file.getElementsByTagName("Key")[0].firstChild.nodeValue
@@ -181,9 +191,9 @@ def find_latest_circuitpython(device_name):
         # if a - is in release, it's an alpha/beta/rc/hash build
         if "-" in release:
             continue
-        
+
         return CIRCUITPYTHON_RELEASES_BASE + key
-    
+
     raise RuntimeError(f"Could not find CircuitPython release for {device_name}")
 
 
@@ -197,12 +207,15 @@ def download_file_to_cache(url, name):
 
     # ":" Indicates a zip file that needs a single file extracted from it.
     if url.startswith("https+zip://"):
-        url, zip_path = url.rsplit(':', 1)
+        url, zip_path = url.rsplit(":", 1)
         url = url.replace("https+zip", "https")
     else:
         zip_path = None
 
-    if os.path.exists(dst_path) and os.path.getmtime(dst_path) > time.time() - 24 * 60 * 60:
+    if (
+        os.path.exists(dst_path)
+        and os.path.getmtime(dst_path) > time.time() - 24 * 60 * 60
+    ):
         print(f"Using cached {name}.")
         return dst_path
 
@@ -235,7 +248,7 @@ def unzip_file(zip_content, zip_path, dst_path):
 def convert_uf2_to_bin(file):
     with open(file, "rb") as fh:
         inputbuf = fh.read()
-    
+
     outputbuf = uf2conv.convert_from_uf2(inputbuf)
 
     with open(file + ".bin", "wb") as fh:
@@ -244,12 +257,24 @@ def convert_uf2_to_bin(file):
 
 def run_jlink(device, script):
     subprocess.check_call(
-        [JLINK_PATH, "-device", "ATSAMD51J20", "-autoconnect", "1", "-if", "SWD", "-speed", "4000", "-CommanderScript", script]
+        [
+            JLINK_PATH,
+            "-device",
+            "ATSAMD51J20",
+            "-autoconnect",
+            "1",
+            "-if",
+            "SWD",
+            "-speed",
+            "4000",
+            "-CommanderScript",
+            script,
+        ]
     )
 
 
 def removeprefix(self: str, prefix: str) -> str:
     if self.startswith(prefix):
-        return self[len(prefix):]
+        return self[len(prefix) :]
     else:
         return self[:]

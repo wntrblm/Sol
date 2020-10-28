@@ -32,6 +32,7 @@ def _vio_for_channel(channel):
     else:
         return vio_d
 
+
 def set_calibration(channel, calibration_values):
     _vio_for_channel(channel).direct_calibration(calibration_values)
 
@@ -41,7 +42,7 @@ def set_voltage(channel, voltage):
 
 
 def get_cpu_id():
-    print(''.join('{:02x}'.format(x) for x in microcontroller.cpu.uid))
+    print("".join("{:02x}".format(x) for x in microcontroller.cpu.uid))
 
 
 # This is a dumb hack but it gets around a weird bug with calling the first function
@@ -53,7 +54,7 @@ def write_calibration_to_nvm(calibration_data):
     calibration_data = calibration_data.encode("utf-8")
     microcontroller.nvm[0:2] = b"\x69\x69"
     microcontroller.nvm[2:4] = struct.pack("H", len(calibration_data))
-    microcontroller.nvm[4:4+len(calibration_data)] = calibration_data
+    microcontroller.nvm[4 : 4 + len(calibration_data)] = calibration_data
 
 
 print("ready")
