@@ -1,5 +1,0 @@
-r
-loadfile bootloader.bin
-r
-go
-exit

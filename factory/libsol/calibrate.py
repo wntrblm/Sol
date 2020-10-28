@@ -8,7 +8,7 @@ import shutil
 import io
 import subprocess
 
-import utils
+from libwinter import utils
 
 try:
     import pyvisa as visa

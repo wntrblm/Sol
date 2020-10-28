@@ -2,22 +2,30 @@ import io
 import time
 import os
 import subprocess
-import utils
 import shutil
 import sys
 import zipfile
 
 import requests
 
-import calibrate
+from libwinter import utils
+from libsol import calibrate
+
+DEVICE_NAME = "winterbloom_sol"
+JLINK_DEVICE = "ATSAMD51J20"
+JLINK_SCRIPT = "scripts/flash.jlink"
 
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 FIRMWARE_DIR = os.path.join(ROOT_DIR, "firmware")
 LIB_DIR = os.path.join(FIRMWARE_DIR, "lib")
 EXAMPLES_DIR = os.path.join(ROOT_DIR, "examples")
 
+FILES_TO_DOWNLOAD = {
+    "https+zip://github.com/adafruit/Adafruit_CircuitPython_NeoPixel/releases/download/6.0.0/adafruit-circuitpython-neopixel-5.x-mpy-6.0.0.zip:adafruit-circuitpython-neopixel-5.x-mpy-6.0.0/lib/neopixel.mpy": "neopixel.mpy"
+}
+
 FILES_TO_DEPLOY = {
-    "https://github.com/adafruit/Adafruit_CircuitPython_NeoPixel/releases/download/6.0.0/adafruit-circuitpython-neopixel-5.x-mpy-6.0.0.zip:adafruit-circuitpython-neopixel-5.x-mpy-6.0.0/lib/neopixel.mpy": "lib",
+    utils.get_cache_path("neopixel.mpy"): "lib",
     os.path.join(FIRMWARE_DIR, "winterbloom_sol"): "lib",
     os.path.join(FIRMWARE_DIR, "LICENSE"): ".",
     os.path.join(FIRMWARE_DIR, "README.HTM"): ".",
@@ -30,19 +38,17 @@ FILES_TO_DEPLOY = {
 }
 
 
-def program_bootloader():
-    print("========== PROGRAMMING BOOTLOADER ==========")
-    subprocess.check_call(
-        [utils.JLINK_PATH, "-device", "ATSAMD51J20", "-autoconnect", "1", "-if", "SWD", "-speed", "4000", "-CommanderScript", "flash-bootloader.jlink"]
-    )
+def program_firmware():
+    print("========== PROGRAMMING FIRMWARE ==========")
 
+    bootloader_url = utils.find_latest_bootloader(DEVICE_NAME)
+    circuitpython_url = utils.find_latest_circuitpython(DEVICE_NAME)
 
-def program_circuitpython():
-    print("========== PROGRAMMING CIRCUITPYTHON ==========")
-    print("Waiting for boot drive...")
-    bootloader_drive = utils.wait_for_drive("SOLBOOT")
-    print("Found, programming CircuitPython...")
-    utils.copyfile("firmware.uf2", os.path.join(bootloader_drive, "NEW.uf2"))
+    utils.download_file_to_cache(bootloader_url, "bootloader.bin")
+    firmware_path = utils.download_file_to_cache(circuitpython_url, "firmware.uf2")
+    utils.convert_uf2_to_bin(firmware_path)
+
+    utils.run_jlink(JLINK_DEVICE, JLINK_SCRIPT)
 
 
 def deploy_circuitpython_code(destination=None):
@@ -52,36 +58,13 @@ def deploy_circuitpython_code(destination=None):
         print("Waiting for CIRCUITPY drive...")
         destination = utils.wait_for_drive("CIRCUITPY")
 
+    print("Cleaning temporary files from src directories...")
     utils.clean_pycache(FIRMWARE_DIR)
     utils.clean_pycache(EXAMPLES_DIR)
-
-    os.makedirs(os.path.join(destination, "lib"), exist_ok=True)
-
-    for src, dst in FILES_TO_DEPLOY.items():
-        if src.startswith("https://"):
-            http_src, zip_path = src.rsplit(':', 1)
-
-            zip_data = io.BytesIO(requests.get(http_src).content)
-
-            with zipfile.ZipFile(zip_data, "r") as zipfh:
-                file_data = zipfh.read(zip_path)
-            
-            dst = os.path.join(dst, os.path.basename(zip_path))
-            with open(os.path.join(destination, dst), "wb") as fh:
-                fh.write(file_data)
-                
-        else:
-            if os.path.isdir(src):
-                dst = os.path.join(destination, dst, os.path.basename(src))
-                if os.path.exists(dst):
-                    shutil.rmtree(dst)
-                shutil.copytree(src, dst)
-            else:
-                shutil.copy(src, os.path.join(destination, dst))
-
-        print(f"Copied {src} to {dst}")
-    
-    utils.flush(destination)
+    print("Downloading files to cache...")
+    utils.download_files_to_cache(FILES_TO_DOWNLOAD)
+    print("Copying files...")
+    utils.deploy_files(FILES_TO_DEPLOY, destination)
     
 
 def run_calibration():
@@ -93,25 +76,14 @@ def main():
     if len(sys.argv) > 1 and sys.argv[1] == "publish":
         deploy_circuitpython_code("distribution")
         return
-
-    assert os.path.exists("bootloader.bin")
-    assert os.path.exists("firmware.uf2")
-
-    try:
-        bootloader_drive = utils.find_drive_by_name("SOLBOOT")
-    except:
-        bootloader_drive = None
     
     try:
         circuitpython_drive = utils.find_drive_by_name("CIRCUITPY")
     except:
         circuitpython_drive = None
-
-    if not circuitpython_drive and not bootloader_drive:
-        program_bootloader()
     
     if not circuitpython_drive:
-        program_circuitpython()
+        program_firmware()
 
     if circuitpython_drive and os.path.exists(os.path.join(circuitpython_drive, "code.py")):
         if input("redeploy code? y/n: ").strip() == "y":

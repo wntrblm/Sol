@@ -1,0 +1,6 @@
+r
+loadfile .cache/bootloader.bin
+loadfile .cache/firmware.uf2.bin
+r
+go
+exit
