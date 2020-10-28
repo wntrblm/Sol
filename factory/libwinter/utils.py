@@ -127,8 +127,6 @@ def deploy_files(srcs_and_dsts, destination):
 
     for src, dst in srcs_and_dsts.items():
 
-        print(f"{src} -> {dst}")
-
         full_dst = os.path.join(destination, dst)
 
         if os.path.isdir(src):
@@ -147,6 +145,7 @@ def deploy_files(srcs_and_dsts, destination):
 
             shutil.copy(src, full_dst)
 
+        src = os.path.relpath(src, start=os.path.join(os.curdir, ".."))
         print(f"Copied {src} to {dst}")
     
     flush(destination)
@@ -203,8 +202,6 @@ def download_file_to_cache(url, name):
     else:
         zip_path = None
 
-    print(url)
-
     if os.path.exists(dst_path) and os.path.getmtime(dst_path) > time.time() - 24 * 60 * 60:
         print(f"Using cached {name}.")
         return dst_path
@@ -249,3 +246,10 @@ def run_jlink(device, script):
     subprocess.check_call(
         [JLINK_PATH, "-device", "ATSAMD51J20", "-autoconnect", "1", "-if", "SWD", "-speed", "4000", "-CommanderScript", script]
     )
+
+
+def removeprefix(self: str, prefix: str) -> str:
+    if self.startswith(prefix):
+        return self[len(prefix):]
+    else:
+        return self[:]
