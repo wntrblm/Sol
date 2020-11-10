@@ -1,6 +1,6 @@
 r
 loadfile .cache/bootloader.bin
-loadfile .cache/firmware.uf2.bin
+loadfile .cache/firmware.uf2.bin 0x4000
 r
 go
 exit

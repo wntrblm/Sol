@@ -235,7 +235,7 @@ def main(verbose=False):
     print(f"Saving calibration to calibrations/{cpu_id} and {circuitpython_drive}")
 
     calibration_file_path = os.path.join(
-        os.path.dirname(__file__), "calibrations", f"{cpu_id}.py"
+        "calibrations", f"{cpu_id}.py"
     )
 
     with open(calibration_file_path, "w") as fh:
