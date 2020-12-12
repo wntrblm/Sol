@@ -1,6 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:mainboard-cache
-EELAYER 29 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -15,7 +14,7 @@ Comment3 "CC-BY-SA 4.0"
 Comment4 ""
 $EndDescr
 $Comp
-L SparkFun-Connectors:CONN_05X2SHD J1
+L mainboard-rescue:CONN_05X2SHD-SparkFun-Connectors J1
 U 1 1 5D1D5204
 P 1250 1100
 F 0 "J1" H 1250 1610 45  0000 C CNN
