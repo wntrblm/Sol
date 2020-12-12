@@ -3,8 +3,7 @@ copyright: "© 2020 Winterbloom, licensed under Creative Commons CC BY-SA 4.0"
 repo_url: "https://github.com/theacodes/Winterbloom-Sol"
 edit_uri: edit/master/user_guide/docs
 theme:
-  name: null
-  custom_dir: 'theme/'
+  name: winterbloom
 markdown_extensions:
   - admonition
   - def_list
