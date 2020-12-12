@@ -113,7 +113,7 @@ Sol will still work as an Advanced LSA MIDI device for use with, for instance, O
 <p><strong>Congrats</strong>, you've made your first change to how the module works!  🎉</p>
 <p>This might seem like a trivial change (and it is!) but it's meant to show how customization works on this module. You just edit a file and save - there is no need for custom compilers, complicated software, or even experience with programming.</p>
 <p>As a next challenge, you can change the mod wheel output (<code>CV B</code>) to be -5v to +5v instead of the default 0 to 8v!</p>
-<p>I encourage you to read through <a href="#included-example-programs">the example programs</a>, <a href="#about-the-state-and-outputs">the various inputs and outputs</a>, <a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/examples/1_default.py">the default program</a>, and learn more about <a href="https://learn.adafruit.com/welcome-to-circuitpython/overview">CircuitPython</a> so you can get the most of your module. Also, please come chat on the <a href="https://discord.gg/UpfqghQ">Discord</a> where you can ask questions and see what others are doing with their Sol!</p>
+<p>I encourage you to read through <a href="#included-example-programs">the example programs</a>, <a href="#about-the-state-and-outputs">the various inputs and outputs</a>, <a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/examples/1_default.py">the default program</a>, and <a href="https://learn.adafruit.com/welcome-to-circuitpython/overview">learn more about CircuitPython</a> so you can get the most of your module. Also, please come chat on the <a href="https://discord.gg/UpfqghQ">Discord</a> where you can ask questions and see what others are doing with their Sol!</p>
 <h2 id="help-this-thing-isnt-working-and-its-blinking-at-me">Help! This thing isn't working and it's blinking at me!<a class="headerlink" href="#help-this-thing-isnt-working-and-its-blinking-at-me" title="Permanent link">#</a></h2>
 <p>If it's blinking at you that means there's some sort of error in the program. Don't worry, you can get it figured out.</p>
 <p>If you connect using the <a href="https://learn.adafruit.com/welcome-to-circuitpython/kattni-connecting-to-the-serial-console">serial console</a> you should be able to see the error. If you don't see it right away, you might need to reset the board (either by pressing the little button on the bottom of the module or power cycling your synth). Sometimes you can press <code>Ctrl+C</code> followed by <code>Ctrl+D</code> in the serial console to get the board to reset and tell you the error.</p>
@@ -210,6 +210,13 @@ call channel 1.</li>
 <p>Not <em>yet</em>. We're waiting to get our hands on hardware and software that support MIDI 2.0 so we can add it to Sol. As far as we know, there's no reason we won't be able to add this via a firmware update. If you're interested in helping out, please <a href="#getting-support-and-help">reach out</a>.</p>
 <h3>Can Sol output audio on its CV outputs?</h3>
 <p>Not with the default CircuitPython-based firmware. CircuitPython is designed to be approachable and easy to use, but it comes at the cost of not being as fast as firmware written in C. If you're feeling super brave, Sol is completely open source so you could write your own firmware in C and do whatever you'd like. The hardware uses a DAC that can do 1MSPS, so in theory it could output at audio rate.</p>
+<h2 id="open-source-hardware-software">Open source hardware &amp; software<a class="headerlink" href="#open-source-hardware-software" title="Permanent link">#</a></h2>
+<p>Sol is completely open source and hacking is encouraged.</p>
+<ul>
+<li>The <a href="https://github.com/theacodes/Winterbloom_Sol/tree/master/firmware">firmware</a> is available under the <a href="https://github.com/theacodes/Winterbloom_Sol/blob/master/firmware/LICENSE">MIT License</a>.</li>
+<li>The <a href="https://github.com/theacodes/Winterbloom_Sol/tree/master/hardware/rev1">hardware design</a> is available under the <a href="https://github.com/theacodes/Winterbloom_Sol/blob/master/hardware/LICENSE">CC BY-SA 4.0 License</a> and is designed using <a href="https://kicad.org/">KiCAD</a> which is free and open-source. You can open the hardware files using KiCAD or you can check out a <a href="https://github.com/theacodes/Winterbloom_Sol/raw/master/hardware/rev1/mainboard/mainboard.pdf">PDF of the schematic</a>.</li>
+<li><a href="https://circuitpython.org">CircuitPython</a> is available under the <a href="https://github.com/adafruit/circuitpython/blob/main/LICENSE">MIT License</a>.</li>
+</ul>
 <h2 id="acknowledgments-and-thanks">Acknowledgments and thanks<a class="headerlink" href="#acknowledgments-and-thanks" title="Permanent link">#</a></h2>
 <p>Sol would not be possible without support from the following people:</p>
 <ul>
@@ -230,7 +237,7 @@ call channel 1.</li>
 					Found an issue? <a href="mailto:support@winterbloom.com">Send us a message</a> or <a href="https://github.com/theacodes/Winterbloom-Sol/edit/master/user_guide/docs/index.md">Edit this page on GitHub</a>.
 				</p>
 				<p class="updated">
-					Last updated on October 10, 2020
+					Last updated on December 12, 2020
 				</p>
 			</footer>
 		</div>
