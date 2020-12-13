@@ -1,6 +1,6 @@
 # Winterbloom Sol
 
-TODO. :)
+Winterbloom Sol is an open-source Eurorack module. You can find out more at https://wntr.dev/sol.
 
 ## License and contributing
 
