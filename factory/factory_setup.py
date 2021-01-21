@@ -99,6 +99,8 @@ def main():
         os.path.join(circuitpython_drive, "calibration.py")
     ):
         run_calibration()
+    elif input("recalibrate? y/n: ").strip() == "y":
+        run_calibration()
 
 
 if __name__ == "__main__":
