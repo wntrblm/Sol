@@ -59,7 +59,6 @@
 If your DAW uses JACK MIDI rather than ALSA MIDI, you will need to install <code>a2jmidid</code>:</p>
 <div class="highlight"><pre><span></span><code>$ sudo apt install a2jmidid
 </code></pre></div>
-
 <p>Then, enable it in your JACK settings:</p>
 <p><img alt="images/jack_a2jmidid.png" src="images/jack_a2jmidid.png" /></p>
 <p>Now Sol will appear as a MIDI device under the JACK MIDI panel, and you can easily connect your DAW and other MIDI devices.
@@ -87,7 +86,7 @@ Sol will still work as an Advanced LSA MIDI device for use with, for instance, O
 <p><img alt="images/first-connection.png" src="images/first-connection.png" /></p>
 <p>Now, using your DAW of choice, play some MIDI notes. You should see the LED on the front of the module change as it receives MIDI data and it should, of course, make some lovely sounds through your oscillator (and envelope generator, if you have one). Congrats, you've made your first connections! 🎉</p>
 <p>If things aren't working right now, reach out! Nothing else in this guide will work if this part isn't working!</p>
-<p>Now, if you have a filter, connect your oscillator through the filter and connect <code>CV B</code> (the mod wheel CV) to the filter's frequency CV input. </p>
+<p>Now, if you have a filter, connect your oscillator through the filter and connect <code>CV B</code> (the mod wheel CV) to the filter's frequency CV input.</p>
 <p><img alt="images/second-connection.png" src="images/second-connection.png" /></p>
 <p>Now, while playing some notes try using the mod wheel. You should see the mod wheel change the filter frequency. Try it with the other CV outputs as well! <code>CV C</code> is the note velocity and <code>CV D</code> is the channel pressure.</p>
 <p>Congrats! You now know how the default program works! 🎉</p>
@@ -98,11 +97,9 @@ Sol will still work as an Advanced LSA MIDI device for use with, for instance, O
 <p>In the <code>code.py</code> you should see a line that looks like this:</p>
 <div class="highlight"><pre><span></span><code><span class="n">outputs</span><span class="o">.</span><span class="n">cv_a</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">voct</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
 </code></pre></div>
-
 <p>Modify this line so that it reads:</p>
 <div class="highlight"><pre><span></span><code><span class="n">outputs</span><span class="o">.</span><span class="n">cv_a</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">voct</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.0</span>
 </code></pre></div>
-
 <div class="admonition warning">
 <p class="admonition-title">Be careful</p>
 <p>Python is <em>whitespace-sensitive</em>. That means tabs and spaces are important! Make sure that you don't accidentally change the indentation level of this line.</p>
@@ -195,9 +192,10 @@ call channel 1.</li>
 </ol>
 <h2 id="restoring-lost-calibration">Restoring lost calibration<a class="headerlink" href="#restoring-lost-calibration" title="Permanent link">#</a></h2>
 <p>Sol is calibrated during manufacturing and we keep a copy of your factory calibration in case it gets lost. If your module is in panic mode and says that it has lost its calibration then this can help. Please connect your module via USB, open this page in Chrome, and click the button below. If this doesn't work, please <a href="#getting-help-and-support">reach out to us</a>.</p>
-<p><button id="restore-connect-button" type="button">🔌 Connect</button>
+<p><button id="restore-connect-button" type="button">🔌 Connect</button></p>
 <pre id="restore-output"></pre>
-<script src="calibration_restore.js" type="module"></script></p>
+<script src="calibration_restore.js" type="module"></script>
+
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This is based on pretty experimental web technology so it might not work the first time. Try it a few times and see if it works, if not, reach out to us.</p>
@@ -205,7 +203,7 @@ call channel 1.</li>
 <h2 id="frequently-asked-questions">Frequently asked questions<a class="headerlink" href="#frequently-asked-questions" title="Permanent link">#</a></h2>
 <p>Got a question not answered here? <a href="#getting-support-and-help">Reach out</a>, we'll be happy to help!</p>
 <h3>Can Sol be used as a MIDI Host? Can I connect a USB MIDI device directly to Sol?</h3>
-<p>Since Sol is re-programmable and we imagined that most folks would use it attached to a computer, we didn't include this functionality - especially since it would cost more money. However, if you want to go "computerless" you can use a Raspberry Pi as your MIDI host. See <a href="https://hackaday.io/project/164073-raspberry-pi-usb-host-midi-hub">here</a>. </p>
+<p>Since Sol is re-programmable and we imagined that most folks would use it attached to a computer, we didn't include this functionality - especially since it would cost more money. However, if you want to go "computerless" you can use a Raspberry Pi as your MIDI host. See <a href="https://hackaday.io/project/164073-raspberry-pi-usb-host-midi-hub">here</a>.</p>
 <h3>Does Sol support MIDI 2.0?</h3>
 <p>Not <em>yet</em>. We're waiting to get our hands on hardware and software that support MIDI 2.0 so we can add it to Sol. As far as we know, there's no reason we won't be able to add this via a firmware update. If you're interested in helping out, please <a href="#getting-support-and-help">reach out</a>.</p>
 <h3>Can Sol output audio on its CV outputs?</h3>
@@ -217,6 +215,7 @@ call channel 1.</li>
 <li>The <a href="https://github.com/theacodes/Winterbloom_Sol/tree/master/hardware/rev1">hardware design</a> is available under the <a href="https://github.com/theacodes/Winterbloom_Sol/blob/master/hardware/LICENSE">CC BY-SA 4.0 License</a> and is designed using <a href="https://kicad.org/">KiCAD</a> which is free and open-source. You can open the hardware files using KiCAD or you can check out a <a href="https://github.com/theacodes/Winterbloom_Sol/raw/master/hardware/rev1/mainboard/mainboard.pdf">PDF of the schematic</a>.</li>
 <li><a href="https://circuitpython.org">CircuitPython</a> is available under the <a href="https://github.com/adafruit/circuitpython/blob/main/LICENSE">MIT License</a>.</li>
 </ul>
+<p><img alt="Open Source Hardware Association mark" class="oshw" src="images/oshw.svg" /> Sol is <a href="https://certification.oshwa.org/us001030.html">certified open source hardware</a>.</p>
 <h2 id="acknowledgments-and-thanks">Acknowledgments and thanks<a class="headerlink" href="#acknowledgments-and-thanks" title="Permanent link">#</a></h2>
 <p>Sol would not be possible without support from the following people:</p>
 <ul>
@@ -237,7 +236,7 @@ call channel 1.</li>
 					Found an issue? <a href="mailto:support@winterbloom.com">Send us a message</a> or <a href="https://github.com/theacodes/Winterbloom-Sol/edit/master/user_guide/docs/index.md">Edit this page on GitHub</a>.
 				</p>
 				<p class="updated">
-					Last updated on December 12, 2020
+					Last updated on January 21, 2021
 				</p>
 			</footer>
 		</div>
