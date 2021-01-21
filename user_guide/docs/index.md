@@ -82,7 +82,7 @@ Now, using your DAW of choice, play some MIDI notes. You should see the LED on t
 
 If things aren't working right now, reach out! Nothing else in this guide will work if this part isn't working!
 
-Now, if you have a filter, connect your oscillator through the filter and connect `CV B` (the mod wheel CV) to the filter's frequency CV input. 
+Now, if you have a filter, connect your oscillator through the filter and connect `CV B` (the mod wheel CV) to the filter's frequency CV input.
 
 ![images/second-connection.png](images/second-connection.png)
 
@@ -237,7 +237,7 @@ Got a question not answered here? [Reach out](#getting-support-and-help), we'll 
 
 ### Can Sol be used as a MIDI Host? Can I connect a USB MIDI device directly to Sol?
 
-Since Sol is re-programmable and we imagined that most folks would use it attached to a computer, we didn't include this functionality - especially since it would cost more money. However, if you want to go "computerless" you can use a Raspberry Pi as your MIDI host. See [here](https://hackaday.io/project/164073-raspberry-pi-usb-host-midi-hub). 
+Since Sol is re-programmable and we imagined that most folks would use it attached to a computer, we didn't include this functionality - especially since it would cost more money. However, if you want to go "computerless" you can use a Raspberry Pi as your MIDI host. See [here](https://hackaday.io/project/164073-raspberry-pi-usb-host-midi-hub).
 
 ### Does Sol support MIDI 2.0?
 
@@ -254,6 +254,8 @@ Sol is completely open source and hacking is encouraged.
 * The [firmware](https://github.com/theacodes/Winterbloom_Sol/tree/master/firmware) is available under the [MIT License](https://github.com/theacodes/Winterbloom_Sol/blob/master/firmware/LICENSE).
 * The [hardware design](https://github.com/theacodes/Winterbloom_Sol/tree/master/hardware/rev1) is available under the [CC BY-SA 4.0 License](https://github.com/theacodes/Winterbloom_Sol/blob/master/hardware/LICENSE) and is designed using [KiCAD](https://kicad.org/) which is free and open-source. You can open the hardware files using KiCAD or you can check out a [PDF of the schematic](https://github.com/theacodes/Winterbloom_Sol/raw/master/hardware/rev1/mainboard/mainboard.pdf).
 * [CircuitPython][CircuitPython] is available under the [MIT License](https://github.com/adafruit/circuitpython/blob/main/LICENSE).
+
+![Open Source Hardware Association mark](images/oshw.svg){class=oshw} Sol is [certified open source hardware](https://certification.oshwa.org/us001030.html).
 
 ## Acknowledgments and thanks
 
