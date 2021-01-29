@@ -57,8 +57,7 @@
 <p><img alt="images/Annotation_2019-12-08_173238.png" src="images/Annotation_2019-12-08_173238.png" /></p>
 <p>Sol works out of the box with <strong>JACK</strong> on Linux, as an Advanced LSA MIDI device.
 If your DAW uses JACK MIDI rather than ALSA MIDI, you will need to install <code>a2jmidid</code>:</p>
-<div class="highlight"><pre><span></span><code>$ sudo apt install a2jmidid
-</code></pre></div>
+<pre class="highlight"><code class="language-bash">$ sudo apt install a2jmidid</code></pre>
 <p>Then, enable it in your JACK settings:</p>
 <p><img alt="images/jack_a2jmidid.png" src="images/jack_a2jmidid.png" /></p>
 <p>Now Sol will appear as a MIDI device under the JACK MIDI panel, and you can easily connect your DAW and other MIDI devices.
@@ -95,11 +94,9 @@ Sol will still work as an Advanced LSA MIDI device for use with, for instance, O
 <p>Sol should show up both as a MIDI output device <strong>and</strong> a small external drive named <code>CIRCUITPY</code>. In that drive, you should find a file named <code>code.py</code>. Sol runs <a href="https://circuitpython.org">CircuitPython</a> which means that its firmware is written in the approachable <a href="https://python.org">Python</a> programming language and you don't need any special knowledge or compilers to make changes to it. So, open up that file in your favorite text editor, we're going to make some changes!</p>
 <p>If you don't have a text editor - that's okay! While you could use Notepad (Windows) or TextEdit (Mac), these can sometimes have issues with CircuitPython devices like Sol. I'd recommend <a href="https://learn.adafruit.com/welcome-to-circuitpython/installing-mu-editor">installing Mu</a> if you're new to this whole world. You can read more about editing code for CircuitPython in <a href="https://learn.adafruit.com/welcome-to-circuitpython/creating-and-editing-code">Adafruit's guide</a>.</p>
 <p>In the <code>code.py</code> you should see a line that looks like this:</p>
-<div class="highlight"><pre><span></span><code><span class="n">outputs</span><span class="o">.</span><span class="n">cv_a</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">voct</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-python">outputs.cv_a = sol.voct(state)</code></pre>
 <p>Modify this line so that it reads:</p>
-<div class="highlight"><pre><span></span><code><span class="n">outputs</span><span class="o">.</span><span class="n">cv_a</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">voct</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.0</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-python">outputs.cv_a = sol.voct(state) - 1.0</code></pre>
 <div class="admonition warning">
 <p class="admonition-title">Be careful</p>
 <p>Python is <em>whitespace-sensitive</em>. That means tabs and spaces are important! Make sure that you don't accidentally change the indentation level of this line.</p>
@@ -203,11 +200,11 @@ call channel 1.</li>
 <h2 id="frequently-asked-questions">Frequently asked questions<a class="headerlink" href="#frequently-asked-questions" title="Permanent link">#</a></h2>
 <p>Got a question not answered here? <a href="#getting-support-and-help">Reach out</a>, we'll be happy to help!</p>
 <h3>Can Sol be used as a MIDI Host? Can I connect a USB MIDI device directly to Sol?</h3>
-<p>Since Sol is re-programmable and we imagined that most folks would use it attached to a computer, we didn't include this functionality - especially since it would cost more money. However, if you want to go "computerless" you can use a Raspberry Pi as your MIDI host. See <a href="https://hackaday.io/project/164073-raspberry-pi-usb-host-midi-hub">here</a>.</p>
+<p>Since Sol is re-programmable and we imagined that most folks would use it attached to a computer, we didn't include this functionality - especially since it would cost more money. However, if you want to go "computerless" you can use a Raspberry Pi as your MIDI host. There's an excellent video from <a href="https://www.youtube.com/watch?v=LMDs44wQaK0">Blitz City DIY on using the Raspberry Pi as a MIDI host</a>.</p>
 <h3>Does Sol support MIDI 2.0?</h3>
 <p>Not <em>yet</em>. We're waiting to get our hands on hardware and software that support MIDI 2.0 so we can add it to Sol. As far as we know, there's no reason we won't be able to add this via a firmware update. If you're interested in helping out, please <a href="#getting-support-and-help">reach out</a>.</p>
 <h3>Can Sol output audio on its CV outputs?</h3>
-<p>Not with the default CircuitPython-based firmware. CircuitPython is designed to be approachable and easy to use, but it comes at the cost of not being as fast as firmware written in C. If you're feeling super brave, Sol is completely open source so you could write your own firmware in C and do whatever you'd like. The hardware uses a DAC that can do 1MSPS, so in theory it could output at audio rate.</p>
+<p>Not with the default CircuitPython-based firmware. CircuitPython is designed to be approachable and easy to use, but it comes at the cost of not being as fast as firmware written in C/c++. If you're feeling super brave, Sol is completely open source so you could write your own firmware in C/C++ and do whatever you'd like. Sol's hardware is very similar to the <a href="https://learn.adafruit.com/adafruit-feather-m4-express-atsamd51">Adafruit Feather M4 Express</a>, so you should be able to use resources for that as a starting point. The hardware uses a DAC that can do 1MSPS, so in theory it could output at audio rate.</p>
 <h2 id="open-source-hardware-software">Open source hardware &amp; software<a class="headerlink" href="#open-source-hardware-software" title="Permanent link">#</a></h2>
 <p>Sol is completely open source and hacking is encouraged.</p>
 <ul>
@@ -236,7 +233,7 @@ call channel 1.</li>
 					Found an issue? <a href="mailto:support@winterbloom.com">Send us a message</a> or <a href="https://github.com/theacodes/Winterbloom-Sol/edit/master/user_guide/docs/index.md">Edit this page on GitHub</a>.
 				</p>
 				<p class="updated">
-					Last updated on January 21, 2021
+					Last updated on January 29, 2021
 				</p>
 			</footer>
 		</div>
