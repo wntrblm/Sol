@@ -237,7 +237,7 @@ Got a question not answered here? [Reach out](#getting-support-and-help), we'll 
 
 ### Can Sol be used as a MIDI Host? Can I connect a USB MIDI device directly to Sol?
 
-Since Sol is re-programmable and we imagined that most folks would use it attached to a computer, we didn't include this functionality - especially since it would cost more money. However, if you want to go "computerless" you can use a Raspberry Pi as your MIDI host. See [here](https://hackaday.io/project/164073-raspberry-pi-usb-host-midi-hub).
+Since Sol is re-programmable and we imagined that most folks would use it attached to a computer, we didn't include this functionality - especially since it would cost more money. However, if you want to go "computerless" you can use a Raspberry Pi as your MIDI host. There's an excellent video from [Blitz City DIY on using the Raspberry Pi as a MIDI host](https://www.youtube.com/watch?v=LMDs44wQaK0).
 
 ### Does Sol support MIDI 2.0?
 
@@ -245,7 +245,7 @@ Not *yet*. We're waiting to get our hands on hardware and software that support 
 
 ### Can Sol output audio on its CV outputs?
 
-Not with the default CircuitPython-based firmware. CircuitPython is designed to be approachable and easy to use, but it comes at the cost of not being as fast as firmware written in C. If you're feeling super brave, Sol is completely open source so you could write your own firmware in C and do whatever you'd like. The hardware uses a DAC that can do 1MSPS, so in theory it could output at audio rate.
+Not with the default CircuitPython-based firmware. CircuitPython is designed to be approachable and easy to use, but it comes at the cost of not being as fast as firmware written in C/c++. If you're feeling super brave, Sol is completely open source so you could write your own firmware in C/C++ and do whatever you'd like. Sol's hardware is very similar to the [Adafruit Feather M4 Express](https://learn.adafruit.com/adafruit-feather-m4-express-atsamd51), so you should be able to use resources for that as a starting point. The hardware uses a DAC that can do 1MSPS, so in theory it could output at audio rate.
 
 ## Open source hardware & software
 
