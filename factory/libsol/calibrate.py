@@ -1,65 +1,13 @@
-import serial
-import serial.tools.list_ports
 import time
-import math
 import statistics
 import os.path
-import shutil
 import io
-import subprocess
 
-from libwinter import utils
+import pyvisa
+from wintertools import multimeter, circuitpython, fs
 
-try:
-    import pyvisa as visa
-except ImportError:
-    visa = None
-
-try:
-    import win32api
-except ImportError:
-    win32api = None
-
-
-METER_RESOURCE_NAME = "USB0::0x05E6::0x6500::04450405::INSTR"
 USB_DEVICE_ID = "239A:8062"
-METER_AVERAGE_COUNT = 20  # 50 for production
 MILIVOLTS_PER_CODE = 13 / (2 ** 16) * 1000
-
-
-class Meter:
-    TIMEOUT = 10 * 1000
-
-    def __init__(self, resource_manager):
-        self._connect(resource_manager)
-
-    def _connect(self, resource_manager):
-        resource = resource_manager.open_resource(METER_RESOURCE_NAME)
-        resource.timeout = self.TIMEOUT
-        self.port = resource
-
-    def close(self):
-        self.port.close()
-
-    def read_voltage(self):
-        self.port.write("*RST")
-        self.port.write(':SENS:FUNC "VOLT:DC"')
-        self.port.write(":SENS:VOLT:RANG 10")
-        self.port.write(":SENS:VOLT:INP AUTO")
-        self.port.write(":SENS:VOLT:NPLC 1")
-        self.port.write(":SENS:VOLT:AZER ON")
-        self.port.write(":SENS:VOLT:AVER:TCON REP")
-        self.port.write(f":SENS:VOLT:AVER:COUN {METER_AVERAGE_COUNT}")
-        self.port.write(":SENS:VOLT:AVER ON")
-        return self.port.query_ascii_values(":READ?")[0]
-
-    def read_voltage_fast(self):
-        self.port.write("*RST")
-        self.port.write(':SENS:FUNC "VOLT:DC"')
-        self.port.write(":SENS:VOLT:RANG 10")
-        self.port.write(":SENS:VOLT:INP AUTO")
-        self.port.write(":SENS:VOLT:AZER ON")
-        return self.port.query_ascii_values(":READ?")[0]
 
 
 class Sol:
@@ -70,8 +18,7 @@ class Sol:
         self._connect()
 
     def _connect(self):
-        port_info = list(serial.tools.list_ports.grep(USB_DEVICE_ID))[0]
-        self.port = serial.Serial(port_info.device, baudrate=115200, timeout=1)
+        self.port = circuitpython.serial_connect(USB_DEVICE_ID)
 
     def reset(self):
         print("Waiting for Sol to reset...")
@@ -123,24 +70,24 @@ class Sol:
 
 
 def find_circuitpython_drive():
-    return utils.find_drive_by_name("CIRCUITPY")
+    return fs.find_drive_by_name("CIRCUITPY")
 
 
 def copy_calibration_script(circuitpython_drive):
     print(f"Copying calibration script to {circuitpython_drive}")
     if not os.path.exists(os.path.join(circuitpython_drive, "code-bak.py")):
-        utils.copyfile(
+        fs.copyfile(
             os.path.join(circuitpython_drive, "code.py"),
             os.path.join(circuitpython_drive, "code-bak.py"),
         )
-    utils.copyfile(
+    fs.copyfile(
         os.path.join(os.path.dirname(__file__), "calibration_cpy_code.py"),
         os.path.join(circuitpython_drive, "code.py"),
     )
 
 
 def restore_code_py(circuitpython_drive):
-    utils.copyfile(
+    fs.copyfile(
         os.path.join(circuitpython_drive, "code-bak.py"),
         os.path.join(circuitpython_drive, "code.py"),
     )
@@ -158,9 +105,11 @@ def generate_calibration_file(channel_calibrations):
 
 def main(verbose=False):
     circuitpython_drive = find_circuitpython_drive()
-    resource_manager = visa.ResourceManager("@ivi")
-    meter = Meter(resource_manager)
+    resource_manager = pyvisa.ResourceManager("@ivi")
+    meter = multimeter.Multimeter(resource_manager)
     sol = Sol(verbose=verbose)
+
+    print("Copying calibration script...")
     copy_calibration_script(circuitpython_drive)
     time.sleep(3)  # Wait a few second for circuitpython to maybe reload.
     sol.reset()
@@ -242,13 +191,13 @@ def main(verbose=False):
         fh.write(calibration_file_contents)
         fh.flush()
 
-    utils.copyfile(
+    fs.copyfile(
         calibration_file_path, os.path.join(circuitpython_drive, "calibration.py")
     )
 
     restore_code_py(circuitpython_drive)
 
-    utils.unmount(circuitpython_drive)
+    fs.unmount(circuitpython_drive)
 
     print("Done.")
 

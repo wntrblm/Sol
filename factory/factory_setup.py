@@ -1,14 +1,7 @@
-import io
-import time
 import os
-import subprocess
-import shutil
 import sys
-import zipfile
 
-import requests
-
-from libwinter import utils
+from wintertools import fs, circuitpython, cache, fw_fetch, jlink
 from libsol import calibrate
 
 DEVICE_NAME = "winterbloom_sol"
@@ -25,7 +18,7 @@ FILES_TO_DOWNLOAD = {
 }
 
 FILES_TO_DEPLOY = {
-    utils.get_cache_path("neopixel.mpy"): "lib",
+    cache.get_cache_path("neopixel.mpy"): "lib",
     os.path.join(FIRMWARE_DIR, "winterbloom_sol"): "lib",
     os.path.join(FIRMWARE_DIR, "LICENSE"): ".",
     os.path.join(FIRMWARE_DIR, "README.HTM"): ".",
@@ -43,14 +36,10 @@ FILES_TO_DEPLOY = {
 def program_firmware():
     print("========== PROGRAMMING FIRMWARE ==========")
 
-    bootloader_url = utils.find_latest_bootloader(DEVICE_NAME)
-    circuitpython_url = utils.find_latest_circuitpython(DEVICE_NAME)
+    fw_fetch.latest_bootloader(DEVICE_NAME)
+    fw_fetch.latest_circuitpython(DEVICE_NAME)
 
-    utils.download_file_to_cache(bootloader_url, "bootloader.bin")
-    firmware_path = utils.download_file_to_cache(circuitpython_url, "firmware.uf2")
-    utils.convert_uf2_to_bin(firmware_path)
-
-    utils.run_jlink(JLINK_DEVICE, JLINK_SCRIPT)
+    jlink.run(JLINK_DEVICE, JLINK_SCRIPT)
 
 
 def deploy_circuitpython_code(destination=None):
@@ -58,15 +47,22 @@ def deploy_circuitpython_code(destination=None):
 
     if not destination:
         print("Waiting for CIRCUITPY drive...")
-        destination = utils.wait_for_drive("CIRCUITPY")
+        destination = fs.wait_for_drive("CIRCUITPY")
+
+    print("Forcing device into repl (workaround for CircuitPython issue #3986)")
+    circuitpython.force_into_repl(calibrate.USB_DEVICE_ID)
 
     print("Cleaning temporary files from src directories...")
-    utils.clean_pycache(FIRMWARE_DIR)
-    utils.clean_pycache(EXAMPLES_DIR)
+    fs.clean_pycache(FIRMWARE_DIR)
+    fs.clean_pycache(EXAMPLES_DIR)
     print("Downloading files to cache...")
-    utils.download_files_to_cache(FILES_TO_DOWNLOAD)
+    fs.download_files_to_cache(FILES_TO_DOWNLOAD)
     print("Copying files...")
-    utils.deploy_files(FILES_TO_DEPLOY, destination)
+    fs.deploy_files(FILES_TO_DEPLOY, destination)
+
+    print("Done copying files, resetting...")
+    circuitpython.reset_via_serial(calibrate.USB_DEVICE_ID)
+    print("Done!")
 
 
 def run_calibration():
@@ -80,7 +76,7 @@ def main():
         return
 
     try:
-        circuitpython_drive = utils.find_drive_by_name("CIRCUITPY")
+        circuitpython_drive = fs.find_drive_by_name("CIRCUITPY")
     except:
         circuitpython_drive = None
 
