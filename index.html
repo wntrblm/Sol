@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -24,8 +24,8 @@
   <body>
     <div class="container">
 			<nav class="navbar navbar-expand-lg navbar-light">
-				<a class="navbar-brand" href=".">
-					<img src="winterbloom-logo.png" height="30" class="d-inline-block align-middle" alt="" loading="lazy">
+				<a class="navbar-brand" href="." title="Home">
+					<img src="winterbloom-logo.png" height="30" class="d-inline-block align-middle" alt="Winterbloom" loading="lazy">
 				</a>
 				
 			</nav>
@@ -37,8 +37,8 @@
 <p>We want you to have a wonderful experience with your module. If you need help or run into problems, please reach out to us. Email is the best way for product issues, whereas Discord and GitHub are great for getting advice and help on how to customize your module.</p>
 <ul>
 <li>Send us <a href="mailto:support@winterbloom.com">an email</a>.</li>
-<li>File a bug <a href="https://github.com/theacodes/Winterbloom-Sol">on GitHub</a></li>
-<li>Reach out on the <a href="https://discord.gg/UpfqghQ">Discord</a></li>
+<li>File a bug <a href="https://github.com/theacodes/Winterbloom-Sol" referrerpolicy="origin" rel="noopener" target="_blank">on GitHub</a></li>
+<li>Reach out on the <a href="https://discord.gg/UpfqghQ" referrerpolicy="origin" rel="noopener" target="_blank">Discord</a></li>
 </ul>
 <h2 id="installing-the-module">Installing the module<a class="headerlink" href="#installing-the-module" title="Permanent link">#</a></h2>
 <p>To install this into your Eurorack setup:</p>
@@ -57,7 +57,8 @@
 <p><img alt="images/Annotation_2019-12-08_173238.png" src="images/Annotation_2019-12-08_173238.png" /></p>
 <p>Sol works out of the box with <strong>JACK</strong> on Linux, as an Advanced LSA MIDI device.
 If your DAW uses JACK MIDI rather than ALSA MIDI, you will need to install <code>a2jmidid</code>:</p>
-<pre class="highlight"><code class="language-bash">$ sudo apt install a2jmidid</code></pre>
+<div class="highlight"><pre><span></span><code>$ sudo apt install a2jmidid
+</code></pre></div>
 <p>Then, enable it in your JACK settings:</p>
 <p><img alt="images/jack_a2jmidid.png" src="images/jack_a2jmidid.png" /></p>
 <p>Now Sol will appear as a MIDI device under the JACK MIDI panel, and you can easily connect your DAW and other MIDI devices.
@@ -91,12 +92,14 @@ Sol will still work as an Advanced LSA MIDI device for use with, for instance, O
 <p>Congrats! You now know how the default program works! 🎉</p>
 <h2 id="modifying-the-program">Modifying the program<a class="headerlink" href="#modifying-the-program" title="Permanent link">#</a></h2>
 <p>Now that you know the basics it's time to get familiar with customizing the program that's running on Sol.</p>
-<p>Sol should show up both as a MIDI output device <strong>and</strong> a small external drive named <code>CIRCUITPY</code>. In that drive, you should find a file named <code>code.py</code>. Sol runs <a href="https://circuitpython.org">CircuitPython</a> which means that its firmware is written in the approachable <a href="https://python.org">Python</a> programming language and you don't need any special knowledge or compilers to make changes to it. So, open up that file in your favorite text editor, we're going to make some changes!</p>
-<p>If you don't have a text editor - that's okay! While you could use Notepad (Windows) or TextEdit (Mac), these can sometimes have issues with CircuitPython devices like Sol. I'd recommend <a href="https://learn.adafruit.com/welcome-to-circuitpython/installing-mu-editor">installing Mu</a> if you're new to this whole world. You can read more about editing code for CircuitPython in <a href="https://learn.adafruit.com/welcome-to-circuitpython/creating-and-editing-code">Adafruit's guide</a>.</p>
+<p>Sol should show up both as a MIDI output device <strong>and</strong> a small external drive named <code>CIRCUITPY</code>. In that drive, you should find a file named <code>code.py</code>. Sol runs <a href="https://circuitpython.org" referrerpolicy="origin" rel="noopener" target="_blank">CircuitPython</a> which means that its firmware is written in the approachable <a href="https://python.org" referrerpolicy="origin" rel="noopener" target="_blank">Python</a> programming language and you don't need any special knowledge or compilers to make changes to it. So, open up that file in your favorite text editor, we're going to make some changes!</p>
+<p>If you don't have a text editor - that's okay! While you could use Notepad (Windows) or TextEdit (Mac), these can sometimes have issues with CircuitPython devices like Sol. I'd recommend <a href="https://learn.adafruit.com/welcome-to-circuitpython/installing-mu-editor" referrerpolicy="origin" rel="noopener" target="_blank">installing Mu</a> if you're new to this whole world. You can read more about editing code for CircuitPython in <a href="https://learn.adafruit.com/welcome-to-circuitpython/creating-and-editing-code" referrerpolicy="origin" rel="noopener" target="_blank">Adafruit's guide</a>.</p>
 <p>In the <code>code.py</code> you should see a line that looks like this:</p>
-<pre class="highlight"><code class="language-python">outputs.cv_a = sol.voct(state)</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">outputs</span><span class="o">.</span><span class="n">cv_a</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">voct</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+</code></pre></div>
 <p>Modify this line so that it reads:</p>
-<pre class="highlight"><code class="language-python">outputs.cv_a = sol.voct(state) - 1.0</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">outputs</span><span class="o">.</span><span class="n">cv_a</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">voct</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.0</span>
+</code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Be careful</p>
 <p>Python is <em>whitespace-sensitive</em>. That means tabs and spaces are important! Make sure that you don't accidentally change the indentation level of this line.</p>
@@ -107,21 +110,21 @@ Sol will still work as an Advanced LSA MIDI device for use with, for instance, O
 <p><strong>Congrats</strong>, you've made your first change to how the module works!  🎉</p>
 <p>This might seem like a trivial change (and it is!) but it's meant to show how customization works on this module. You just edit a file and save - there is no need for custom compilers, complicated software, or even experience with programming.</p>
 <p>As a next challenge, you can change the mod wheel output (<code>CV B</code>) to be -5v to +5v instead of the default 0 to 8v!</p>
-<p>I encourage you to read through <a href="#included-example-programs">the example programs</a>, <a href="#about-the-state-and-outputs">the various inputs and outputs</a>, <a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/examples/1_default.py">the default program</a>, and <a href="https://learn.adafruit.com/welcome-to-circuitpython/overview">learn more about CircuitPython</a> so you can get the most of your module. Also, please come chat on the <a href="https://discord.gg/UpfqghQ">Discord</a> where you can ask questions and see what others are doing with their Sol!</p>
+<p>I encourage you to read through <a href="#included-example-programs">the example programs</a>, <a href="#about-the-state-and-outputs">the various inputs and outputs</a>, <a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/examples/1_default.py" referrerpolicy="origin" rel="noopener" target="_blank">the default program</a>, and <a href="https://learn.adafruit.com/welcome-to-circuitpython/overview" referrerpolicy="origin" rel="noopener" target="_blank">learn more about CircuitPython</a> so you can get the most of your module. Also, please come chat on the <a href="https://discord.gg/UpfqghQ" referrerpolicy="origin" rel="noopener" target="_blank">Discord</a> where you can ask questions and see what others are doing with their Sol!</p>
 <h2 id="help-this-thing-isnt-working-and-its-blinking-at-me">Help! This thing isn't working and it's blinking at me!<a class="headerlink" href="#help-this-thing-isnt-working-and-its-blinking-at-me" title="Permanent link">#</a></h2>
 <p>If it's blinking at you that means there's some sort of error in the program. Don't worry, you can get it figured out.</p>
-<p>If you connect using the <a href="https://learn.adafruit.com/welcome-to-circuitpython/kattni-connecting-to-the-serial-console">serial console</a> you should be able to see the error. If you don't see it right away, you might need to reset the board (either by pressing the little button on the bottom of the module or power cycling your synth). Sometimes you can press <code>Ctrl+C</code> followed by <code>Ctrl+D</code> in the serial console to get the board to reset and tell you the error.</p>
-<p>In any case, reach out on <a href="https://discord.gg/UpfqghQ">Discord</a> and we can walk you through figuring out what went wrong.</p>
+<p>If you connect using the <a href="https://learn.adafruit.com/welcome-to-circuitpython/kattni-connecting-to-the-serial-console" referrerpolicy="origin" rel="noopener" target="_blank">serial console</a> you should be able to see the error. If you don't see it right away, you might need to reset the board (either by pressing the little button on the bottom of the module or power cycling your synth). Sometimes you can press <code>Ctrl+C</code> followed by <code>Ctrl+D</code> in the serial console to get the board to reset and tell you the error.</p>
+<p>In any case, reach out on <a href="https://discord.gg/UpfqghQ" referrerpolicy="origin" rel="noopener" target="_blank">Discord</a> and we can walk you through figuring out what went wrong.</p>
 <h2 id="included-example-programs">Included example programs<a class="headerlink" href="#included-example-programs" title="Permanent link">#</a></h2>
-<p>There are several included example programs to learn from and use. If you want to use these, copy their contents to <code>code.py</code> on the <code>CIRCUITPY</code> drive. <strong>Be sure to save it as the correct name,</strong> if you don't name it <code>code.py</code> it won't change anything. If you want to restore the original <code>code.py</code> it is <a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/examples/1_default.py">here</a>.</p>
+<p>There are several included example programs to learn from and use. If you want to use these, copy their contents to <code>code.py</code> on the <code>CIRCUITPY</code> drive. <strong>Be sure to save it as the correct name,</strong> if you don't name it <code>code.py</code> it won't change anything. If you want to restore the original <code>code.py</code> it is <a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/examples/1_default.py" referrerpolicy="origin" rel="noopener" target="_blank">here</a>.</p>
 <ol>
-<li><a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/examples/2_slew_limiter.py">Slew limiter example</a>: Shows how to use a <code>SlewLimiter</code> to introduce legato.</li>
-<li><a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/examples/3_adsr.py">ADSR example</a>: Shows how to use one of the CV outputs as an ADSR envelope generator.</li>
-<li><a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/examples/4_clocks.py">Clocks example</a>: Shows how to use the MIDI clock to output trigger pulses at various note markers.</li>
-<li><a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/examples/5_lfo.py">LFO example</a>: Shows how to use Sol's built in LFO generators.</li>
-<li><a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/examples/6_poly.py">Polyphony example</a>: Shows how to use Sol's <code>Poly</code> helper to output CV &amp; gate for multiple notes at once.</li>
-<li><a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/examples/7_random.py">Random</a>: Shows how to use Sol as a random modulation source.</li>
-<li><a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/examples/1_default.py">The default program</a>: As mentioned above, this handles the basic use case of outputting note CV, note gate, mod wheel CC, and some MIDI clock and transport gates. It's fairly complicated compared to the other examples here, so we recommend starting with some of the other examples as they tend to be a bit easier to digest.</li>
+<li><a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/examples/2_slew_limiter.py" referrerpolicy="origin" rel="noopener" target="_blank">Slew limiter example</a>: Shows how to use a <code>SlewLimiter</code> to introduce legato.</li>
+<li><a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/examples/3_adsr.py" referrerpolicy="origin" rel="noopener" target="_blank">ADSR example</a>: Shows how to use one of the CV outputs as an ADSR envelope generator.</li>
+<li><a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/examples/4_clocks.py" referrerpolicy="origin" rel="noopener" target="_blank">Clocks example</a>: Shows how to use the MIDI clock to output trigger pulses at various note markers.</li>
+<li><a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/examples/5_lfo.py" referrerpolicy="origin" rel="noopener" target="_blank">LFO example</a>: Shows how to use Sol's built in LFO generators.</li>
+<li><a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/examples/6_poly.py" referrerpolicy="origin" rel="noopener" target="_blank">Polyphony example</a>: Shows how to use Sol's <code>Poly</code> helper to output CV &amp; gate for multiple notes at once.</li>
+<li><a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/examples/7_random.py" referrerpolicy="origin" rel="noopener" target="_blank">Random</a>: Shows how to use Sol as a random modulation source.</li>
+<li><a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/examples/1_default.py" referrerpolicy="origin" rel="noopener" target="_blank">The default program</a>: As mentioned above, this handles the basic use case of outputting note CV, note gate, mod wheel CC, and some MIDI clock and transport gates. It's fairly complicated compared to the other examples here, so we recommend starting with some of the other examples as they tend to be a bit easier to digest.</li>
 </ol>
 <h2 id="about-the-state-outputs-and-helper-functions">About the state, outputs, and helper functions<a class="headerlink" href="#about-the-state-outputs-and-helper-functions" title="Permanent link">#</a></h2>
 <p>The <code>loop</code> function gets called with three parameters:</p>
@@ -131,7 +134,7 @@ Sol will still work as an Advanced LSA MIDI device for use with, for instance, O
 <li><code>outputs</code> the outputs.</li>
 </ul>
 <p>As you get deeper into customizing your module, you might wonder what all is available from the <code>state</code> and <code>output</code> objects in the loop.</p>
-<p>The <a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/firmware/winterbloom_sol/sol.py#L36"><strong>State</strong> objects</a> lets you take a look at the MIDI state, it has the following properties:</p>
+<p>The <a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/firmware/winterbloom_sol/sol.py#L36" referrerpolicy="origin" rel="noopener" target="_blank"><strong>State</strong> objects</a> lets you take a look at the MIDI state, it has the following properties:</p>
 <ul>
 <li><code>state.note</code> and <code>state.latest_note</code> which both give the most recent note played. For example, if middle C was the last note played it will be <code>60</code>. If no note is played, it'll be <code>None</code>.</li>
 <li><code>state.oldest_note</code> gives the oldest note being played.</li>
@@ -146,7 +149,7 @@ Sol will still work as an Advanced LSA MIDI device for use with, for instance, O
 <li><code>state.clock_frequency</code> gives you the BPM for the MIDI clocks.</li>
 <li><code>state.message</code> gives you direct access to the last MIDI message received (see below).</li>
 </ul>
-<p>The <a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/firmware/winterbloom_sol/sol.py#L179"><strong>Outputs</strong> object</a> lets you control the output jacks. It has the following properties:</p>
+<p>The <a href="https://github.com/theacodes/Winterbloom-Sol/blob/master/firmware/winterbloom_sol/sol.py#L179" referrerpolicy="origin" rel="noopener" target="_blank"><strong>Outputs</strong> object</a> lets you control the output jacks. It has the following properties:</p>
 <ul>
 <li><code>outputs.cv_a</code>, <code>outputs.cv_b</code>, <code>outputs.cv_c</code>, <code>outputs.cv_d</code> are the CV outputs. You can set it to a number between <code>-5.0</code> and <code>8.0</code>. This is in volts. Setting <code>outputs.cv_a = 5.0</code> will output 5v on CV A.</li>
 <li><code>outputs.set_cv(output, value)</code> sets the given CV output to the given value, just like using <code>outputs.cv_a</code> et. al. Calling <code>outputs.set_cv("a", 5.0)</code> will output 5v on CV A.</li>
@@ -166,7 +169,7 @@ Sol will still work as an Advanced LSA MIDI device for use with, for instance, O
 <li><code>sol.should_trigger_clock(state, division)</code> return <code>True</code> if the clock matches the note division. For example, <code>sol.should_trigger_clock(state, 1/16)</code> will return <code>True</code> once for every sixteenth note.</li>
 <li><code>sol.map(value, low, high, new_low, new_high)</code>: re-maps a value to a different range. For example, <code>sol.map(0.5, 0.0, 1.0, 0.0, 10.0)</code> will return <code>5.0</code>.</li>
 </ul>
-<p>The <a href="https://github.com/theacodes/Winterbloom_SmolMIDI/blob/master/winterbloom_smolmidi.py#L79"><strong>MIDI</strong> message object</a> contains just three fields:</p>
+<p>The <a href="https://github.com/theacodes/Winterbloom_SmolMIDI/blob/master/winterbloom_smolmidi.py#L79" referrerpolicy="origin" rel="noopener" target="_blank"><strong>MIDI</strong> message object</a> contains just three fields:</p>
 <ul>
 <li><code>message.type</code>, the type of the message. SmolMIDI provides several MIDI message types, such as <code>smolmidi.NOTE_ON</code> and <code>smolmidi.CC</code>.</li>
 <li><code>message.channel</code>, the channel on to which the message is associated, or <code>None</code> if not applicable. Note that, unlike in most higher-level MIDI applications, this value is zero-indexed; <code>message.channel == 0</code> means what most applications
@@ -177,13 +180,13 @@ call channel 1.</li>
 <p>Updating the firmware requires two steps: Updating CircuitPython and updating Sol's libraries.</p>
 <h3>Updating CircuitPython</h3>
 <ol>
-<li><a href="https://circuitpython.org/board/winterbloom_sol/">Download the latest version of CircuitPython for Winterbloom Sol</a>.</li>
+<li><a href="https://circuitpython.org/board/winterbloom_sol/" referrerpolicy="origin" rel="noopener" target="_blank">Download the latest version of CircuitPython for Winterbloom Sol</a>.</li>
 <li>Place Sol in bootloader mode by pressing the reset button twice quickly. The reset button is located under the panel to the left of the LED. There is a small hole in the panel that you can use a paperclip to press the button if needed. Once in bootloader mode, you should see a drive on your computer named <code>SOLBOOT</code>.</li>
 <li>Copy the <code>uf2</code> file from step 1 to the <code>SOLBOOT</code> drive. Sol should restart by itself.</li>
 </ol>
 <h3>Updating Sol's libraries</h3>
 <ol>
-<li><a href="https://github.com/theacodes/Winterbloom-Sol/releases">Download the latest release bundle for Sol</a>.</li>
+<li><a href="https://github.com/theacodes/Winterbloom-Sol/releases" referrerpolicy="origin" rel="noopener" target="_blank">Download the latest release bundle for Sol</a>.</li>
 <li>Unzip the release bundle, and then copy the contents to Sol's <code>CIRCUITPY</code> drive, replacing any existing files.</li>
 <li>Reboot Sol by power cycling your synthesizer or pressing the reset button again.</li>
 </ol>
@@ -200,19 +203,19 @@ call channel 1.</li>
 <h2 id="frequently-asked-questions">Frequently asked questions<a class="headerlink" href="#frequently-asked-questions" title="Permanent link">#</a></h2>
 <p>Got a question not answered here? <a href="#getting-support-and-help">Reach out</a>, we'll be happy to help!</p>
 <h3>Can Sol be used as a MIDI Host? Can I connect a USB MIDI device directly to Sol?</h3>
-<p>Since Sol is re-programmable and we imagined that most folks would use it attached to a computer, we didn't include this functionality - especially since it would cost more money. However, if you want to go "computerless" you can use a Raspberry Pi as your MIDI host. There's an excellent video from <a href="https://www.youtube.com/watch?v=LMDs44wQaK0">Blitz City DIY on using the Raspberry Pi as a MIDI host</a>.</p>
+<p>Since Sol is re-programmable and we imagined that most folks would use it attached to a computer, we didn't include this functionality - especially since it would cost more money. However, if you want to go "computerless" you can use a Raspberry Pi as your MIDI host. There's an excellent video from <a href="https://www.youtube.com/watch?v=LMDs44wQaK0" referrerpolicy="origin" rel="noopener" target="_blank">Blitz City DIY on using the Raspberry Pi as a MIDI host</a>.</p>
 <h3>Does Sol support MIDI 2.0?</h3>
 <p>Not <em>yet</em>. We're waiting to get our hands on hardware and software that support MIDI 2.0 so we can add it to Sol. As far as we know, there's no reason we won't be able to add this via a firmware update. If you're interested in helping out, please <a href="#getting-support-and-help">reach out</a>.</p>
 <h3>Can Sol output audio on its CV outputs?</h3>
-<p>Not with the default CircuitPython-based firmware. CircuitPython is designed to be approachable and easy to use, but it comes at the cost of not being as fast as firmware written in C/c++. If you're feeling super brave, Sol is completely open source so you could write your own firmware in C/C++ and do whatever you'd like. Sol's hardware is very similar to the <a href="https://learn.adafruit.com/adafruit-feather-m4-express-atsamd51">Adafruit Feather M4 Express</a>, so you should be able to use resources for that as a starting point. The hardware uses a DAC that can do 1MSPS, so in theory it could output at audio rate.</p>
+<p>Not with the default CircuitPython-based firmware. CircuitPython is designed to be approachable and easy to use, but it comes at the cost of not being as fast as firmware written in C/c++. If you're feeling super brave, Sol is completely open source so you could write your own firmware in C/C++ and do whatever you'd like. Sol's hardware is very similar to the <a href="https://learn.adafruit.com/adafruit-feather-m4-express-atsamd51" referrerpolicy="origin" rel="noopener" target="_blank">Adafruit Feather M4 Express</a>, so you should be able to use resources for that as a starting point. The hardware uses a DAC that can do 1MSPS, so in theory it could output at audio rate.</p>
 <h2 id="open-source-hardware-software">Open source hardware &amp; software<a class="headerlink" href="#open-source-hardware-software" title="Permanent link">#</a></h2>
 <p>Sol is completely open source and hacking is encouraged.</p>
 <ul>
-<li>The <a href="https://github.com/theacodes/Winterbloom_Sol/tree/master/firmware">firmware</a> is available under the <a href="https://github.com/theacodes/Winterbloom_Sol/blob/master/firmware/LICENSE">MIT License</a>.</li>
-<li>The <a href="https://github.com/theacodes/Winterbloom_Sol/tree/master/hardware/rev1">hardware design</a> is available under the <a href="https://github.com/theacodes/Winterbloom_Sol/blob/master/hardware/LICENSE">CC BY-SA 4.0 License</a> and is designed using <a href="https://kicad.org/">KiCAD</a> which is free and open-source. You can open the hardware files using KiCAD or you can check out a <a href="https://github.com/theacodes/Winterbloom_Sol/raw/master/hardware/rev1/mainboard/mainboard.pdf">PDF of the schematic</a>.</li>
-<li><a href="https://circuitpython.org">CircuitPython</a> is available under the <a href="https://github.com/adafruit/circuitpython/blob/main/LICENSE">MIT License</a>.</li>
+<li>The <a href="https://github.com/theacodes/Winterbloom_Sol/tree/master/firmware" referrerpolicy="origin" rel="noopener" target="_blank">firmware</a> is available under the <a href="https://github.com/theacodes/Winterbloom_Sol/blob/master/firmware/LICENSE" referrerpolicy="origin" rel="noopener" target="_blank">MIT License</a>.</li>
+<li>The <a href="https://github.com/theacodes/Winterbloom_Sol/tree/master/hardware/rev1" referrerpolicy="origin" rel="noopener" target="_blank">hardware design</a> is available under the <a href="https://github.com/theacodes/Winterbloom_Sol/blob/master/hardware/LICENSE" referrerpolicy="origin" rel="noopener" target="_blank">CC BY-SA 4.0 License</a> and is designed using <a href="https://kicad.org/" referrerpolicy="origin" rel="noopener" target="_blank">KiCAD</a> which is free and open-source. You can open the hardware files using KiCAD or you can check out a <a href="https://github.com/theacodes/Winterbloom_Sol/raw/master/hardware/rev1/mainboard/mainboard.pdf" referrerpolicy="origin" rel="noopener" target="_blank">PDF of the schematic</a>.</li>
+<li><a href="https://circuitpython.org" referrerpolicy="origin" rel="noopener" target="_blank">CircuitPython</a> is available under the <a href="https://github.com/adafruit/circuitpython/blob/main/LICENSE" referrerpolicy="origin" rel="noopener" target="_blank">MIT License</a>.</li>
 </ul>
-<p><img alt="Open Source Hardware Association mark" class="oshw" src="images/oshw.svg" /> Sol is <a href="https://certification.oshwa.org/us001030.html">certified open source hardware</a>.</p>
+<p><img alt="Open Source Hardware Association mark" class="oshw" src="images/oshw.svg" /> Sol is <a href="https://certification.oshwa.org/us001030.html" referrerpolicy="origin" rel="noopener" target="_blank">certified open source hardware</a>.</p>
 <h2 id="acknowledgments-and-thanks">Acknowledgments and thanks<a class="headerlink" href="#acknowledgments-and-thanks" title="Permanent link">#</a></h2>
 <p>Sol would not be possible without support from the following people:</p>
 <ul>
@@ -233,11 +236,11 @@ call channel 1.</li>
 					Found an issue? <a href="mailto:support@winterbloom.com">Send us a message</a> or <a href="https://github.com/theacodes/Winterbloom-Sol/edit/master/user_guide/docs/index.md">Edit this page on GitHub</a>.
 				</p>
 				<p class="updated">
-					Last updated on January 29, 2021
+					Last updated on February 13, 2021
 				</p>
 			</footer>
 		</div>
 	</body>
-	
+
 	<script type="text/javascript" src="script.js"></script>
 </html>
