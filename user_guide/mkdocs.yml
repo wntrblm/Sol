@@ -14,5 +14,10 @@ markdown_extensions:
   - pymdownx.highlight:
       use_pygments: True
   - pymdownx.superfences
+  - markdown_link_attr_modifier:
+      external_only: True
+      custom_attrs:
+        rel: "noopener"
+        referrerpolicy: "origin"
 nav:
   - "User Guide": index.md
