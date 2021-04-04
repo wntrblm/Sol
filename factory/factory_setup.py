@@ -1,7 +1,7 @@
 import os
 import sys
 
-from wintertools import fs, circuitpython, cache, fw_fetch, jlink
+from wintertools import fs, circuitpython, fw_fetch, jlink, uf2_to_bin
 from libsol import calibrate
 
 DEVICE_NAME = "winterbloom_sol"
@@ -18,7 +18,7 @@ FILES_TO_DOWNLOAD = {
 }
 
 FILES_TO_DEPLOY = {
-    cache.get_cache_path("neopixel.mpy"): "lib",
+    fs.cache_path("neopixel.mpy"): "lib",
     os.path.join(FIRMWARE_DIR, "winterbloom_sol"): "lib",
     os.path.join(FIRMWARE_DIR, "LICENSE"): ".",
     os.path.join(FIRMWARE_DIR, "README.HTM"): ".",
@@ -37,7 +37,9 @@ def program_firmware():
     print("========== PROGRAMMING FIRMWARE ==========")
 
     fw_fetch.latest_bootloader(DEVICE_NAME)
-    fw_fetch.latest_circuitpython(DEVICE_NAME)
+    firmware_path = fw_fetch.latest_circuitpython(DEVICE_NAME)
+
+    uf2_to_bin.with_file(firmware_path)
 
     jlink.run(JLINK_DEVICE, JLINK_SCRIPT)
 

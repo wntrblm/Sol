@@ -1,6 +1,6 @@
 r
-loadfile .cache/bootloader.winterbool_sol.bin
-loadfile .cache/firmware.winterbool_sol.uf2.bin 0x4000
+loadfile .cache/bootloader.winterbloom_sol.bin
+loadfile .cache/circuitpython.winterbloom_sol.uf2.bin 0x4000
 r
 go
 exit
