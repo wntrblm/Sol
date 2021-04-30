@@ -66,7 +66,13 @@ def was_key_pressed(state):
 def should_trigger_clock(state, division):
     operand = int(96 / division)
 
-    if state.playing and state.clock % operand == 0:
+    if not state.playing:
+        return False
+
+    if not (state.message and state.message.type == smolmidi.CLOCK):
+        return False
+
+    if state.clock % operand == 0:
         return True
     else:
         return False

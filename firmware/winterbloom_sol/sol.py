@@ -343,7 +343,8 @@ class Sol:
 
         elif msg.type == smolmidi.CLOCK:
             self._clocks += 1
-            # Every quarter note, re-calcuate the current BPM/clock frequency
+
+            # Every quarter note, re-calculate the current BPM/clock frequency
             if self._clocks % 24 == 0:
                 now = time.monotonic_ns()
                 period = now - self._last_clock
