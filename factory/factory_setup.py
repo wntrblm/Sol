@@ -44,15 +44,16 @@ def program_firmware():
     jlink.run(JLINK_DEVICE, JLINK_SCRIPT)
 
 
-def deploy_circuitpython_code(destination=None):
+def deploy_circuitpython_code(destination=None, publish_only=False):
     print("========== DEPLOYING CODE ==========")
 
     if not destination:
         print("Waiting for CIRCUITPY drive...")
         destination = fs.wait_for_drive("CIRCUITPY")
 
-    print("Forcing device into repl (workaround for CircuitPython issue #3986)")
-    circuitpython.force_into_repl(calibrate.USB_DEVICE_ID)
+    if not publish_only:
+        print("Forcing device into repl (workaround for CircuitPython issue #3986)")
+        circuitpython.force_into_repl(calibrate.USB_DEVICE_ID)
 
     print("Cleaning temporary files from src directories...")
     fs.clean_pycache(FIRMWARE_DIR)
@@ -62,8 +63,10 @@ def deploy_circuitpython_code(destination=None):
     print("Copying files...")
     fs.deploy_files(FILES_TO_DEPLOY, destination)
 
-    print("Done copying files, resetting...")
-    circuitpython.reset_via_serial(calibrate.USB_DEVICE_ID)
+    if not publish_only:
+        print("Done copying files, resetting...")
+        circuitpython.reset_via_serial(calibrate.USB_DEVICE_ID)
+
     print("Done!")
 
 
@@ -74,7 +77,7 @@ def run_calibration():
 
 def main():
     if len(sys.argv) > 1 and sys.argv[1] == "publish":
-        deploy_circuitpython_code("distribution")
+        deploy_circuitpython_code("distribution", publish_only=True)
         return
 
     try:
