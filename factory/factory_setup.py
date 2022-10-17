@@ -14,17 +14,16 @@ LIB_DIR = os.path.join(FIRMWARE_DIR, "lib")
 EXAMPLES_DIR = os.path.join(ROOT_DIR, "examples")
 
 FILES_TO_DOWNLOAD = {
-    "https+zip://github.com/adafruit/Adafruit_CircuitPython_NeoPixel/releases/download/6.0.0/adafruit-circuitpython-neopixel-5.x-mpy-6.0.0.zip:adafruit-circuitpython-neopixel-5.x-mpy-6.0.0/lib/neopixel.mpy": "neopixel.mpy"
+    "https+zip://github.com/adafruit/Adafruit_CircuitPython_NeoPixel/releases/download/6.3.6/adafruit-circuitpython-neopixel-7.x-mpy-6.3.6.zip:*/lib/neopixel.mpy": "neopixel.mpy",
+    "https+zip://github.com/adafruit/Adafruit_CircuitPython_BusDevice/releases/download/5.2.3/adafruit-circuitpython-busdevice-7.x-mpy-5.2.3.zip:*/lib/adafruit_bus_device/*": "adafruit_bus_device/"
 }
 
 FILES_TO_DEPLOY = {
     fs.cache_path("neopixel.mpy"): "lib",
+    fs.cache_path("adafruit_bus_device"): "lib",
     os.path.join(FIRMWARE_DIR, "winterbloom_sol"): "lib",
     os.path.join(FIRMWARE_DIR, "LICENSE"): ".",
     os.path.join(FIRMWARE_DIR, "README.HTM"): ".",
-    os.path.join(
-        LIB_DIR, "adafruit_circuitpython_busdevice/adafruit_bus_device"
-    ): "lib",
     os.path.join(LIB_DIR, "winterbloom_ad_dacs/winterbloom_ad_dacs"): "lib",
     os.path.join(LIB_DIR, "winterbloom_voltageio/winterbloom_voltageio.py"): "lib",
     os.path.join(LIB_DIR, "winterbloom_smolmidi/winterbloom_smolmidi.py"): "lib",
